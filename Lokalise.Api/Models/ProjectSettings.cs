@@ -28,7 +28,7 @@ namespace Lokalise.Api.Models
         [JsonPropertyName("branching")]
         public bool Brancing { get; set; }
 
-        [JsonPropertyName("custom_translation_Statuses")]
+        [JsonPropertyName("custom_translation_statuses")]
         public bool CustomTranslationStatuses { get; set; }
 
         [JsonPropertyName("custom_translation_statuses_allow_multiple")]

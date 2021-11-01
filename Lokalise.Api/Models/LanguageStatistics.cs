@@ -11,10 +11,10 @@ namespace Lokalise.Api.Models
         public string LanguageIso { get; set; }
 
         [JsonPropertyName("progress")]
-        public short Progress { get; set; }
+        public long Progress { get; set; }
 
         [JsonPropertyName("words_to_do")]
-        public int WordsToDo { get; set; }
+        public long WordsToDo { get; set; }
 
         public override string ToString()
         {

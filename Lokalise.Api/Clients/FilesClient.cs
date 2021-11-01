@@ -4,23 +4,19 @@ using Lokalise.Api.Extensions;
 using Lokalise.Api.Models;
 using System;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Lokalise.Api.Clients
 {
-    public class FilesClient : IFilesClient
+    public class FilesClient : BaseClient, IFilesClient
     {
-        private readonly HttpClient _httpClient;
-        private readonly JsonSerializerOptions _jsonSerializerOptions;
-
-        internal FilesClient(HttpClient httpClient, JsonSerializerOptions jsonSerializerOptions)
+        internal FilesClient(
+            HttpClient httpClient,
+            JsonSerializerOptions jsonSerializerOptions)
+            : base(httpClient, jsonSerializerOptions)
         {
-            _httpClient = httpClient;
-            _jsonSerializerOptions = jsonSerializerOptions;
         }
 
         /// <inheritdoc/>
@@ -32,7 +28,11 @@ namespace Lokalise.Api.Clients
             if (string.IsNullOrWhiteSpace(projectId))
                 throw new ArgumentException("Project identifier is required to call ListAsync", nameof(projectId));
 
-            return ListInternalAsync(projectId, options);
+            var cfg = new ListFilesOptions();
+            options?.Invoke(cfg);
+
+            return GetListAsync<FileList>(
+                requestUri: $"projects/{projectId.IncludeBranchName(cfg.Branch)}/files{cfg?.ToQueryString()}");
         }
 
         /// <inheritdoc />
@@ -113,73 +113,23 @@ namespace Lokalise.Api.Clients
             if (string.IsNullOrWhiteSpace(format))
                 throw new ArgumentException("Format is required to call DownloadAsync", nameof(projectId));
 
-            return DownloadInternalAsync(projectId, format, options);
-        }
-
-        private async Task<FileList> ListInternalAsync(string projectId, Action<ListFilesOptions> options = null)
-        {
-            var cfg = new ListFilesOptions();
+            var cfg = new DownloadFileOptions();
             options?.Invoke(cfg);
 
-            var requestUri = $"projects/{projectId.IncludeBranchName(cfg.Branch)}/files{cfg?.ToQueryString()}";
-            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            var result = await _httpClient.SendAsync(request);
-
-            result.EnsureSuccessStatusCode();
-
-            var json = await result.Content.ReadAsStringAsync();
-
-            return JsonSerializer.Deserialize<FileList>(json);
+            return PostAsync<DownloadFileRequest, DownloadedFiles>(
+                requestUri: $"projects/{projectId.IncludeBranchName(cfg.Branch)}/files/download",
+                request: new DownloadFileRequest(format, cfg));
         }
 
-        private async Task<UploadedFile> UploadInternalAsync(string projectId, string data, string filename, string langIso, Action<UploadFileOptions> options = null)
+        private Task<UploadedFile> UploadInternalAsync(string projectId, string data, string filename, string langIso, Action<UploadFileOptions> options = null)
         {
             var cfg = new UploadFileOptions();
             options?.Invoke(cfg);
 
-            var request = new HttpRequestMessage(HttpMethod.Post, $"projects/{projectId.IncludeBranchName(cfg.Branch)}/files/upload")
-            {
-                Content = new StringContent(
-                    content: JsonSerializer.Serialize(new UploadFileRequest(data, filename, langIso, cfg), _jsonSerializerOptions),
-                    encoding: Encoding.UTF8,
-                    mediaType: "application/json")
-            };
 
-            var result = await _httpClient.SendAsync(request);
-
-            result.EnsureSuccessStatusCode();
-
-            var json = await result.Content.ReadAsStringAsync();
-
-            var body = JsonSerializer.Deserialize<UploadedFile>(json);
-            body.Location = result.Headers.Contains("Location")
-                ? result.Headers.GetValues("Location").Single()
-                : null;
-
-            return body;
-        }
-
-        private async Task<DownloadedFiles> DownloadInternalAsync(string projectId, string format, Action<DownloadFileOptions> options = null)
-        {
-            var cfg = new DownloadFileOptions();
-            options?.Invoke(cfg);
-
-            var request = new HttpRequestMessage(HttpMethod.Post, $"projects/{projectId.IncludeBranchName(cfg.Branch)}/files/download")
-            {
-                Content = new StringContent(
-                    content: JsonSerializer.Serialize(new DownloadFileRequest(format, cfg), _jsonSerializerOptions),
-                    encoding: Encoding.UTF8,
-                    mediaType: "application/json")
-            };
-
-            var result = await _httpClient.SendAsync(request);
-
-            result.EnsureSuccessStatusCode();
-
-            var json = await result.Content.ReadAsStringAsync();
-            var body = JsonSerializer.Deserialize<DownloadedFiles>(json);
-
-            return body;
+            return PostAsync<UploadFileRequest, UploadedFile>(
+                requestUri: $"projects/{projectId.IncludeBranchName(cfg.Branch)}/files/upload",
+                request: new UploadFileRequest(data, filename, langIso, cfg));
         }
     }
 }

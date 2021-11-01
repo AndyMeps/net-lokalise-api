@@ -2,12 +2,12 @@
 
 namespace Lokalise.Api.Models
 {
-    public class UploadedFile : LocationResult
+    public class EmptiedProject
     {
         [JsonPropertyName("project_id")]
         public string ProjectId { get; set; }
 
-        [JsonPropertyName("process")]
-        public QueuedProcess Process { get; set; }
+        [JsonPropertyName("keys_deleted")]
+        public bool KeysDeleted { get; set; }
     }
 }

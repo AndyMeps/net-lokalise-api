@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
-    public class FileList
+    public class FileList : ListResult
     {
         [JsonPropertyName("project_id")]
         public string ProjectId { get; set; }
