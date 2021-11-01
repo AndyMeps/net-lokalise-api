@@ -6,11 +6,12 @@ using System.Text.Json.Serialization;
 
 namespace Lokalise.Api
 {
-    public partial class LokaliseClient
+    public class LokaliseClient : ILokaliseClient
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
-        private readonly FilesClient _filesClient;
+        private IFilesClient _filesClient;
+        private IProjectsClient _projectsClient;
 
         public LokaliseClient(string apiToken, HttpClient httpClient)
         {
@@ -21,7 +22,6 @@ namespace Lokalise.Api
             {
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };
-            _filesClient = new FilesClient(_httpClient, _jsonSerializerOptions);
         }
 
         public LokaliseClient(string apiToken) : this(apiToken, null)
@@ -29,6 +29,8 @@ namespace Lokalise.Api
 
         }
 
-        public FilesClient Files => _filesClient;
+        public IFilesClient Files => _filesClient ??= new FilesClient(_httpClient, _jsonSerializerOptions);
+
+        public IProjectsClient Projects => _projectsClient ??= new ProjectsClient(_httpClient, _jsonSerializerOptions);
     }
 }

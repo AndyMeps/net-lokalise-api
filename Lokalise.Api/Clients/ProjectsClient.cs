@@ -6,7 +6,7 @@ using Lokalise.Api.Models;
 
 namespace Lokalise.Api.Clients
 {
-    public class ProjectsClient
+    public class ProjectsClient : IProjectsClient
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
@@ -22,7 +22,7 @@ namespace Lokalise.Api.Clients
             var cfg = new ListProjectsOptions();
             options?.Invoke(cfg);
 
-            var requestUri = $"projects{cfg?.ToQueryString()}";
+            var requestUri = $"projects{cfg.ToQueryString()}";
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             var result = await _httpClient.SendAsync(request);
 
@@ -31,6 +31,6 @@ namespace Lokalise.Api.Clients
             var json = await result.Content.ReadAsStringAsync();
 
             return JsonSerializer.Deserialize<ProjectList>(json);
-        } 
+        }
     }
 }

@@ -4,9 +4,9 @@ using System.Web;
 
 namespace Lokalise.Api.Extensions
 {
-    public static class HttpExtensions
+    internal static class HttpExtensions
     {
-        public static string ToQueryString(this NameValueCollection collection)
+        internal static string ToQueryString(this NameValueCollection collection)
         {
             // This is based off the NameValueCollection.ToString() implementation
             int count = collection.Count;
