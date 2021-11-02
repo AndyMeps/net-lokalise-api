@@ -1,4 +1,4 @@
-﻿namespace Lokalise.Api.Clients
+﻿namespace Lokalise.Api.Models
 {
     public class ProjectLanguage
     {

@@ -1,15 +1,16 @@
 ﻿using System.Collections.Specialized;
+using Lokalise.Api.Configurations;
 using Lokalise.Api.Extensions;
 
-namespace Lokalise.Api.Clients.Options
+namespace Lokalise.Api.Collections.Files.Configurations
 {
-    public class ListFilesOptions : PagedOptions
+    public class ListFilesConfiguration : PagedConfiguration
     {
         public string FilterFilename { get; set; }
 
         public string Branch { get; set; }
 
-        internal string ToQueryString()
+        internal override string ToQueryString()
         {
             var nameValueCollection = new NameValueCollection();
 

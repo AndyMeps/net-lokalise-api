@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Lokalise.Api.Clients.Options;
+using Lokalise.Api.Collections.Files.Configurations;
 
-namespace Lokalise.Api.Clients.Requests
+namespace Lokalise.Api.Collections.Files.Requests
 {
     internal class DownloadFileRequest
     {
-        internal DownloadFileRequest(string format, DownloadFileOptions options)
+        internal DownloadFileRequest(string format, DownloadFileConfiguration options)
         {
             Format = format;
             OriginalFilenames = options?.OriginalFilenames;

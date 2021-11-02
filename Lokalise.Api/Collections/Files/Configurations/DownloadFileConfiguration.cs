@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Lokalise.Api.Clients.Options
+namespace Lokalise.Api.Collections.Files.Configurations
 {
-    public class DownloadFileOptions
+    public class DownloadFileConfiguration
     {
         public string Branch { get; set; }
         public bool? OriginalFilenames { get; set; }

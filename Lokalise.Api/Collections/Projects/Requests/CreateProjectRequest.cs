@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Lokalise.Api.Collections.Projects.Configurations;
+using Lokalise.Api.Models;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Lokalise.Api.Clients.Requests
+namespace Lokalise.Api.Collections.Projects.Requests
 {
     internal class CreateProjectRequest
     {
@@ -23,7 +25,7 @@ namespace Lokalise.Api.Clients.Requests
         [JsonPropertyName("project_type")]
         public string ProjectType { get; private set; }
 
-        internal CreateProjectRequest(string name, CreateProjectOptions options)
+        internal CreateProjectRequest(string name, CreateProjectConfiguration options)
         {
             Name = name;
             TeamId = options?.TeamId;
@@ -39,7 +41,7 @@ namespace Lokalise.Api.Clients.Requests
         public string Name { get; private set; }
         public string Description { get; private set; }
 
-        internal UpdateProjectRequest(string name, UpdateProjectOptions options)
+        internal UpdateProjectRequest(string name, UpdateProjectConfiguration options)
         {
             Name = name;
             Description = options?.Description;

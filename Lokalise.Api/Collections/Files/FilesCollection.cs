@@ -1,5 +1,5 @@
-﻿using Lokalise.Api.Clients.Options;
-using Lokalise.Api.Clients.Requests;
+﻿using Lokalise.Api.Collections.Files.Configurations;
+using Lokalise.Api.Collections.Files.Requests;
 using Lokalise.Api.Extensions;
 using Lokalise.Api.Models;
 using System;
@@ -8,11 +8,11 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Lokalise.Api.Clients
+namespace Lokalise.Api.Collections.Files
 {
-    public class FilesClient : BaseClient, IFilesClient
+    public class FilesCollection : BaseCollection, IFilesCollection
     {
-        internal FilesClient(
+        internal FilesCollection(
             HttpClient httpClient,
             JsonSerializerOptions jsonSerializerOptions)
             : base(httpClient, jsonSerializerOptions)
@@ -20,7 +20,7 @@ namespace Lokalise.Api.Clients
         }
 
         /// <inheritdoc/>
-        public Task<FileList> ListAsync(string projectId, Action<ListFilesOptions> options = null)
+        public Task<FileList> ListAsync(string projectId, Action<ListFilesConfiguration> options = null)
         {
             if (projectId is null)
                 throw new ArgumentNullException(nameof(projectId));
@@ -28,7 +28,7 @@ namespace Lokalise.Api.Clients
             if (string.IsNullOrWhiteSpace(projectId))
                 throw new ArgumentException("Project identifier is required to call ListAsync", nameof(projectId));
 
-            var cfg = new ListFilesOptions();
+            var cfg = new ListFilesConfiguration();
             options?.Invoke(cfg);
 
             return GetListAsync<FileList>(
@@ -36,7 +36,7 @@ namespace Lokalise.Api.Clients
         }
 
         /// <inheritdoc />
-        public Task<UploadedFile> UploadAsync(string projectId, FileInfo fileInfo, string filename, string langIso, Action<UploadFileOptions> options = null)
+        public Task<UploadedFile> UploadAsync(string projectId, FileInfo fileInfo, string filename, string langIso, Action<UploadFileConfiguration> options = null)
         {
             if (projectId is null)
                 throw new ArgumentNullException(nameof(projectId));
@@ -66,7 +66,7 @@ namespace Lokalise.Api.Clients
         }
 
         /// <inheritdoc/>
-        public Task<UploadedFile> UploadAsync(string projectId, string data, string filename, string langIso, Action<UploadFileOptions> options)
+        public Task<UploadedFile> UploadAsync(string projectId, string data, string filename, string langIso, Action<UploadFileConfiguration> options)
         {
             if (projectId is null)
                 throw new ArgumentNullException(nameof(projectId));
@@ -99,7 +99,7 @@ namespace Lokalise.Api.Clients
         }
 
         /// <inheritdoc />
-        public Task<DownloadedFiles> DownloadAsync(string projectId, string format, Action<DownloadFileOptions> options = null)
+        public Task<DownloadedFiles> DownloadAsync(string projectId, string format, Action<DownloadFileConfiguration> options = null)
         {
             if (projectId is null)
                 throw new ArgumentNullException(nameof(projectId));
@@ -113,7 +113,7 @@ namespace Lokalise.Api.Clients
             if (string.IsNullOrWhiteSpace(format))
                 throw new ArgumentException("Format is required to call DownloadAsync", nameof(projectId));
 
-            var cfg = new DownloadFileOptions();
+            var cfg = new DownloadFileConfiguration();
             options?.Invoke(cfg);
 
             return PostAsync<DownloadFileRequest, DownloadedFiles>(
@@ -121,9 +121,9 @@ namespace Lokalise.Api.Clients
                 request: new DownloadFileRequest(format, cfg));
         }
 
-        private Task<UploadedFile> UploadInternalAsync(string projectId, string data, string filename, string langIso, Action<UploadFileOptions> options = null)
+        private Task<UploadedFile> UploadInternalAsync(string projectId, string data, string filename, string langIso, Action<UploadFileConfiguration> options = null)
         {
-            var cfg = new UploadFileOptions();
+            var cfg = new UploadFileConfiguration();
             options?.Invoke(cfg);
 
 

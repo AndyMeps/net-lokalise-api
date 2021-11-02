@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Lokalise.Api.Clients.Options
+namespace Lokalise.Api.Collections.Files.Configurations
 {
-    public class UploadFileOptions
+    public class UploadFileConfiguration
     {
         public string Branch { get; set; }
 

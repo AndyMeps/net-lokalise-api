@@ -5,14 +5,14 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Lokalise.Api.Clients
+namespace Lokalise.Api.Collections
 {
-    public abstract class BaseClient
+    public abstract class BaseCollection
     {
         protected HttpClient HttpClient;
         protected JsonSerializerOptions JsonSerializerOptions;
 
-        internal BaseClient(HttpClient httpClient, JsonSerializerOptions jsonSerializerOptions)
+        internal BaseCollection(HttpClient httpClient, JsonSerializerOptions jsonSerializerOptions)
         {
             HttpClient = httpClient;
             JsonSerializerOptions = jsonSerializerOptions;

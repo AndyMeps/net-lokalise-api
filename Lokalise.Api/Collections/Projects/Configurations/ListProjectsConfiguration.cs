@@ -1,17 +1,17 @@
 ﻿using System.Collections.Specialized;
+using Lokalise.Api.Configurations;
 using Lokalise.Api.Extensions;
 
-namespace Lokalise.Api.Clients
+namespace Lokalise.Api.Collections.Projects.Configurations
 {
-
-    public class ListProjectsOptions : PagedOptions
+    public class ListProjectsConfiguration : PagedConfiguration
     {
         public long? FilterTeamId { get; set; }
         public string FilterNames { get; set; }
         public bool? IncludeStatistics { get; set; }
         public bool? IncludeSettings { get; set; }
 
-        public string ToQueryString()
+        internal override string ToQueryString()
         {
             var nameValueCollection = new NameValueCollection();
 

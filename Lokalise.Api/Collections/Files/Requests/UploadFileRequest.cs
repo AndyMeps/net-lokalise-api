@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Lokalise.Api.Clients.Options;
+using Lokalise.Api.Collections.Files.Configurations;
 
-namespace Lokalise.Api.Clients.Requests
+namespace Lokalise.Api.Collections.Files.Requests
 {
     internal class UploadFileRequest
     {
-        internal UploadFileRequest(string data, string filename, string langIso, UploadFileOptions options)
+        internal UploadFileRequest(string data, string filename, string langIso, UploadFileConfiguration options)
         {
             Data = data;
             Filename = filename;
