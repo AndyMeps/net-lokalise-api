@@ -32,7 +32,7 @@ namespace Lokalise.Api.Collections.Files
             options?.Invoke(cfg);
 
             return GetListAsync<FileList>(
-                requestUri: $"projects/{projectId.IncludeBranchName(cfg.Branch)}/files{cfg?.ToQueryString()}");
+                requestUri: $"{FilesUri(projectId, cfg.Branch)}{cfg?.ToQueryString()}");
         }
 
         /// <inheritdoc />
@@ -117,7 +117,7 @@ namespace Lokalise.Api.Collections.Files
             options?.Invoke(cfg);
 
             return PostAsync<DownloadFileRequest, DownloadedFiles>(
-                requestUri: $"projects/{projectId.IncludeBranchName(cfg.Branch)}/files/download",
+                requestUri: $"{FilesUri(projectId, cfg.Branch)}/download",
                 request: new DownloadFileRequest(format, cfg));
         }
 
@@ -128,8 +128,10 @@ namespace Lokalise.Api.Collections.Files
 
 
             return PostAsync<UploadFileRequest, UploadedFile>(
-                requestUri: $"projects/{projectId.IncludeBranchName(cfg.Branch)}/files/upload",
+                requestUri: $"{FilesUri(projectId, cfg.Branch)}/upload",
                 request: new UploadFileRequest(data, filename, langIso, cfg));
         }
+
+        private string FilesUri(string projectId, string branchName = null) => $"projects/{projectId.IncludeBranchName(branchName)}/files";
     }
 }

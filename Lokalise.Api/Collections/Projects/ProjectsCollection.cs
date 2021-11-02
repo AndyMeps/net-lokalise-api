@@ -30,7 +30,7 @@ namespace Lokalise.Api.Collections.Projects
             var cfg = new CreateProjectConfiguration();
             options?.Invoke(cfg);
 
-            return PostAsync<CreateProjectRequest, Project>($"projects", new CreateProjectRequest(name, cfg));
+            return PostAsync<CreateProjectRequest, Project>(ProjectsUri(), new CreateProjectRequest(name, cfg));
         }
 
         /// <inheritdoc/>
@@ -42,7 +42,7 @@ namespace Lokalise.Api.Collections.Projects
             if (string.IsNullOrWhiteSpace(projectId))
                 throw new ArgumentException("Project Identifier is required to call CreateAsync");
 
-            return DeleteAsync($"projects/{projectId}");
+            return DeleteAsync(ProjectsUri(projectId));
         }
 
         /// <inheritdoc/>
@@ -51,7 +51,7 @@ namespace Lokalise.Api.Collections.Projects
             var cfg = new ListProjectsConfiguration();
             options?.Invoke(cfg);
 
-            return GetListAsync<ProjectList>($"projects{cfg.ToQueryString()}");
+            return GetListAsync<ProjectList>($"{ProjectsUri()}{cfg.ToQueryString()}");
         }
 
         /// <inheritdoc/>
@@ -63,7 +63,7 @@ namespace Lokalise.Api.Collections.Projects
             if (string.IsNullOrWhiteSpace(projectId))
                 throw new ArgumentException("Project Identifier is required to call RetrieveAsync");
 
-            return GetAsync<Project>($"projects/{projectId}");
+            return GetAsync<Project>(ProjectsUri(projectId));
         }
 
         /// <inheritdoc/>
@@ -75,7 +75,7 @@ namespace Lokalise.Api.Collections.Projects
             if (string.IsNullOrWhiteSpace(projectId))
                 throw new ArgumentException("Project Identifier is required to call EmptyAsync");
 
-            return PutAsync<EmptiedProject>($"projects/{projectId.IncludeBranchName(branch)}/empty");
+            return PutAsync<EmptiedProject>($"{ProjectsUri(projectId, branch)}/empty");
         }
 
         /// <inheritdoc/>
@@ -96,7 +96,9 @@ namespace Lokalise.Api.Collections.Projects
             var cfg = new UpdateProjectConfiguration();
             options?.Invoke(cfg);
 
-            return PutAsync<UpdateProjectRequest, Project>($"projects/{projectId}", new UpdateProjectRequest(name, cfg));
+            return PutAsync<UpdateProjectRequest, Project>(ProjectsUri(projectId), new UpdateProjectRequest(name, cfg));
         }
+
+        private string ProjectsUri(string projectId = null, string branchName = null) => $"projects{(projectId != null ? $"/{projectId.IncludeBranchName(branchName)}" : string.Empty)}";
     }
 }
