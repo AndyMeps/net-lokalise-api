@@ -1,29 +1,34 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using Lokalise.Api.Collections.Projects.Responses;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lokalise.Api.Models
 {
     public class ProjectStatistics
     {
-        [JsonPropertyName("progress_total")]
-        public short ProgressTotal { get; set; }
+        public short ProgressTotal { get; }
 
-        [JsonPropertyName("keys_total")]
-        public long KeysTotal { get; set; }
+        public long KeysTotal { get; }
 
-        [JsonPropertyName("team")]
-        public long Team { get; set; }
+        public long Team { get; }
 
-        [JsonPropertyName("base_words")]
-        public long BaseWords { get; set; }
+        public long BaseWords { get; }
 
-        [JsonPropertyName("qa_issues_total")]
-        public long QaIssuesTotal { get; set; }
+        public long QaIssuesTotal { get; }
 
-        [JsonPropertyName("qa_issues")]
-        public ProjectQaIssues QaIssues { get; set; }
+        public ProjectQaIssues QaIssues { get; }
 
-        [JsonPropertyName("languages")]
-        public IEnumerable<LanguageStatistics> Languages { get; set; }
+        public IEnumerable<LanguageStatistics> Languages { get; }
+
+        internal ProjectStatistics(ProjectStatisticsResponse response)
+        {
+            ProgressTotal = response.ProgressTotal;
+            KeysTotal = response.KeysTotal;
+            Team = response.Team;
+            BaseWords = response.BaseWords;
+            QaIssuesTotal = response.QaIssuesTotal;
+            QaIssues = response.QaIssues is object ? new ProjectQaIssues(response.QaIssues) : null;
+            Languages = response.Languages is object ? response.Languages.Select(l => new LanguageStatistics(l)) : null;
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Lokalise.Api.Models;
+﻿using Lokalise.Api.Responses;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lokalise.Api.Collections
 {
-    public abstract class BaseCollection
+    internal abstract class BaseCollection
     {
         protected HttpClient HttpClient;
         protected JsonSerializerOptions JsonSerializerOptions;
@@ -43,9 +43,9 @@ namespace Lokalise.Api.Collections
 
             var model = JsonSerializer.Deserialize<TResult>(json);
 
-            if (model is LocationResult locationResultModel)
+            if (model is LocationEntityResponse locationEntityResponse)
             {
-                locationResultModel.Location = result.Headers.Contains("Location")
+                locationEntityResponse.Location = result.Headers.Contains("Location")
                     ? result.Headers.GetValues("Location").FirstOrDefault()
                     : null;
             }
@@ -64,19 +64,20 @@ namespace Lokalise.Api.Collections
 
             if (request is object)
             {
-                requestMessage.Content = new StringContent(JsonSerializer.Serialize(request, JsonSerializerOptions), Encoding.UTF8, "application/json");
+                var requestJson = JsonSerializer.Serialize(request, JsonSerializerOptions);
+                requestMessage.Content = new StringContent(requestJson, Encoding.UTF8, "application/json");
             }
 
             var result = await HttpClient.SendAsync(requestMessage);
 
             result.EnsureSuccessStatusCode();
 
-            var json = await result.Content.ReadAsStringAsync();
+            var responseJson = await result.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<TResult>(json);
+            return JsonSerializer.Deserialize<TResult>(responseJson);
         }
 
-        protected async Task<TResult> GetListAsync<TResult>(string requestUri) where TResult : ListResult
+        protected async Task<TResult> GetListAsync<TResult>(string requestUri) where TResult : PagedListResponse
         {
             var result = await HttpClient.GetAsync(requestUri);
 
@@ -86,12 +87,12 @@ namespace Lokalise.Api.Collections
 
             var model = JsonSerializer.Deserialize<TResult>(json);
 
-            model.PageCount = result.Headers.Contains("X-Pagination-Page-Count")
-                ? int.Parse(result.Headers.GetValues("X-Pagination-Page-Count").FirstOrDefault())
+            model.PageCount = result.Headers.TryGetValues("X-Pagination-Page-Count", out var pageCountHeaderValues)
+                ? int.Parse(pageCountHeaderValues.FirstOrDefault())
                 : 0;
 
-            model.TotalCount = result.Headers.Contains("X-Pagination-Total-Count")
-                ? int.Parse(result.Headers.GetValues("X-Pagination-Total-Count").FirstOrDefault())
+            model.TotalCount = result.Headers.TryGetValues("X-Pagination-Total-Count", out var totalCountHeaderValues)
+                ? int.Parse(totalCountHeaderValues.FirstOrDefault())
                 : 0;
 
             return model;

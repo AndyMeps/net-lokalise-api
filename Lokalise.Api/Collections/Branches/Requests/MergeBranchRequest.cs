@@ -11,7 +11,7 @@ namespace Lokalise.Api.Collections.Branches.Requests
         [JsonPropertyName("target_branch_id")]
         public long? TargetBranchId { get; set; }
 
-        public MergeBranchRequest(MergeBranchConfiguration options)
+        internal MergeBranchRequest(MergeBranchConfiguration options)
         {
             ForceConflictResolveUsing = options?.ForceConflictResolveUsing;
             TargetBranchId = options?.TargetBranchId;

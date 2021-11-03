@@ -10,5 +10,10 @@ namespace Lokalise.Api.Collections.Projects.Configurations
         public List<ProjectLanguage> Languages { get; set; } = new List<ProjectLanguage>();
         public string BaseLangIso { get; set; }
         public string ProjectType { get; set; }
+
+        internal CreateProjectConfiguration()
+        {
+
+        }
     }
 }

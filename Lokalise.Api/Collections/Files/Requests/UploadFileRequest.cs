@@ -6,31 +6,6 @@ namespace Lokalise.Api.Collections.Files.Requests
 {
     internal class UploadFileRequest
     {
-        internal UploadFileRequest(string data, string filename, string langIso, UploadFileConfiguration options)
-        {
-            Data = data;
-            Filename = filename;
-            LangIso = langIso;
-            ConvertPlaceholders = options?.ConvertPlaceholders;
-            Tags = options?.Tags;
-            TagInsertedKeys = options?.TagInsertedKeys;
-            TagUpdatedKeys = options?.TagUpdatedKeys;
-            TagSkippedKeys = options?.TagSkippedKeys;
-            ReplaceModified = options?.ReplaceModified;
-            SlashNToLinebreak = options?.SlashNToLinebreak;
-            KeysToValues = options?.KeysToValues;
-            DistinguishByFile = options?.DistinguishByFile;
-            ApplyTranslationMemory = options?.ApplyTranslationMemory;
-            UseAutomations = options?.UseAutomations;
-            HiddenFromContributors = options?.HiddenFromContributors;
-            CleanupMode = options?.CleanupMode;
-            CustomTranslationStatusIds = options?.CustomTranslationStatusIds;
-            CustomTranslationStatusInsertedKeys = options?.CustomTranslationStatusInsertedKeys;
-            CustomTranslationStatusUpdatedKeys = options?.CustomTranslationStatusUpdatedKeys;
-            CustomTranslationStatusSkippedKeys = options?.CustomTranslationStatusSkippedKeys;
-            SkipDetectLangIso = options?.SkipDetectLangIso;
-        }
-
         [JsonPropertyName("data")]
         public string Data { get; internal set; }
 
@@ -96,5 +71,30 @@ namespace Lokalise.Api.Collections.Files.Requests
 
         [JsonPropertyName("skip_detect_lang_iso")]
         public bool? SkipDetectLangIso { get; set; }
+
+        internal UploadFileRequest(string data, string filename, string langIso, UploadFileConfiguration options)
+        {
+            Data = data;
+            Filename = filename;
+            LangIso = langIso;
+            ConvertPlaceholders = options?.ConvertPlaceholders;
+            Tags = options?.Tags;
+            TagInsertedKeys = options?.TagInsertedKeys;
+            TagUpdatedKeys = options?.TagUpdatedKeys;
+            TagSkippedKeys = options?.TagSkippedKeys;
+            ReplaceModified = options?.ReplaceModified;
+            SlashNToLinebreak = options?.SlashNToLinebreak;
+            KeysToValues = options?.KeysToValues;
+            DistinguishByFile = options?.DistinguishByFile;
+            ApplyTranslationMemory = options?.ApplyTranslationMemory;
+            UseAutomations = options?.UseAutomations;
+            HiddenFromContributors = options?.HiddenFromContributors;
+            CleanupMode = options?.CleanupMode;
+            CustomTranslationStatusIds = options?.CustomTranslationStatusIds;
+            CustomTranslationStatusInsertedKeys = options?.CustomTranslationStatusInsertedKeys;
+            CustomTranslationStatusUpdatedKeys = options?.CustomTranslationStatusUpdatedKeys;
+            CustomTranslationStatusSkippedKeys = options?.CustomTranslationStatusSkippedKeys;
+            SkipDetectLangIso = options?.SkipDetectLangIso;
+        }
     }
 }

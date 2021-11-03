@@ -1,19 +1,20 @@
-﻿using System.Text.Json.Serialization;
+﻿using Lokalise.Api.Collections.Branches.Responses;
 
 namespace Lokalise.Api.Models
 {
     public class MergedBranch
     {
-        [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string ProjectId { get; }
+        public bool BranchMerged { get; }
+        public Branch Branch { get; }
+        public Branch TargetBranch { get; }
 
-        [JsonPropertyName("branch_deleted")]
-        public bool BranchMerged { get; set; }
-
-        [JsonPropertyName("branch")]
-        public Branch Branch { get; set; }
-
-        [JsonPropertyName("target_branch")]
-        public Branch TargetBranch { get; set; }
+        internal MergedBranch(MergedBranchResponse response)
+        {
+            ProjectId = response.ProjectId;
+            BranchMerged = response.BranchMerged;
+            Branch = new Branch(response.Branch);
+            TargetBranch = new Branch(response.TargetBranch);
+        }
     }
 }

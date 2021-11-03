@@ -1,24 +1,28 @@
-﻿using System.Text.Json.Serialization;
+﻿using Lokalise.Api.Collections.Projects.Responses;
 
 namespace Lokalise.Api.Models
 {
     public class LanguageStatistics
     {
-        [JsonPropertyName("language_id")]
-        public long LanguageId { get; set; }
+        public long LanguageId { get; }
 
-        [JsonPropertyName("language_iso")]
-        public string LanguageIso { get; set; }
+        public string LanguageIso { get; }
 
-        [JsonPropertyName("progress")]
-        public long Progress { get; set; }
+        public long Progress { get; }
 
-        [JsonPropertyName("words_to_do")]
-        public long WordsToDo { get; set; }
+        public long WordsToDo { get; }
 
         public override string ToString()
         {
             return LanguageIso;
+        }
+
+        internal LanguageStatistics(LanguageStatisticsResponse response)
+        {
+            LanguageId = response.LanguageId;
+            LanguageIso = response.LanguageIso;
+            Progress = response.Progress;
+            WordsToDo = response.WordsToDo;
         }
     }
 }

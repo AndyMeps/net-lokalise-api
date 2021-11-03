@@ -10,6 +10,11 @@ namespace Lokalise.Api.Collections.Files.Configurations
 
         public string Branch { get; set; }
 
+        internal ListFilesConfiguration()
+        {
+
+        }
+
         internal override string ToQueryString()
         {
             var nameValueCollection = new NameValueCollection();

@@ -32,5 +32,7 @@ namespace Lokalise.Api.Collections.Projects.Configurations
 
             return $"?{queryString}";
         }
+
+        internal ListProjectsConfiguration() { }
     }
 }

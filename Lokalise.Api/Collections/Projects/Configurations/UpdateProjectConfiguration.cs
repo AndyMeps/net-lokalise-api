@@ -3,5 +3,10 @@
     public class UpdateProjectConfiguration
     {
         public string Description { get; set; }
+
+        internal UpdateProjectConfiguration()
+        {
+
+        }
     }
 }

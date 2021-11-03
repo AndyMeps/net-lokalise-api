@@ -1,18 +1,22 @@
-﻿using System.Text.Json.Serialization;
+﻿using Lokalise.Api.Collections.Files.Responses;
 
 namespace Lokalise.Api.Models
 {
     public class File
     {
-        [JsonPropertyName("filename")]
-        public string Filename { get; set; }
+        public string Filename { get; }
 
-        [JsonPropertyName("key_count")]
-        public int KeyCount { get; set; }
+        public long KeyCount { get; }
 
         public override string ToString()
         {
             return Filename;
+        }
+
+        internal File(FileResponse response)
+        {
+            Filename = response.Filename;
+            KeyCount = response.KeyCount;
         }
     }
 }

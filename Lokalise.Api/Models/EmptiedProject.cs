@@ -1,13 +1,17 @@
-﻿using System.Text.Json.Serialization;
+﻿using Lokalise.Api.Collections.Projects.Responses;
 
 namespace Lokalise.Api.Models
 {
     public class EmptiedProject
     {
-        [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string ProjectId { get; }
 
-        [JsonPropertyName("keys_deleted")]
-        public bool KeysDeleted { get; set; }
+        public bool KeysDeleted { get; }
+
+        internal EmptiedProject(EmptiedProjectResponse response)
+        {
+            ProjectId = response.ProjectId;
+            KeysDeleted = response.KeysDeleted;
+        }
     }
 }

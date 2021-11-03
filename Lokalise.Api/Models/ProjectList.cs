@@ -1,11 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using Lokalise.Api.Collections.Projects.Responses;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lokalise.Api.Models
 {
-    public class ProjectList : ListResult
+    public class ProjectList : PagedList
     {
-        [JsonPropertyName("projects")]
-        public IEnumerable<Project> Projects { get; set; }
+        public IEnumerable<Project> Projects { get; }
+
+        internal ProjectList(ProjectListResponse response)
+        {
+            TotalCount = response.TotalCount;
+            PageCount = response.PageCount;
+            Projects = response.Projects is object ? response.Projects.Select(p => new Project(p)) : null;
+        }
     }
 }

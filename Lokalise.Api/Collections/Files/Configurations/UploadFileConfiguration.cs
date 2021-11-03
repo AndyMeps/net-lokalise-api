@@ -28,5 +28,10 @@ namespace Lokalise.Api.Collections.Files.Configurations
         public bool? CustomTranslationStatusUpdatedKeys { get; set; }
         public bool? CustomTranslationStatusSkippedKeys { get; set; }
         public bool? SkipDetectLangIso { get; set; }
+
+        internal UploadFileConfiguration()
+        {
+
+        }
     }
 }

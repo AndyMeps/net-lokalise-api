@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using Lokalise.Api.Collections.Branches.Responses;
+using Lokalise.Api.Extensions;
+using System;
 
 namespace Lokalise.Api.Models
 {
@@ -7,37 +9,35 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// A unique identifier of the branch.
         /// </summary>
-        [JsonPropertyName("branch_id")]
-        public long BranchId { get; set; }
+        public long BranchId { get; }
 
         /// <summary>
         /// Branch name.
         /// </summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary>
         /// Date of branch creation.
         /// </summary>
-        [JsonPropertyName("created_at")]
-        public string CreatedAt { get; set; }
-
-        /// <summary>
-        /// Unix timestamp when branch was created.
-        /// </summary>
-        [JsonPropertyName("created_at_timestamp")]
-        public long CreatedAtTimestamp { get; set; }
+        public DateTime CreatedAt { get; }
 
         /// <summary>
         /// An identifier of a user who has created the branch.
         /// </summary>
-        [JsonPropertyName("created_by")]
-        public long CreatedBy { get; set; }
+        public long CreatedBy { get; }
 
         /// <summary>
         /// An e-mail of a user who has created the branch.
         /// </summary>
-        [JsonPropertyName("created_by_email")]
-        public string CreatedByEmail { get; set; }
+        public string CreatedByEmail { get; }
+
+        internal Branch(BranchResponse branchResponse)
+        {
+            BranchId = branchResponse.BranchId;
+            Name = branchResponse.Name;
+            CreatedAt = branchResponse.CreatedAtTimestamp.ToUtcDateTime();
+            CreatedBy = CreatedBy;
+            CreatedByEmail = CreatedByEmail;
+        }
     }
 }

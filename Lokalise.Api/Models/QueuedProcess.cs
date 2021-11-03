@@ -1,36 +1,39 @@
-﻿using System.Text.Json.Serialization;
+﻿using Lokalise.Api.Collections.Files.Responses;
+using Lokalise.Api.Extensions;
+using System;
 
 namespace Lokalise.Api.Models
 {
     public class QueuedProcess
     {
-        [JsonPropertyName("process_id")]
-        public string ProcessId { get; set; }
+        public string ProcessId { get; }
 
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
+        public string Type { get; }
 
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
+        public string Status { get; }
 
-        [JsonPropertyName("message")]
-        public string Message { get; set; }
+        public string Message { get; }
 
-        [JsonPropertyName("created_by")]
-        public long CreatedBy { get; set; }
+        public long CreatedBy { get; }
 
-        [JsonPropertyName("created_by_email")]
-        public string CreatedByEmail { get; set; }
+        public string CreatedByEmail { get; }
 
-        [JsonPropertyName("created_at")]
-        public string CreatedAt { get; set; }
-
-        [JsonPropertyName("created_at_timestamp")]
-        public long CreatedAtTimestamp { get; set; }
+        public DateTime CreatedAt { get; }
 
         public override string ToString()
         {
             return ProcessId;
+        }
+
+        internal QueuedProcess(QueuedProcessResponse response)
+        {
+            ProcessId = response.ProcessId;
+            Type = response.Type;
+            Status = response.Status;
+            Message = response.Message;
+            CreatedBy = response.CreatedBy;
+            CreatedByEmail = response.CreatedByEmail;
+            CreatedAt = response.CreatedAtTimestamp.ToUtcDateTime();
         }
     }
 }

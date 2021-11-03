@@ -38,11 +38,10 @@ namespace Lokalise.Api.Collections.Files.Configurations
         public string JavaPropertiesEncoding { get; set; }
         public string JavaPropertiesSeparator { get; set; }
         public string BundleDescription { get; set; }
-    }
 
-    public class LanguageMapping
-    {
-        public string OriginalLanguageIso { get; set; }
-        public string CustomLanguageIso { get; set; }
+        internal DownloadFileConfiguration()
+        {
+
+        }
     }
 }

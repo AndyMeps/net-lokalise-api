@@ -1,5 +1,6 @@
 ﻿using Lokalise.Api.Collections.Projects.Configurations;
 using Lokalise.Api.Collections.Projects.Requests;
+using Lokalise.Api.Collections.Projects.Responses;
 using Lokalise.Api.Extensions;
 using Lokalise.Api.Models;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Lokalise.Api.Collections.Projects
 {
-    public class ProjectsCollection : BaseCollection, IProjectsCollection
+    internal class ProjectsCollection : BaseCollection, IProjectsCollection
     {
         internal ProjectsCollection(
             HttpClient httpClient,
@@ -19,84 +20,59 @@ namespace Lokalise.Api.Collections.Projects
         }
 
         /// <inheritdoc/>
-        public Task<Project> CreateAsync(string name, Action<CreateProjectConfiguration> options = null)
+        public async Task<Project> CreateAsync(string name, Action<CreateProjectConfiguration> options = null)
         {
-            if (name is null)
-                throw new ArgumentNullException(nameof(name));
-
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Name is required to call CreateAsync");
-
             var cfg = new CreateProjectConfiguration();
             options?.Invoke(cfg);
 
-            return PostAsync<CreateProjectRequest, Project>(ProjectsUri(), new CreateProjectRequest(name, cfg));
+            var result = await PostAsync<CreateProjectRequest, ProjectResponse>(ProjectsUri(), new CreateProjectRequest(name, cfg));
+            return new Project(result);
         }
 
         /// <inheritdoc/>
-        public Task<DeletedProject> DeleteAsync(string projectId)
+        public async Task<DeletedProject> DeleteAsync(string projectId)
         {
-            if (projectId is null)
-                throw new ArgumentNullException(nameof(projectId));
+            var result = await DeleteAsync<DeletedProjectResponse>(ProjectsUri(projectId));
 
-            if (string.IsNullOrWhiteSpace(projectId))
-                throw new ArgumentException("Project Identifier is required to call CreateAsync");
-
-            return DeleteAsync(ProjectsUri(projectId));
+            return new DeletedProject(result);
         }
 
         /// <inheritdoc/>
-        public Task<ProjectList> ListAsync(Action<ListProjectsConfiguration> options = null)
+        public async Task<ProjectList> ListAsync(Action<ListProjectsConfiguration> options = null)
         {
             var cfg = new ListProjectsConfiguration();
             options?.Invoke(cfg);
 
-            return GetListAsync<ProjectList>($"{ProjectsUri()}{cfg.ToQueryString()}");
+            var result = await GetListAsync<ProjectListResponse>($"{ProjectsUri()}{cfg.ToQueryString()}");
+
+            return new ProjectList(result);
         }
 
         /// <inheritdoc/>
-        public Task<Project> RetrieveAsync(string projectId)
+        public async Task<Project> RetrieveAsync(string projectId)
         {
-            if (projectId is null)
-                throw new ArgumentNullException(nameof(projectId));
+            var result = await GetAsync<ProjectResponse>(ProjectsUri(projectId));
 
-            if (string.IsNullOrWhiteSpace(projectId))
-                throw new ArgumentException("Project Identifier is required to call RetrieveAsync");
-
-            return GetAsync<Project>(ProjectsUri(projectId));
+            return new Project(result);
         }
 
         /// <inheritdoc/>
-        public Task<EmptiedProject> EmptyAsync(string projectId, string branch = null)
+        public async Task<EmptiedProject> EmptyAsync(string projectId, string branch = null)
         {
-            if (projectId is null)
-                throw new ArgumentNullException(nameof(projectId));
+            var result = await PutAsync<EmptiedProjectResponse>($"{ProjectsUri(projectId, branch)}/empty");
 
-            if (string.IsNullOrWhiteSpace(projectId))
-                throw new ArgumentException("Project Identifier is required to call EmptyAsync");
-
-            return PutAsync<EmptiedProject>($"{ProjectsUri(projectId, branch)}/empty");
+            return new EmptiedProject(result);
         }
 
         /// <inheritdoc/>
-        public Task<Project> UpdateAsync(string projectId, string name, Action<UpdateProjectConfiguration> options = null)
+        public async Task<Project> UpdateAsync(string projectId, string name, Action<UpdateProjectConfiguration> options = null)
         {
-            if (projectId is null)
-                throw new ArgumentNullException(nameof(projectId));
-
-            if (string.IsNullOrWhiteSpace(projectId))
-                throw new ArgumentException("Project Identifier is required to call UpdateAsync");
-
-            if (name is null)
-                throw new ArgumentNullException(nameof(name));
-
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Name is required to call UpdateAsync");
-
             var cfg = new UpdateProjectConfiguration();
             options?.Invoke(cfg);
 
-            return PutAsync<UpdateProjectRequest, Project>(ProjectsUri(projectId), new UpdateProjectRequest(name, cfg));
+            var result = await PutAsync<UpdateProjectRequest, ProjectResponse>(ProjectsUri(projectId), new UpdateProjectRequest(name, cfg));
+
+            return new Project(result);
         }
 
         private string ProjectsUri(string projectId = null, string branchName = null) => $"projects{(projectId != null ? $"/{projectId.IncludeBranchName(branchName)}" : string.Empty)}";

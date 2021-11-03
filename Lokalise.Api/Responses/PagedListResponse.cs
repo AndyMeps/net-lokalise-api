@@ -1,8 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Lokalise.Api.Models
+namespace Lokalise.Api.Responses
 {
-    public abstract class ListResult
+    /// <summary>
+    /// Base class used to include pagination information
+    /// </summary>
+    internal abstract class PagedListResponse
     {
         [JsonIgnore]
         public int TotalCount { get; internal set; }

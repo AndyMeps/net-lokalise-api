@@ -1,16 +1,21 @@
-﻿using System;
+﻿using Lokalise.Api.Collections.Branches.Responses;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
+using System.Linq;
 
 namespace Lokalise.Api.Models
 {
-    public class BranchList : ListResult
+    public class BranchList : PagedList
     {
-        [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string ProjectId { get; }
 
-        [JsonPropertyName("branches")]
-        public IEnumerable<Branch> Branches { get; set; }
+        public IEnumerable<Branch> Branches { get; }
+
+        internal BranchList(BranchListResponse response)
+        {
+            ProjectId = response.ProjectId;
+            Branches = response.Branches.Select(b => new Branch(b));
+            TotalCount = response.TotalCount;
+            PageCount = response.PageCount;
+        }
     }
 }

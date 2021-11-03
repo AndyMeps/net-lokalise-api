@@ -4,7 +4,7 @@
     {
         public string Name { get; private set; }
 
-        public CreateBranchRequest(string name)
+        internal CreateBranchRequest(string name)
         {
             Name = name;
         }

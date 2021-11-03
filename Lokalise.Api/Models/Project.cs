@@ -1,49 +1,51 @@
-﻿using System.Text.Json.Serialization;
+﻿using Lokalise.Api.Collections.Projects.Responses;
+using Lokalise.Api.Extensions;
+using System;
 
 namespace Lokalise.Api.Models
 {
     public class Project
     {
-        [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string ProjectId { get; }
 
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; }
 
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
+        public string Description { get; }
 
-        [JsonPropertyName("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime CreatedAt { get; }
 
-        [JsonPropertyName("created_at_timestamp")]
-        public long CreatedAtTimestamp { get; set; }
+        public long CreatedBy { get; }
 
-        [JsonPropertyName("created_by")]
-        public long CreatedBy { get; set; }
+        public string CreatedByEmail { get; }
 
-        [JsonPropertyName("created_by_email")]
-        public string CreatedByEmail { get; set; }
+        public long TeamId { get; }
 
-        [JsonPropertyName("team_id")]
-        public long TeamId { get; set; }
+        public long BaseLanguageId { get; }
 
-        [JsonPropertyName("base_language_id")]
-        public long BaseLanguageId { get; set; }
+        public string BaseLanguageIso { get; }
 
-        [JsonPropertyName("base_language_iso")]
-        public string BaseLanguageIso { get; set; }
+        public ProjectSettings Settings { get; }
 
-        [JsonPropertyName("settings")]
-        public ProjectSettings Settings { get; set; }
+        public ProjectStatistics Statistics { get; }
 
-        [JsonPropertyName("statistics")]
-        public ProjectStatistics Statistics { get; set; }
+        internal Project(ProjectResponse response)
+        {
+            ProjectId = response.ProjectId;
+            Name = response.Name;
+            Description = response.Description;
+            CreatedAt = response.CreatedAtTimestamp.ToUtcDateTime();
+            CreatedBy = response.CreatedBy;
+            CreatedByEmail = response.CreatedByEmail;
+            TeamId = response.TeamId;
+            BaseLanguageId = response.BaseLanguageId;
+            BaseLanguageIso = response.BaseLanguageIso;
+            Settings = response.Settings is object ? new ProjectSettings(response.Settings) : null;
+            Statistics = response.Statistics is object ? new ProjectStatistics(response.Statistics) : null;
+        }
 
         public override string ToString()
         {
             return Name;
         }
-
     }
 }

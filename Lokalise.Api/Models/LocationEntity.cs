@@ -1,10 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Lokalise.Api.Models
+﻿namespace Lokalise.Api.Models
 {
-    public abstract class LocationResult
+    public abstract class LocationEntity
     {
-        [JsonIgnore]
         public string Location { get; internal set; }
 
         public override string ToString()

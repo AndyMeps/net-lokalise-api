@@ -33,7 +33,7 @@ namespace Lokalise.Api.Collections.Files.Requests
             PluralFormat = options?.PluralFormat;
             PlaceholderFormat = options?.PlaceholderFormat;
             WebhookUrl = options?.WebhookUrl;
-            LanguageMapping = options?.LanguageMapping;
+            LanguageMapping = options?.LanguageMapping is object ? new LanguageMappingDto(options.LanguageMapping) : null;
             IcuNumeric = options?.IcuNumeric;
             EscapePercent = options?.EscapePercent;
             Indentation = options?.Indentation;
@@ -123,7 +123,7 @@ namespace Lokalise.Api.Collections.Files.Requests
         public string WebhookUrl { get; set; }
 
         [JsonPropertyName("language_mapping")]
-        public LanguageMapping LanguageMapping { get; set; }
+        public LanguageMappingDto LanguageMapping { get; set; }
 
         [JsonPropertyName("icu_numeric")]
         public bool? IcuNumeric { get; set; }

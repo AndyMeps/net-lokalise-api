@@ -1,5 +1,6 @@
 ﻿using Lokalise.Api.Collections.Branches.Configurations;
 using Lokalise.Api.Collections.Branches.Requests;
+using Lokalise.Api.Collections.Branches.Responses;
 using Lokalise.Api.Models;
 using System;
 using System.Net.Http;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Lokalise.Api.Collections.Branches
 {
-    public class BranchesCollection : BaseCollection, IBranchesCollection
+    internal class BranchesCollection : BaseCollection, IBranchesCollection
     {
         public BranchesCollection(
             HttpClient httpClient,
@@ -18,51 +19,61 @@ namespace Lokalise.Api.Collections.Branches
         }
 
         /// <inheritdoc/>
-        public Task<Branch> CreateAsync(string projectId, string name)
+        public async Task<Branch> CreateAsync(string projectId, string name)
         {
             var requestUri = BranchUri(projectId);
-            return PostAsync<CreateBranchRequest, Branch>(requestUri, new CreateBranchRequest(name));
+            var result = await PostAsync<CreateBranchRequest, BranchResponse>(requestUri, new CreateBranchRequest(name));
+
+            return new Branch(result);
         }
 
         /// <inheritdoc/>
-        public Task<DeletedBranch> DeleteAsync(string projectId, long branchId)
+        public async Task<DeletedBranch> DeleteAsync(string projectId, long branchId)
         {
             var requestUri = BranchUri(projectId, branchId);
-            return DeleteAsync<DeletedBranch>(requestUri);
+            var result = await DeleteAsync<DeletedBranchResponse>(requestUri);
+
+            return new DeletedBranch(result);
         }
 
         /// <inheritdoc/>
-        public Task<BranchList> ListAsync(string projectId, Action<ListBranchesConfiguration> options = null)
+        public async Task<BranchList> ListAsync(string projectId, Action<ListBranchesConfiguration> options = null)
         {
             var requestUri = BranchUri(projectId);
-            return GetListAsync<BranchList>(requestUri);
+            var result = await GetListAsync<BranchListResponse>(requestUri);
+
+            return new BranchList(result);
         }
 
         /// <inheritdoc/>
-        public Task<MergedBranch> MergeAsync(string projectId, long branchId, Action<MergeBranchConfiguration> options = null)
+        public async Task<MergedBranch> MergeAsync(string projectId, long branchId, Action<MergeBranchConfiguration> options = null)
         {
             var cfg = new MergeBranchConfiguration();
             options?.Invoke(cfg);
 
             var requestUri = BranchUri(projectId, branchId);
-            return PostAsync<MergeBranchRequest, MergedBranch>($"{requestUri}/merge", new MergeBranchRequest(cfg));
+            var result = await PostAsync<MergeBranchRequest, MergedBranchResponse>($"{requestUri}/merge", new MergeBranchRequest(cfg));
+            return new MergedBranch(result);
         }
 
         /// <inheritdoc/>
-        public Task<Branch> RetrieveAsync(string projectId, long branchId)
+        public async Task<Branch> RetrieveAsync(string projectId, long branchId)
         {
             var requestUri = BranchUri(projectId, branchId);
-            return GetAsync<Branch>(requestUri);
+            var result = await GetAsync<BranchResponse>(requestUri);
+
+            return new Branch(result);
         }
 
         /// <inheritdoc/>
-        public Task<Branch> UpdateAsync(string projectId, long branchId, Action<UpdateBranchConfiguration> options = null)
+        public async Task<Branch> UpdateAsync(string projectId, long branchId, Action<UpdateBranchConfiguration> options = null)
         {
             var cfg = new UpdateBranchConfiguration();
             options?.Invoke(cfg);
 
             var requestUri = BranchUri(projectId, branchId);
-            return PostAsync<UpdateBranchRequest, Branch>(requestUri, new UpdateBranchRequest(cfg));
+            var result = await PostAsync<UpdateBranchRequest, BranchResponse>(requestUri, new UpdateBranchRequest(cfg));
+            return new Branch(result);
         }
 
         private string BranchUri(string projectId, long? branchId = null) => $"projects/{projectId}/branches{(branchId.HasValue ? $"/{branchId}" : string.Empty)}";
