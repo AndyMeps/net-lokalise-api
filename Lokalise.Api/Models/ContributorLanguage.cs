@@ -2,7 +2,7 @@
 
 namespace Lokalise.Api.Models
 {
-    public class UserLanguage
+    public class ContributorLanguage
     {
         /// <summary>
         /// Language ID.
@@ -24,13 +24,13 @@ namespace Lokalise.Api.Models
         /// </summary>
         public bool IsWritable { get; }
 
-        public UserLanguage(string languageIso, bool isWritable)
+        public ContributorLanguage(string languageIso, bool isWritable)
         {
             LanguageIso = languageIso;
             IsWritable = isWritable;
         }
 
-        internal UserLanguage(UserLanguageResponse response)
+        internal ContributorLanguage(UserLanguageResponse response)
         {
             LanguageId = response.LanguageId;
             LanguageIso = response.LanguageIso;

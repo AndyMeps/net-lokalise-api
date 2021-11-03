@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Collections.Contributors.Requests
 {
-    internal class UserLanguageRequest
+    internal class ContributorLanguageRequest
     {
         [JsonPropertyName("lang_iso")]
         public string LanguageIso { get; }
@@ -11,10 +11,10 @@ namespace Lokalise.Api.Collections.Contributors.Requests
         [JsonPropertyName("is_writable")]
         public bool IsWritable { get; }
 
-        internal UserLanguageRequest(UserLanguage userLanguage)
+        internal ContributorLanguageRequest(ContributorLanguage contributorLanguage)
         {
-            LanguageIso = userLanguage.LanguageIso;
-            IsWritable = userLanguage.IsWritable;
+            LanguageIso = contributorLanguage.LanguageIso;
+            IsWritable = contributorLanguage.IsWritable;
         }
     }
 }

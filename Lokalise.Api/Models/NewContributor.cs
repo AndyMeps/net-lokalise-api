@@ -27,7 +27,7 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// List of languages, accessible to the user.
         /// </summary>
-        public IEnumerable<UserLanguage> Languages { get; }
+        public IEnumerable<ContributorLanguage> Languages { get; }
 
         /// <summary>
         /// List of user permissions.
@@ -36,7 +36,7 @@ namespace Lokalise.Api.Models
 
         public NewContributor(
             string email,
-            IEnumerable<UserLanguage> languages,
+            IEnumerable<ContributorLanguage> languages,
             string fullname = null,
             bool? isAdmin = null,
             bool? isReviewer = null,

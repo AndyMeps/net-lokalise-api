@@ -14,7 +14,7 @@ namespace Lokalise.Api.Collections.Contributors.Requests
         public bool? IsReviewer { get; set; }
 
         [JsonPropertyName("languages")]
-        public IEnumerable<UserLanguageRequest> Languages { get; set; }
+        public IEnumerable<ContributorLanguageRequest> Languages { get; set; }
 
         [JsonPropertyName("admin_rights")]
         public IEnumerable<string> AdminRights { get; set; }
@@ -23,7 +23,7 @@ namespace Lokalise.Api.Collections.Contributors.Requests
         {
             IsAdmin = configuration.IsAdmin;
             IsReviewer = configuration.IsReviewer;
-            Languages = configuration.Languages?.Select(l => new UserLanguageRequest(l));
+            Languages = configuration.Languages?.Select(l => new ContributorLanguageRequest(l));
             AdminRights = configuration.AdminRights;
         }
     }

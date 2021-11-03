@@ -41,7 +41,7 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// List of languages, accessible to the user.
         /// </summary>
-        public IEnumerable<UserLanguage> Languages { get; }
+        public IEnumerable<ContributorLanguage> Languages { get; }
 
         /// <summary>
         /// List of user permissions.
@@ -56,7 +56,7 @@ namespace Lokalise.Api.Models
             CreatedAt = response.CreatedAtTimestamp.ToUtcDateTime();
             IsAdmin = response.IsAdmin;
             IsReviewer = response.IsReviewer;
-            Languages = response?.Languages?.Select(l => new UserLanguage(l));
+            Languages = response?.Languages?.Select(l => new ContributorLanguage(l));
             AdminRights = response.AdminRights;
         }
     }
