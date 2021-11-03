@@ -14,7 +14,10 @@ namespace Lokalise.Api.Collections.Comments
 {
     internal class CommentsCollection : BaseCollection, ICommentsCollection
     {
-        internal CommentsCollection(HttpClient httpClient, JsonSerializerOptions jsonSerializerOptions) : base(httpClient, jsonSerializerOptions)
+        internal CommentsCollection(
+            HttpClient httpClient,
+            JsonSerializerOptions jsonSerializerOptions)
+            : base(httpClient, jsonSerializerOptions)
         {
         }
 
@@ -43,7 +46,9 @@ namespace Lokalise.Api.Collections.Comments
 
         public async Task<CommentList> CreateAsync(string projectId, long keyId, IEnumerable<string> comments)
         {
-            var result = await PostAsync<CreateCommentRequest, CommentListResponse>(CommentUri(projectId, keyId), new CreateCommentRequest(comments));
+            var result = await PostAsync<CreateCommentRequest, CommentListResponse>(
+                requestUri: CommentUri(projectId, keyId),
+                request: new CreateCommentRequest(comments));
 
             return new CommentList(result);
         }
@@ -60,7 +65,8 @@ namespace Lokalise.Api.Collections.Comments
             var cfg = new ListCommentsConfiguration();
             options?.Invoke(cfg);
 
-            var result = await GetListAsync<CommentListResponse>(CommentUri(projectId.IncludeBranchName(cfg.Branch)));
+            var requestUri = $"{CommentUri(projectId.IncludeBranchName(cfg.Branch))}{cfg.ToQueryString()}";
+            var result = await GetListAsync<CommentListResponse>(requestUri);
 
             return new CommentList(result);
         }
@@ -70,7 +76,8 @@ namespace Lokalise.Api.Collections.Comments
             var cfg = new ListCommentsConfiguration();
             options?.Invoke(cfg);
 
-            var result = await GetListAsync<CommentListResponse>(CommentUri(projectId.IncludeBranchName(cfg.Branch), keyId));
+            var requestUri = $"{CommentUri(projectId.IncludeBranchName(cfg.Branch), keyId)}{cfg.ToQueryString()}";
+            var result = await GetListAsync<CommentListResponse>(requestUri);
 
             return new CommentList(result);
         }
