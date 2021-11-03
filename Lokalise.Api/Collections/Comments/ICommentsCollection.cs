@@ -16,7 +16,7 @@ namespace Lokalise.Api.Collections.Comments
 
         Task<CommentList> CreateAsync(string projectId, long keyId, IEnumerable<string> comments);
 
-        Task<CommentDetail> RetrieveAsync(string projectId, long keyId, long commentId);
+        Task<ProjectComment> RetrieveAsync(string projectId, long keyId, long commentId);
 
         Task<DeletedComment> DeleteAsync(string projectId, long keyId, long commentId);
     }

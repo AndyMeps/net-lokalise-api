@@ -2,7 +2,7 @@
 
 namespace Lokalise.Api.Collections.Comments.Responses
 {
-    internal class CommentDetailResponse
+    internal class ProjectCommentResponse
     {
         [JsonPropertyName("project_id")]
         public string ProjectId { get; set; }

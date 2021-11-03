@@ -21,24 +21,6 @@ namespace Lokalise.Api.Collections.Comments
         {
         }
 
-        private string CommentUri(string projectId, long? keyId = null, long? commentId = null)
-        {
-            var sb = new StringBuilder();
-            sb.Append($"projects/{projectId}");
-
-            if (!keyId.HasValue)
-                return sb.ToString();
-
-            sb.Append($"/keys/{keyId}");
-
-            if (!commentId.HasValue)
-                return sb.ToString();
-
-            sb.Append($"/comments/{commentId}");
-
-            return sb.ToString();
-        }
-
         public Task<CommentList> CreateAsync(string projectId, long keyId, string comment)
         {
             return CreateAsync(projectId, keyId, new string[] { comment });
@@ -82,11 +64,32 @@ namespace Lokalise.Api.Collections.Comments
             return new CommentList(result);
         }
 
-        public async Task<CommentDetail> RetrieveAsync(string projectId, long keyId, long commentId)
+        public async Task<ProjectComment> RetrieveAsync(string projectId, long keyId, long commentId)
         {
-            var result = await GetAsync<CommentDetailResponse>(CommentUri(projectId, keyId, commentId));
+            var result = await GetAsync<ProjectCommentResponse>(CommentUri(projectId, keyId, commentId));
 
-            return new CommentDetail(result);
+            return new ProjectComment(result);
+        }
+
+        private string CommentUri(string projectId, long? keyId = null, long? commentId = null)
+        {
+            var sb = new StringBuilder();
+            sb.Append($"projects/{projectId}");
+
+            if (!keyId.HasValue)
+            {
+                sb.Append("/comments");
+                return sb.ToString();
+            }
+
+            sb.Append($"/keys/{keyId}/comments");
+
+            if (!commentId.HasValue)
+                return sb.ToString();
+
+            sb.Append($"/{commentId}");
+
+            return sb.ToString();
         }
     }
 }
