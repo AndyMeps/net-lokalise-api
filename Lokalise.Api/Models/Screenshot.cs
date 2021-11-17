@@ -13,27 +13,27 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// List of key identifiers, the screenshot is attached to.
         /// </summary>
-        public IEnumerable<long> KeyIds { get; }
+        public IEnumerable<long>? KeyIds { get; }
 
         /// <summary>
         /// Link to the screenshot.
         /// </summary>
-        public string Url { get; }
+        public string? Url { get; }
 
         /// <summary>
         /// Screenshot title.
         /// </summary>
-        public string Title { get; }
+        public string? Title { get; }
 
         /// <summary>
         /// Description of the screenshot.
         /// </summary>
-        public string Description { get; }
+        public string? Description { get; }
 
         /// <summary>
         /// List of screenshot tags.
         /// </summary>
-        public IEnumerable<string> Tags { get; }
+        public IEnumerable<string>? Tags { get; }
 
         /// <summary>
         /// Width of the screenshot, in pixels.

@@ -10,12 +10,12 @@
         /// <summary>
         /// Status title.
         /// </summary>
-        public string Title { get; }
+        public string? Title { get; }
 
         /// <summary>
         /// Hex color of the status.
         /// </summary>
-        public string Color { get; }
+        public string? Color { get; }
         
     }
 }

@@ -2,7 +2,7 @@
 {
     public class RetrieveContributorConfiguration
     {   
-        public string Branch { get; set; }
+        public string? Branch { get; set; }
 
         internal RetrieveContributorConfiguration() { }
     }

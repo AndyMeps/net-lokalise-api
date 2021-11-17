@@ -12,7 +12,7 @@ namespace Lokalise.Api.Collections.Projects
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public Task<ProjectList> ListAsync(Action<ListProjectsConfiguration> options = null);
+        public Task<ProjectList?> ListAsync(Action<ListProjectsConfiguration>? options = null);
 
         /// <summary>
         /// <para>Creates a new project in the specified team. Requires Admin role in the team.</para>
@@ -21,7 +21,7 @@ namespace Lokalise.Api.Collections.Projects
         /// <param name="name"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public Task<Project> CreateAsync(string name, Action<CreateProjectConfiguration> options = null);
+        public Task<Project?> CreateAsync(string name, Action<CreateProjectConfiguration>? options = null);
 
         /// <summary>
         /// <para>Retrieves a Project object.</para>
@@ -29,7 +29,7 @@ namespace Lokalise.Api.Collections.Projects
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public Task<Project> RetrieveAsync(string projectId);
+        public Task<Project?> RetrieveAsync(string projectId);
 
         /// <summary>
         /// <para>Updates the details of a project. Requires Manage settings admin right.</para>
@@ -39,7 +39,7 @@ namespace Lokalise.Api.Collections.Projects
         /// <param name="name"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public Task<Project> UpdateAsync(string projectId, string name, Action<UpdateProjectConfiguration> options = null);
+        public Task<Project?> UpdateAsync(string projectId, string name, Action<UpdateProjectConfiguration>? options = null);
 
         /// <summary>
         /// <para>Deletes all keys and translations from the project. Requires Manage settings admin right.</para>
@@ -48,7 +48,7 @@ namespace Lokalise.Api.Collections.Projects
         /// <param name="projectId"></param>
         /// <param name="branch"></param>
         /// <returns></returns>
-        public Task<EmptiedProject> EmptyAsync(string projectId, string branch = null);
+        public Task<EmptiedProject?> EmptyAsync(string projectId, string? branch = null);
 
         /// <summary>
         /// <para>Deletes a project.</para>
@@ -56,6 +56,6 @@ namespace Lokalise.Api.Collections.Projects
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public Task<DeletedProject> DeleteAsync(string projectId);
+        public Task<DeletedProject?> DeleteAsync(string projectId);
     }
 }

@@ -2,7 +2,7 @@
 {
     internal static class StringExtensions
     {
-        internal static string IncludeBranchName(this string projectId, string branchName)
+        internal static string IncludeBranchName(this string projectId, string? branchName = null)
         {
             if (string.IsNullOrWhiteSpace(branchName) || projectId.Contains(":"))
                 return projectId;

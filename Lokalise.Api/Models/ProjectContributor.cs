@@ -5,9 +5,9 @@ namespace Lokalise.Api.Models
     public class ProjectContributor
     {
         [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string? ProjectId { get; set; }
 
         [JsonPropertyName("contributor")]
-        public Contributor Contributor { get; set; }
+        public Contributor? Contributor { get; set; }
     }
 }

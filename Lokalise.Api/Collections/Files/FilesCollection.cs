@@ -20,7 +20,7 @@ namespace Lokalise.Api.Collections.Files
         }
 
         /// <inheritdoc/>
-        public async Task<FileList> ListAsync(string projectId, Action<ListFilesConfiguration> options = null)
+        public async Task<FileList?> ListAsync(string projectId, Action<ListFilesConfiguration>? options = null)
         {
             var cfg = new ListFilesConfiguration();
             options?.Invoke(cfg);
@@ -32,19 +32,19 @@ namespace Lokalise.Api.Collections.Files
         }
 
         /// <inheritdoc />
-        public Task<UploadedFile> UploadAsync(string projectId, FileInfo fileInfo, string filename, string langIso, Action<UploadFileConfiguration> options = null)
+        public Task<UploadedFile?> UploadAsync(string projectId, FileInfo fileInfo, string filename, string langIso, Action<UploadFileConfiguration>? options = null)
         {
             return UploadInternalAsync(projectId, fileInfo.ToBase64(), filename, langIso, options);
         }
 
         /// <inheritdoc/>
-        public Task<UploadedFile> UploadAsync(string projectId, string data, string filename, string langIso, Action<UploadFileConfiguration> options)
+        public Task<UploadedFile?> UploadAsync(string projectId, string data, string filename, string langIso, Action<UploadFileConfiguration>? options = null)
         {
             return UploadInternalAsync(projectId, data, filename, data, options);
         }
 
         /// <inheritdoc />
-        public async Task<DownloadedFiles> DownloadAsync(string projectId, string format, Action<DownloadFileConfiguration> options = null)
+        public async Task<DownloadedFiles?> DownloadAsync(string projectId, string format, Action<DownloadFileConfiguration>? options = null)
         {
             var cfg = new DownloadFileConfiguration();
             options?.Invoke(cfg);
@@ -56,7 +56,7 @@ namespace Lokalise.Api.Collections.Files
             return result;
         }
 
-        private async Task<UploadedFile> UploadInternalAsync(string projectId, string data, string filename, string langIso, Action<UploadFileConfiguration> options = null)
+        private async Task<UploadedFile?> UploadInternalAsync(string projectId, string data, string filename, string langIso, Action<UploadFileConfiguration>? options = null)
         {
             var cfg = new UploadFileConfiguration();
             options?.Invoke(cfg);
@@ -69,6 +69,6 @@ namespace Lokalise.Api.Collections.Files
             return result;
         }
 
-        private string FilesUri(string projectId, string branchName = null) => $"projects/{projectId.IncludeBranchName(branchName)}/files";
+        private string FilesUri(string projectId, string? branchName = null) => $"projects/{projectId.IncludeBranchName(branchName)}/files";
     }
 }

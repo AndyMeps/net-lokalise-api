@@ -2,7 +2,7 @@
 {
     public class CreateKeysConfiguration
     {
-        public string Branch { get; set; }
+        public string? Branch { get; set; }
            
         public bool? UseAutomations { get; set; }
 

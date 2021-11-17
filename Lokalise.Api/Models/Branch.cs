@@ -14,13 +14,13 @@ namespace Lokalise.Api.Models
         /// Branch name.
         /// </summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Date of branch creation.
         /// </summary>
         [JsonPropertyName("created_at")]
-        public string CreatedAt { get; set; }
+        public string? CreatedAt { get; set; }
 
         /// <summary>
         /// Unix timestamp when branch was created.
@@ -38,6 +38,6 @@ namespace Lokalise.Api.Models
         /// An e-mail of a user who has created the branch.
         /// </summary>
         [JsonPropertyName("created_by_email")]
-        public string CreatedByEmail { get; set; }
+        public string? CreatedByEmail { get; set; }
     }
 }

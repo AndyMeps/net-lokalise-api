@@ -22,7 +22,7 @@ namespace Lokalise.Api.Collections.Files.Requests
         public bool? DetectIcuPlurals { get; set; }
 
         [JsonPropertyName("tags")]
-        public ICollection<string> Tags { get; set; }
+        public ICollection<string>? Tags { get; set; }
 
         [JsonPropertyName("tag_inserted_keys")]
         public bool? TagInsertedKeys { get; set; }
@@ -58,7 +58,7 @@ namespace Lokalise.Api.Collections.Files.Requests
         public bool? CleanupMode { get; set; }
 
         [JsonPropertyName("custom_translation_status_ids")]
-        public ICollection<string> CustomTranslationStatusIds { get; set; } // TODO: Check this type
+        public ICollection<string>? CustomTranslationStatusIds { get; set; } // TODO: Check this type
 
         [JsonPropertyName("custom_translation_status_inserted_keys")]
         public bool? CustomTranslationStatusInsertedKeys { get; set; }

@@ -4,13 +4,13 @@ namespace Lokalise.Api.Collections.Files.Configurations
 {
     public class UploadFileConfiguration
     {
-        public string Branch { get; set; }
+        public string? Branch { get; set; }
 
         public bool? ConvertPlaceholders { get; set; }
 
         public bool? DetectIcuPlurals { get; set; }
 
-        public ICollection<string> Tags { get; set; }
+        public ICollection<string>? Tags { get; set; }
 
         public bool? TagInsertedKeys { get; set; }
         public bool? TagUpdatedKeys { get; set; }
@@ -23,7 +23,7 @@ namespace Lokalise.Api.Collections.Files.Configurations
         public bool? UseAutomations { get; set; }
         public bool? HiddenFromContributors { get; set; }
         public bool? CleanupMode { get; set; }
-        public ICollection<string> CustomTranslationStatusIds { get; set; } // TODO: Check this type
+        public ICollection<string>? CustomTranslationStatusIds { get; set; } // TODO: Check this type
         public bool? CustomTranslationStatusInsertedKeys { get; set; }
         public bool? CustomTranslationStatusUpdatedKeys { get; set; }
         public bool? CustomTranslationStatusSkippedKeys { get; set; }

@@ -6,6 +6,6 @@ namespace Lokalise.Api.Models
     internal class Contributors
     {
         [JsonPropertyName("contributors")]
-        public IEnumerable<Contributor> Data { get; set; }
+        public IEnumerable<Contributor>? Data { get; set; }
     }
 }

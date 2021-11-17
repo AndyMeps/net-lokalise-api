@@ -14,7 +14,7 @@ namespace Lokalise.Api.Collections.Branches
         /// <param name="projectId"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Task<BranchList> ListAsync(string projectId, Action<ListBranchesConfiguration> options = null);
+        Task<BranchList?> ListAsync(string projectId, Action<ListBranchesConfiguration>? options = null);
 
         /// <summary>
         /// <para>Retrieves a Branch object.</para>
@@ -23,7 +23,7 @@ namespace Lokalise.Api.Collections.Branches
         /// <param name="projectId"></param>
         /// <param name="branchId"></param>
         /// <returns></returns>
-        Task<Branch> RetrieveAsync(string projectId, long branchId);
+        Task<Branch?> RetrieveAsync(string projectId, long branchId);
 
         /// <summary>
         /// <para>Creates a branch in the project. Requires admin right.</para>
@@ -32,7 +32,7 @@ namespace Lokalise.Api.Collections.Branches
         /// <param name="projectId"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        Task<Branch> CreateAsync(string projectId, string name);
+        Task<Branch?> CreateAsync(string projectId, string name);
 
         /// <summary>
         /// <para>Updates a branch in the project. Requires admin right.</para>
@@ -42,7 +42,7 @@ namespace Lokalise.Api.Collections.Branches
         /// <param name="branchId"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Task<Branch> UpdateAsync(string projectId, long branchId, Action<UpdateBranchConfiguration> options = null);
+        Task<Branch?> UpdateAsync(string projectId, long branchId, Action<UpdateBranchConfiguration>? options = null);
 
         /// <summary>
         /// <para>Deletes a configured branch in the project. Requires admin right.</para>
@@ -51,7 +51,7 @@ namespace Lokalise.Api.Collections.Branches
         /// <param name="projectId"></param>
         /// <param name="branchId"></param>
         /// <returns></returns>
-        Task<DeletedBranch> DeleteAsync(string projectId, long branchId);
+        Task<DeletedBranch?> DeleteAsync(string projectId, long branchId);
 
         /// <summary>
         /// <para>Merges a branch in the project. Requires admin right.</para>
@@ -61,6 +61,6 @@ namespace Lokalise.Api.Collections.Branches
         /// <param name="branchId"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Task<MergedBranch> MergeAsync(string projectId, long branchId, Action<MergeBranchConfiguration> options = null);
+        Task<MergedBranch?> MergeAsync(string projectId, long branchId, Action<MergeBranchConfiguration>? options = null);
     }
 }

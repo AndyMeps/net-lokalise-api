@@ -21,9 +21,9 @@ namespace Lokalise.Api.Models
         public long QaIssuesTotal { get; set; }
 
         [JsonPropertyName("qa_issues")]
-        public ProjectQaIssues QaIssues { get; set; }
+        public ProjectQaIssues? QaIssues { get; set; }
 
         [JsonPropertyName("languages")]
-        public IEnumerable<LanguageStatistics> Languages { get; set; }
+        public IEnumerable<LanguageStatistics>? Languages { get; set; }
     }
 }

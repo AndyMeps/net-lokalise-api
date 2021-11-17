@@ -6,11 +6,11 @@ namespace Lokalise.Api.Collections.Branches.Requests
     internal class UpdateBranchRequest
     {
         [JsonPropertyName("name")]
-        public string Name { get; }
+        public string? Name { get; }
 
         internal UpdateBranchRequest(UpdateBranchConfiguration options)
         {
-            Name = options?.Name;
+            Name = options.Name;
         }
     }
 }

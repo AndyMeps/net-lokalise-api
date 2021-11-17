@@ -2,7 +2,7 @@
 {
     public class RetrieveKeyConfiguration
     {
-        public string Branch { get; set; }
+        public string? Branch { get; set; }
 
         public bool? DisableReferences { get; set; }
 

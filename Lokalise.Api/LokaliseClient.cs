@@ -17,13 +17,13 @@ namespace Lokalise.Api
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-        private IFilesCollection _files;
-        private IProjectsCollection _projects;
-        private IBranchesCollection _branches;
-        private ICommentsCollection _comments;
-        private IContributorsCollection _contributors;
+        private IFilesCollection? _files;
+        private IProjectsCollection? _projects;
+        private IBranchesCollection? _branches;
+        private ICommentsCollection? _comments;
+        private IContributorsCollection? _contributors;
 
-        public LokaliseClient(string apiToken, HttpClient httpClient = null)
+        public LokaliseClient(string apiToken, HttpClient? httpClient = null)
         {
             _httpClient = httpClient ?? new HttpClient();
 

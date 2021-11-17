@@ -6,12 +6,12 @@ namespace Lokalise.Api.Collections.Branches.Requests
     internal class MergeBranchRequest
     {
         [JsonPropertyName("force_conflic_resolve_using")]
-        public string ForceConflictResolveUsing { get; set; }
+        public string? ForceConflictResolveUsing { get; set; }
 
         [JsonPropertyName("target_branch_id")]
         public long? TargetBranchId { get; set; }
 
-        internal MergeBranchRequest(MergeBranchConfiguration options)
+        internal MergeBranchRequest(MergeBranchConfiguration? options)
         {
             ForceConflictResolveUsing = options?.ForceConflictResolveUsing;
             TargetBranchId = options?.TargetBranchId;

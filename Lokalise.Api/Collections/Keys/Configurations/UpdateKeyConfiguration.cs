@@ -8,27 +8,27 @@ namespace Lokalise.Api.Collections.Keys.Configurations
         /// <summary>
         /// Key identifier. For projects with enabled Per-platform key names, pass JSON encoded string with included ios, android, web and other string attributes.
         /// </summary>
-        public string KeyName { get; set; }
+        public string? KeyName { get; set; }
 
         /// <summary>
         /// Description of the key.
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// List of platforms, enabled for this key. Possible values are ios, android, web and other.
         /// </summary>
-        public IEnumerable<string> Platforms { get; set; }
+        public IEnumerable<string>? Platforms { get; set; }
 
         /// <summary>
         /// An object containing key filename attribute for each platform.
         /// </summary>
-        public FileNames Filenames { get; set; }
+        public FileNames? Filenames { get; set; }
 
         /// <summary>
         /// List of tags for this keys.
         /// </summary>
-        public IEnumerable<string> Tags { get; set; }
+        public IEnumerable<string>? Tags { get; set; }
 
         /// <summary>
         /// Enable to merge specified tags with the current tags attached to the key.
@@ -43,7 +43,7 @@ namespace Lokalise.Api.Collections.Keys.Configurations
         /// <summary>
         /// Optional custom plural name (used in some formats).
         /// </summary>
-        public string PluralName { get; set; }
+        public string? PluralName { get; set; }
 
         /// <summary>
         /// Whether this key is hidden from non-admins (translators).
@@ -58,7 +58,7 @@ namespace Lokalise.Api.Collections.Keys.Configurations
         /// <summary>
         /// Optional context of the key (used with some file formats).
         /// </summary>
-        public string Context { get; set; }
+        public string? Context { get; set; }
 
         /// <summary>
         /// Maximum allowed number of characters in translations for this key.
@@ -68,7 +68,7 @@ namespace Lokalise.Api.Collections.Keys.Configurations
         /// <summary>
         /// JSON encoded string containing custom attributes (if any).
         /// </summary>
-        public string CustomAttributes { get; set; }
+        public string? CustomAttributes { get; set; }
 
         internal UpdateKeyConfiguration()
         {

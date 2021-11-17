@@ -6,9 +6,9 @@ namespace Lokalise.Api.Models
     public class FileList : PagedList
     {
         [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string? ProjectId { get; set; }
 
         [JsonPropertyName("files")]
-        public IEnumerable<File> Files { get; set; }
+        public IEnumerable<File>? Files { get; set; }
     }
 }

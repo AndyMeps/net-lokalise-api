@@ -14,18 +14,18 @@ namespace Lokalise.Api.Collections.Projects.Requests
         public long? TeamId { get; }
 
         [JsonPropertyName("description")]
-        public string Description { get; }
+        public string? Description { get; }
 
         [JsonPropertyName("languages")]
-        public IEnumerable<ProjectLanguage> Languages { get; }
+        public IEnumerable<ProjectLanguage>? Languages { get; }
 
         [JsonPropertyName("base_lang_iso")]
-        public string BaseLangIso { get; }
+        public string? BaseLangIso { get; }
 
         [JsonPropertyName("project_type")]
-        public string ProjectType { get; }
+        public string? ProjectType { get; }
 
-        internal CreateProject(string name, CreateProjectConfiguration options)
+        internal CreateProject(string name, CreateProjectConfiguration? options)
         {
             Name = name;
             TeamId = options?.TeamId;

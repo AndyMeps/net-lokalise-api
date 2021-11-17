@@ -3,9 +3,9 @@
     public class ProjectLanguage
     {
         public string LangIso { get; }
-        public string CustomIso { get; }
+        public string? CustomIso { get; }
 
-        public ProjectLanguage(string langIso, string customIso = null)
+        public ProjectLanguage(string langIso, string? customIso = null)
         {
             LangIso = langIso;
             CustomIso = customIso;

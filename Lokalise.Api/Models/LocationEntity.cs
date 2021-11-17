@@ -8,6 +8,6 @@ namespace Lokalise.Api.Models
     public abstract class LocationEntity
     {
         [JsonIgnore]
-        public string Location { get; set; }
+        public string? Location { get; set; }
     }
 }

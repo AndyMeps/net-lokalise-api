@@ -34,10 +34,10 @@ namespace Lokalise.Api.Collections.Contributors
             return sb.ToString();
         }
 
-        public async Task<Contributor> CreateAsync(
+        public async Task<Contributor?> CreateAsync(
             string projectId,
             NewContributor newContributor,
-            Action<CreateContributorConfiguration> options = null)
+            Action<CreateContributorConfiguration>? options = null)
         {
             var result = await CreateAsync(projectId, new[] { newContributor }, options);
 
@@ -47,7 +47,7 @@ namespace Lokalise.Api.Collections.Contributors
         public async Task<IEnumerable<Contributor>> CreateAsync(
             string projectId,
             IEnumerable<NewContributor> newContributors,
-            Action<CreateContributorConfiguration> options = null)
+            Action<CreateContributorConfiguration>? options = null)
         {
             var cfg = new CreateContributorConfiguration();
             options?.Invoke(cfg);
@@ -59,7 +59,7 @@ namespace Lokalise.Api.Collections.Contributors
             return result?.Data ?? Enumerable.Empty<Contributor>();
         }
 
-        public async Task<DeletedContributor> DeleteAsync(string projectId, long contributorId)
+        public async Task<DeletedContributor?> DeleteAsync(string projectId, long contributorId)
         {
             var result = await DeleteAsync<DeletedContributor>(
                 ContributorsUri(projectId, contributorId));
@@ -67,9 +67,9 @@ namespace Lokalise.Api.Collections.Contributors
             return result;
         }
 
-        public async Task<ContributorsList> ListAsync(
+        public async Task<ContributorsList?> ListAsync(
             string projectId,
-            Action<ListContributorsConfiguration> options = null)
+            Action<ListContributorsConfiguration>? options = null)
         {
             var cfg = new ListContributorsConfiguration();
             options?.Invoke(cfg);
@@ -80,10 +80,10 @@ namespace Lokalise.Api.Collections.Contributors
             return result;
         }
 
-        public async Task<ProjectContributor> RetrieveAsync(
+        public async Task<ProjectContributor?> RetrieveAsync(
             string projectId,
             long contributorId,
-            Action<RetrieveContributorConfiguration> options = null)
+            Action<RetrieveContributorConfiguration>? options = null)
         {
             var cfg = new RetrieveContributorConfiguration();
             options?.Invoke(cfg);
@@ -94,10 +94,10 @@ namespace Lokalise.Api.Collections.Contributors
             return result;
         }
 
-        public async Task<ProjectContributor> UpdateAsync(
+        public async Task<ProjectContributor?> UpdateAsync(
             string projectId,
             long contributorId,
-            Action<UpdateContributorConfiguration> options = null)
+            Action<UpdateContributorConfiguration>? options = null)
         {
             var cfg = new UpdateContributorConfiguration();
             options?.Invoke(cfg);

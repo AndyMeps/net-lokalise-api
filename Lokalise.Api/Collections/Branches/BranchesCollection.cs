@@ -18,7 +18,7 @@ namespace Lokalise.Api.Collections.Branches
         }
 
         /// <inheritdoc/>
-        public async Task<Branch> CreateAsync(string projectId, string name)
+        public async Task<Branch?> CreateAsync(string projectId, string name)
         {
             var requestUri = BranchUri(projectId);
             var result = await PostAsync<CreateBranchRequest, Branch>(requestUri, new CreateBranchRequest(name));
@@ -27,7 +27,7 @@ namespace Lokalise.Api.Collections.Branches
         }
 
         /// <inheritdoc/>
-        public async Task<DeletedBranch> DeleteAsync(string projectId, long branchId)
+        public async Task<DeletedBranch?> DeleteAsync(string projectId, long branchId)
         {
             var requestUri = BranchUri(projectId, branchId);
             var result = await DeleteAsync<DeletedBranch>(requestUri);
@@ -36,7 +36,7 @@ namespace Lokalise.Api.Collections.Branches
         }
 
         /// <inheritdoc/>
-        public async Task<BranchList> ListAsync(string projectId, Action<ListBranchesConfiguration> options = null)
+        public async Task<BranchList?> ListAsync(string projectId, Action<ListBranchesConfiguration>? options = null)
         {
             var requestUri = BranchUri(projectId);
             var result = await GetListAsync<BranchList>(requestUri);
@@ -45,7 +45,7 @@ namespace Lokalise.Api.Collections.Branches
         }
 
         /// <inheritdoc/>
-        public async Task<MergedBranch> MergeAsync(string projectId, long branchId, Action<MergeBranchConfiguration> options = null)
+        public async Task<MergedBranch?> MergeAsync(string projectId, long branchId, Action<MergeBranchConfiguration>? options = null)
         {
             var cfg = new MergeBranchConfiguration();
             options?.Invoke(cfg);
@@ -56,7 +56,7 @@ namespace Lokalise.Api.Collections.Branches
         }
 
         /// <inheritdoc/>
-        public async Task<Branch> RetrieveAsync(string projectId, long branchId)
+        public async Task<Branch?> RetrieveAsync(string projectId, long branchId)
         {
             var requestUri = BranchUri(projectId, branchId);
             var result = await GetAsync<Branch>(requestUri);
@@ -65,7 +65,7 @@ namespace Lokalise.Api.Collections.Branches
         }
 
         /// <inheritdoc/>
-        public async Task<Branch> UpdateAsync(string projectId, long branchId, Action<UpdateBranchConfiguration> options = null)
+        public async Task<Branch?> UpdateAsync(string projectId, long branchId, Action<UpdateBranchConfiguration>? options = null)
         {
             var cfg = new UpdateBranchConfiguration();
             options?.Invoke(cfg);

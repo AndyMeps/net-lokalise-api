@@ -45,52 +45,52 @@ namespace Lokalise.Api.Collections.Files.Requests
         }
 
         [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string? ProjectId { get; set; }
 
         [JsonPropertyName("format")]
-        public string Format { get; set; }
+        public string? Format { get; set; }
 
         [JsonPropertyName("original_filenames")]
         public bool? OriginalFilenames { get; set; }
 
         [JsonPropertyName("bundle_structure")]
-        public string BundleStructure { get; set; }
+        public string? BundleStructure { get; set; }
 
         [JsonPropertyName("directory_prefix")]
-        public string DirectoryPrefix { get; set; }
+        public string? DirectoryPrefix { get; set; }
 
         [JsonPropertyName("all_platforms")]
         public bool? AllPlatforms { get; set; }
 
         [JsonPropertyName("filter_langs")]
-        public IEnumerable<string> FilterLanguages { get; set; }
+        public IEnumerable<string>? FilterLanguages { get; set; }
 
         [JsonPropertyName("filter_data")]
-        public IEnumerable<string> FilterData { get; set; }
+        public IEnumerable<string>? FilterData { get; set; }
 
         [JsonPropertyName("filter_filenames")]
-        public IEnumerable<string> FilterFilenames { get; set; }
+        public IEnumerable<string>? FilterFilenames { get; set; }
 
         [JsonPropertyName("add_newline_eof")]
         public bool? AddNewlineEof { get; set; }
 
         [JsonPropertyName("custom_translation_status_ids")]
-        public IEnumerable<string> CustomTranslationStatusIds { get; set; }
+        public IEnumerable<string>? CustomTranslationStatusIds { get; set; }
 
         [JsonPropertyName("include_tags")]
-        public IEnumerable<string> IncludeTags { get; set; }
+        public IEnumerable<string>? IncludeTags { get; set; }
 
         [JsonPropertyName("exclude_tags")]
-        public IEnumerable<string> ExcludeTags { get; set; }
+        public IEnumerable<string>? ExcludeTags { get; set; }
 
         [JsonPropertyName("export_sort")]
-        public string ExportSort { get; set; }
+        public string? ExportSort { get; set; }
 
         [JsonPropertyName("export_empty_as")]
-        public string ExportEmptyAs { get; set; }
+        public string? ExportEmptyAs { get; set; }
 
         [JsonPropertyName("export_null_as")]
-        public string ExportNullAs { get; set; }
+        public string? ExportNullAs { get; set; }
 
         [JsonPropertyName("include_comments")]
         public bool? IncludeComments { get; set; }
@@ -99,13 +99,13 @@ namespace Lokalise.Api.Collections.Files.Requests
         public bool? IncludeDescription { get; set; }
 
         [JsonPropertyName("include_project_ids")]
-        public IEnumerable<string> IncludeProjectIds { get; set; }
+        public IEnumerable<string>? IncludeProjectIds { get; set; }
 
         [JsonPropertyName("triggers")]
-        public IEnumerable<string> Triggers { get; set; }
+        public IEnumerable<string>? Triggers { get; set; }
 
         [JsonPropertyName("filter_repositories")]
-        public IEnumerable<string> FilterRepositories { get; set; }
+        public IEnumerable<string>? FilterRepositories { get; set; }
 
         [JsonPropertyName("replace_breaks")]
         public bool? ReplaceBreaks { get; set; }
@@ -114,16 +114,16 @@ namespace Lokalise.Api.Collections.Files.Requests
         public bool? DisableReferences { get; set; }
 
         [JsonPropertyName("plural_formats")]
-        public string PluralFormat { get; set; }
+        public string? PluralFormat { get; set; }
 
         [JsonPropertyName("placeholder_format")]
-        public string PlaceholderFormat { get; set; }
+        public string? PlaceholderFormat { get; set; }
 
         [JsonPropertyName("webhook_url")]
-        public string WebhookUrl { get; set; }
+        public string? WebhookUrl { get; set; }
 
         [JsonPropertyName("language_mapping")]
-        public LanguageMappingDto LanguageMapping { get; set; }
+        public LanguageMappingDto? LanguageMapping { get; set; }
 
         [JsonPropertyName("icu_numeric")]
         public bool? IcuNumeric { get; set; }
@@ -132,7 +132,7 @@ namespace Lokalise.Api.Collections.Files.Requests
         public bool? EscapePercent { get; set; }
 
         [JsonPropertyName("indentation")]
-        public string Indentation { get; set; }
+        public string? Indentation { get; set; }
 
         [JsonPropertyName("yaml_include_root")]
         public bool? YamlIncludeRoot { get; set; }
@@ -141,12 +141,12 @@ namespace Lokalise.Api.Collections.Files.Requests
         public bool? JsonUnescapedSlashes { get; set; }
 
         [JsonPropertyName("java_properties_encoding")]
-        public string JavaPropertiesEncoding { get; set; }
+        public string? JavaPropertiesEncoding { get; set; }
 
         [JsonPropertyName("java_properties_separator")]
-        public string JavaPropertiesSeparator { get; set; }
+        public string? JavaPropertiesSeparator { get; set; }
 
         [JsonPropertyName("bundle_description")]
-        public string BundleDescription { get; set; }
+        public string? BundleDescription { get; set; }
     }
 }

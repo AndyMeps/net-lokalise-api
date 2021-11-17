@@ -19,7 +19,7 @@ namespace Lokalise.Api.Collections.Projects
         }
 
         /// <inheritdoc/>
-        public async Task<Project> CreateAsync(string name, Action<CreateProjectConfiguration> options = null)
+        public async Task<Project?> CreateAsync(string name, Action<CreateProjectConfiguration>? options = null)
         {
             var cfg = new CreateProjectConfiguration();
             options?.Invoke(cfg);
@@ -29,7 +29,7 @@ namespace Lokalise.Api.Collections.Projects
         }
 
         /// <inheritdoc/>
-        public async Task<DeletedProject> DeleteAsync(string projectId)
+        public async Task<DeletedProject?> DeleteAsync(string projectId)
         {
             var result = await DeleteAsync<DeletedProject>(ProjectsUri(projectId));
 
@@ -37,7 +37,7 @@ namespace Lokalise.Api.Collections.Projects
         }
 
         /// <inheritdoc/>
-        public async Task<ProjectList> ListAsync(Action<ListProjectsConfiguration> options = null)
+        public async Task<ProjectList?> ListAsync(Action<ListProjectsConfiguration>? options = null)
         {
             var cfg = new ListProjectsConfiguration();
             options?.Invoke(cfg);
@@ -48,7 +48,7 @@ namespace Lokalise.Api.Collections.Projects
         }
 
         /// <inheritdoc/>
-        public async Task<Project> RetrieveAsync(string projectId)
+        public async Task<Project?> RetrieveAsync(string projectId)
         {
             var result = await GetAsync<Project>(ProjectsUri(projectId));
 
@@ -56,7 +56,7 @@ namespace Lokalise.Api.Collections.Projects
         }
 
         /// <inheritdoc/>
-        public async Task<EmptiedProject> EmptyAsync(string projectId, string branch = null)
+        public async Task<EmptiedProject?> EmptyAsync(string projectId, string? branch = null)
         {
             var result = await PutAsync<EmptiedProject>($"{ProjectsUri(projectId, branch)}/empty");
 
@@ -64,7 +64,7 @@ namespace Lokalise.Api.Collections.Projects
         }
 
         /// <inheritdoc/>
-        public async Task<Project> UpdateAsync(string projectId, string name, Action<UpdateProjectConfiguration> options = null)
+        public async Task<Project?> UpdateAsync(string projectId, string name, Action<UpdateProjectConfiguration>? options = null)
         {
             var cfg = new UpdateProjectConfiguration();
             options?.Invoke(cfg);
@@ -74,6 +74,6 @@ namespace Lokalise.Api.Collections.Projects
             return result;
         }
 
-        private string ProjectsUri(string projectId = null, string branchName = null) => $"projects{(projectId != null ? $"/{projectId.IncludeBranchName(branchName)}" : string.Empty)}";
+        private string ProjectsUri(string? projectId = null, string? branchName = null) => $"projects{(projectId != null ? $"/{projectId.IncludeBranchName(branchName)}" : string.Empty)}";
     }
 }

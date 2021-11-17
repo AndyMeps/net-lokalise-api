@@ -20,12 +20,12 @@ namespace Lokalise.Api.Collections.Comments
         {
         }
 
-        public Task<CommentList> CreateAsync(string projectId, long keyId, string comment)
+        public Task<CommentList?> CreateAsync(string projectId, long keyId, string comment)
         {
             return CreateAsync(projectId, keyId, new[] { comment });
         }
 
-        public async Task<CommentList> CreateAsync(string projectId, long keyId, IEnumerable<string> comments)
+        public async Task<CommentList?> CreateAsync(string projectId, long keyId, IEnumerable<string> comments)
         {
             var result = await PostAsync<CreateCommentRequest, CommentList>(
                 CommentUri(projectId, keyId),
@@ -34,14 +34,14 @@ namespace Lokalise.Api.Collections.Comments
             return result;
         }
 
-        public async Task<DeletedComment> DeleteAsync(string projectId, long keyId, long commentId)
+        public async Task<DeletedComment?> DeleteAsync(string projectId, long keyId, long commentId)
         {
             var result = await DeleteAsync<DeletedComment>(CommentUri(projectId, keyId, commentId));
 
             return result;
         }
 
-        public async Task<CommentList> ListAsync(string projectId, Action<ListCommentsConfiguration> options = null)
+        public async Task<CommentList?> ListAsync(string projectId, Action<ListCommentsConfiguration>? options = null)
         {
             var cfg = new ListCommentsConfiguration();
             options?.Invoke(cfg);
@@ -52,7 +52,7 @@ namespace Lokalise.Api.Collections.Comments
             return result;
         }
 
-        public async Task<CommentList> ListAsync(string projectId, long keyId, Action<ListCommentsConfiguration> options = null)
+        public async Task<CommentList?> ListAsync(string projectId, long keyId, Action<ListCommentsConfiguration>? options = null)
         {
             var cfg = new ListCommentsConfiguration();
             options?.Invoke(cfg);
@@ -63,7 +63,7 @@ namespace Lokalise.Api.Collections.Comments
             return result;
         }
 
-        public async Task<ProjectComment> RetrieveAsync(string projectId, long keyId, long commentId)
+        public async Task<ProjectComment?> RetrieveAsync(string projectId, long keyId, long commentId)
         {
             var result = await GetAsync<ProjectComment>(CommentUri(projectId, keyId, commentId));
 

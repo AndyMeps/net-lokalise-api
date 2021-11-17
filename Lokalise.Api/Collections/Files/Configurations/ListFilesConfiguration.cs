@@ -6,9 +6,9 @@ namespace Lokalise.Api.Collections.Files.Configurations
 {
     public class ListFilesConfiguration : PagedConfiguration
     {
-        public string FilterFilename { get; set; }
+        public string? FilterFilename { get; set; }
 
-        public string Branch { get; set; }
+        public string? Branch { get; set; }
 
         internal ListFilesConfiguration()
         {

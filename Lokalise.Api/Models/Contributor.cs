@@ -9,13 +9,13 @@ namespace Lokalise.Api.Models
         public long UserId { get; set; }
 
         [JsonPropertyName("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [JsonPropertyName("fullname")]
-        public string Fullname { get; set; }
+        public string? Fullname { get; set; }
 
         [JsonPropertyName("created_at")]
-        public string CreatedAt { get; set; }
+        public string? CreatedAt { get; set; }
 
         [JsonPropertyName("created_at_timestamp")]
         public long CreatedAtTimestamp { get; set; }
@@ -27,9 +27,9 @@ namespace Lokalise.Api.Models
         public bool IsReviewer { get; set; }
 
         [JsonPropertyName("languages")]
-        public IEnumerable<UserLanguage> Languages { get; set; }
+        public IEnumerable<UserLanguage>? Languages { get; set; }
 
         [JsonPropertyName("admin_rights")]
-        public IEnumerable<string> AdminRights { get; set; }
+        public IEnumerable<string>? AdminRights { get; set; }
     }
 }

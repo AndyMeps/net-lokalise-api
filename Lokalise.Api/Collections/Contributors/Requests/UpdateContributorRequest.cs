@@ -14,10 +14,10 @@ namespace Lokalise.Api.Collections.Contributors.Requests
         public bool? IsReviewer { get; set; }
 
         [JsonPropertyName("languages")]
-        public IEnumerable<ContributorLanguageRequest> Languages { get; set; }
+        public IEnumerable<ContributorLanguageRequest>? Languages { get; set; }
 
         [JsonPropertyName("admin_rights")]
-        public IEnumerable<string> AdminRights { get; set; }
+        public IEnumerable<string>? AdminRights { get; set; }
 
         internal UpdateContributorRequest(UpdateContributorConfiguration configuration)
         {

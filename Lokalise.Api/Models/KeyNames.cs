@@ -7,16 +7,16 @@ namespace Lokalise.Api.Models
         [JsonPropertyName("ios")]
 #pragma warning disable IDE1006 // Naming Styles
         // ReSharper disable once InconsistentNaming
-        public string iOS { get; set; }
+        public string? iOS { get; set; }
 #pragma warning restore IDE1006 // Naming Styles
 
         [JsonPropertyName("android")]
-        public string Android { get; set; }
+        public string? Android { get; set; }
 
         [JsonPropertyName("web")]
-        public string Web { get; set; }
+        public string? Web { get; set; }
 
         [JsonPropertyName("other")]
-        public string Other { get; set; }
+        public string? Other { get; set; }
     }
 }

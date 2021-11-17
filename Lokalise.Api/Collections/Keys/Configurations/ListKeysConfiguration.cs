@@ -8,7 +8,7 @@ namespace Lokalise.Api.Collections.Keys.Configurations
 
     public class ListKeysConfiguration : PagedConfiguration
     {
-        public string Branch { get; set; }
+        public string? Branch { get; set; }
 
         /// <summary>
         /// Whether to disable key references.
@@ -68,12 +68,12 @@ namespace Lokalise.Api.Collections.Keys.Configurations
         /// <summary>
         /// One or more QA issues to filter by. Possible values are spelling_and_grammar, placeholders, html, url_count, url, email_count, email, brackets, numbers, leading_whitespace, trailing_whitespace, double_space, special_placeholder and unbalanced_brackets.
         /// </summary>
-        public List<string> FilterQaIssues { get; set; }
+        public List<string>? FilterQaIssues { get; set; }
 
         /// <summary>
         /// One archived filter. Possible values are include, exclude and only.
         /// </summary>
-        public string FilterArchived { get; set; }
+        public string? FilterArchived { get; set; }
 
         internal ListKeysConfiguration()
         {

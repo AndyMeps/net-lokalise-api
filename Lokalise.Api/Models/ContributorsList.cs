@@ -6,9 +6,9 @@ namespace Lokalise.Api.Models
     public class ContributorsList : PagedList
     {
         [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string? ProjectId { get; set; }
 
         [JsonPropertyName("contributors")]
-        public IEnumerable<Contributor> Contributors { get; set; }
+        public IEnumerable<Contributor>? Contributors { get; set; }
     }
 }

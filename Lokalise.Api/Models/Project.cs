@@ -5,16 +5,16 @@ namespace Lokalise.Api.Models
     public class Project
     {
         [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string? ProjectId { get; set; }
 
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonPropertyName("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [JsonPropertyName("created_at")]
-        public string CreatedAt { get; set; }
+        public string? CreatedAt { get; set; }
 
         [JsonPropertyName("created_at_timestamp")]
         public long CreatedAtTimestamp { get; set; }
@@ -23,7 +23,7 @@ namespace Lokalise.Api.Models
         public long CreatedBy { get; set; }
 
         [JsonPropertyName("created_by_email")]
-        public string CreatedByEmail { get; set; }
+        public string? CreatedByEmail { get; set; }
 
         [JsonPropertyName("team_id")]
         public long TeamId { get; set; }
@@ -32,12 +32,12 @@ namespace Lokalise.Api.Models
         public long BaseLanguageId { get; set; }
 
         [JsonPropertyName("base_language_iso")]
-        public string BaseLanguageIso { get; set; }
+        public string? BaseLanguageIso { get; set; }
 
         [JsonPropertyName("settings")]
-        public ProjectSettings Settings { get; set; }
+        public ProjectSettings? Settings { get; set; }
 
         [JsonPropertyName("statistics")]
-        public ProjectStatistics Statistics { get; set; }
+        public ProjectStatistics? Statistics { get; set; }
     }
 }

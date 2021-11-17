@@ -12,12 +12,12 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// Description of the screenshot.
         /// </summary>
-        public string Description { get; }
+        public string? Description { get; }
 
         /// <summary>
         /// List of screenshot tags.
         /// </summary>
-        public IEnumerable<string> Tags { get; }
+        public IEnumerable<string>? Tags { get; }
 
         /// <summary>
         /// Base64 encoded screenshot (with leading image type 'data:image/jpeg;base64,').
@@ -31,7 +31,7 @@ namespace Lokalise.Api.Models
         /// <param name="data">Base64 encoded screenshot (with leading image type 'data:image/jpeg;base64,').</param>
         /// <param name="description">Description of the screenshot.</param>
         /// <param name="tags">List of screenshot tags.</param>
-        public NewScreenshot(string title, string data, string description = null, IEnumerable<string> tags = null)
+        public NewScreenshot(string title, string data, string? description = null, IEnumerable<string>? tags = null)
         {
             Title = title;
             Description = description;

@@ -18,26 +18,26 @@ namespace Lokalise.Api.Collections.Keys
         {
         }
 
-        public Task<KeyList> CreateAsync(
+        public Task<KeyList?> CreateAsync(
             string projectId,
             NewKey key,
-            Action<CreateKeysConfiguration> options = null)
+            Action<CreateKeysConfiguration>? options = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<KeyList> CreateAsync(
+        public Task<KeyList?> CreateAsync(
             string projectId,
             IEnumerable<NewKey> keys,
-            Action<CreateKeysConfiguration> options = null)
+            Action<CreateKeysConfiguration>? options = null)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<DeletedKey> DeleteAsync(
+        public async Task<DeletedKey?> DeleteAsync(
             string projectId,
             long keyId,
-            Action<DeleteKeyConfiguration> options = null)
+            Action<DeleteKeyConfiguration>? options = null)
         {
             var cfg = new DeleteKeyConfiguration();
             options?.Invoke(cfg);
@@ -47,7 +47,7 @@ namespace Lokalise.Api.Collections.Keys
             return result;
         }
 
-        public async Task<KeyList> ListAsync(string projectId, Action<ListKeysConfiguration> options = null)
+        public async Task<KeyList?> ListAsync(string projectId, Action<ListKeysConfiguration>? options = null)
         {
             var cfg = new ListKeysConfiguration();
             options?.Invoke(cfg);
@@ -57,7 +57,7 @@ namespace Lokalise.Api.Collections.Keys
             return result;
         }
 
-        public async Task<ProjectKey> RetrieveAsync(string projectId, long keyId, Action<RetrieveKeyConfiguration> options = null)
+        public async Task<ProjectKey?> RetrieveAsync(string projectId, long keyId, Action<RetrieveKeyConfiguration>? options = null)
         {
             var cfg = new RetrieveKeyConfiguration();
             options?.Invoke(cfg);
@@ -67,7 +67,7 @@ namespace Lokalise.Api.Collections.Keys
             return result;
         }
 
-        public Task<ProjectKey> UpdateAsync(string projectId, long keyId, Action<UpdateKeyConfiguration> options = null)
+        public Task<ProjectKey?> UpdateAsync(string projectId, long keyId, Action<UpdateKeyConfiguration>? options = null)
         {
             throw new NotImplementedException();
         }

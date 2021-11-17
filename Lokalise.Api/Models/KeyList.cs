@@ -6,9 +6,9 @@ namespace Lokalise.Api.Models
     public class KeyList : PagedList
     {
         [JsonPropertyName("project_id")]
-        public string ProjectId { get; set; }
+        public string? ProjectId { get; set; }
 
         [JsonPropertyName("keys")]
-        public IEnumerable<Key> Keys { get; set; }
+        public IEnumerable<Key>? Keys { get; set; }
     }
 }

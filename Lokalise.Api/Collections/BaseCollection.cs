@@ -20,7 +20,7 @@ namespace Lokalise.Api.Collections
             JsonSerializerOptions = jsonSerializerOptions;
         }
 
-        protected async Task<TResult> GetAsync<TResult>(string requestUri)
+        protected async Task<TResult?> GetAsync<TResult>(string requestUri)
         {
             var result = await HttpClient.GetAsync(requestUri);
 
@@ -28,10 +28,10 @@ namespace Lokalise.Api.Collections
 
             var json = await result.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<TResult>(json);
+            return JsonSerializer.Deserialize<TResult?>(json);
         }
 
-        protected async Task<TResult> PostAsync<TRequest, TResult>(string requestUri, TRequest request)
+        protected async Task<TResult?> PostAsync<TRequest, TResult>(string requestUri, TRequest request)
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
             {
@@ -43,7 +43,7 @@ namespace Lokalise.Api.Collections
 
             var json = await result.Content.ReadAsStringAsync();
 
-            var model = JsonSerializer.Deserialize<TResult>(json);
+            var model = JsonSerializer.Deserialize<TResult?>(json);
 
             if (model is LocationEntity locationEntityResponse)
             {
@@ -55,12 +55,12 @@ namespace Lokalise.Api.Collections
             return model;
         }
 
-        protected Task<TResult> PutAsync<TResult>(string requestUri)
+        protected Task<TResult?> PutAsync<TResult>(string requestUri)
         {
             return PutAsync<object, TResult>(requestUri);
         }
 
-        protected async Task<TResult> PutAsync<TRequest, TResult>(string requestUri, TRequest request = null) where TRequest : class
+        protected async Task<TResult?> PutAsync<TRequest, TResult>(string requestUri, TRequest? request = null) where TRequest : class
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
 
@@ -76,10 +76,10 @@ namespace Lokalise.Api.Collections
 
             var responseJson = await result.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<TResult>(responseJson);
+            return JsonSerializer.Deserialize<TResult?>(responseJson);
         }
 
-        protected async Task<TResult> GetListAsync<TResult>(string requestUri) where TResult : PagedList
+        protected async Task<TResult?> GetListAsync<TResult>(string requestUri) where TResult : PagedList
         {
             var result = await HttpClient.GetAsync(requestUri);
 
@@ -111,7 +111,7 @@ namespace Lokalise.Api.Collections
                 : fallbackValue;
         }
 
-        protected async Task<TResult> DeleteAsync<TResult>(string requestUri)
+        protected async Task<TResult?> DeleteAsync<TResult>(string requestUri)
         {
             var result = await HttpClient.DeleteAsync(requestUri);
 
@@ -119,7 +119,7 @@ namespace Lokalise.Api.Collections
 
             var json = await result.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<TResult>(json);
+            return JsonSerializer.Deserialize<TResult?>(json);
         }
     }
 }

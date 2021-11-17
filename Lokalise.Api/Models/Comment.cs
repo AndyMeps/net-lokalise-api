@@ -11,16 +11,16 @@ namespace Lokalise.Api.Models
         public long KeyId { get; set; }
 
         [JsonPropertyName("comment")]
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
         [JsonPropertyName("added_by")]
         public long AddedBy { get; set; }
 
         [JsonPropertyName("added_by_email")]
-        public string AddedByEmail { get; set; }
+        public string? AddedByEmail { get; set; }
 
         [JsonPropertyName("added_at")]
-        public string AddedAt { get; set; }
+        public string? AddedAt { get; set; }
 
         [JsonPropertyName("added_at_timestamp")]
         public long AddedAtTimestamp { get; set; }

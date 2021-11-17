@@ -8,7 +8,7 @@ namespace Lokalise.Api.Models
         public long LanguageId { get; set; }
 
         [JsonPropertyName("language_iso")]
-        public string LanguageIso { get; set; }
+        public string? LanguageIso { get; set; }
 
         [JsonPropertyName("progress")]
         public long Progress { get; set; }

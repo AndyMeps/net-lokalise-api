@@ -7,7 +7,7 @@ namespace Lokalise.Api.Collections.Projects.Configurations
     public class ListProjectsConfiguration : PagedConfiguration
     {
         public long? FilterTeamId { get; set; }
-        public string FilterNames { get; set; }
+        public string? FilterNames { get; set; }
         public bool? IncludeStatistics { get; set; }
         public bool? IncludeSettings { get; set; }
 

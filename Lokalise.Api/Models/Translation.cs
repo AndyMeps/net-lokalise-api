@@ -18,12 +18,12 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// Unique code of the language of the translation.
         /// </summary>
-        public string LanguageIso { get; }
+        public string? LanguageIso { get; }
 
         /// <summary>
         /// The actual translation. Pass as an object, in case it includes plural forms and is_plural is true.
         /// </summary>
-        public string Value { get; }
+        public string? Value { get; }
 
         /// <summary>
         /// Identifier of a user, who has updated the translation.
@@ -33,7 +33,7 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// E-mail of a user, who has updated the translation.
         /// </summary>
-        public string ModifiedByEmail { get; }
+        public string? ModifiedByEmail { get; }
 
         /// <summary>
         /// Date of last modification of the translation.
@@ -63,7 +63,7 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// Array consisting of Custom Translation Status objects.
         /// </summary>
-        public IEnumerable<CustomTranslationStatus> CustomTranslationStatuses { get; }
+        public IEnumerable<CustomTranslationStatus>? CustomTranslationStatuses { get; }
 
         /// <summary>
         /// Identifier of the task, if the key is a part of one, or null if it's not.

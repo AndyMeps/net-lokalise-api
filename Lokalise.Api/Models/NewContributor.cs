@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
@@ -7,47 +8,62 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// E-mail associated with this user.
         /// </summary>
+        [JsonPropertyName("email")]
         public string Email { get; }
+
 
         /// <summary>
         /// Full name as set by the user.
         /// </summary>
+
+        [JsonPropertyName("fullname")]
         public string Fullname { get; }
+
+
 
         /// <summary>
         /// Whether the user has Admin access to the project.
         /// </summary>
+        [JsonPropertyName("is_admin")]
         public bool? IsAdmin { get; }
+
+
 
         /// <summary>
         /// Wheter the user has Reviewer access to the project.
         /// </summary>
+        [JsonPropertyName("is_reviewer")]
         public bool? IsReviewer { get; }
+
+
 
         /// <summary>
         /// List of languages, accessible to the user.
         /// </summary>
-        public IEnumerable<ContributorLanguage> Languages { get; }
+        [JsonPropertyName("languages")]
+        public IEnumerable<ContributorLanguage>? Languages { get; }
+
+
 
         /// <summary>
         /// List of user permissions.
         /// </summary>
-        public IEnumerable<string> AdminRights { get; }
+        [JsonPropertyName("admin_rights")]
+        public IEnumerable<string>? AdminRights { get; }
 
         public NewContributor(
             string email,
-            IEnumerable<ContributorLanguage> languages,
-            string fullname = null,
-            bool? isAdmin = null,
-            bool? isReviewer = null,
-            IEnumerable<string> adminRights = null)
+            string fullName,
+            bool? isAdmin,
+            bool? isReviewer,
+            IEnumerable<ContributorLanguage>? languages = null,
+            IEnumerable<string>? adminRights = null)
         {
             Email = email;
-            Languages = languages;
-
-            Fullname = fullname;
+            Fullname = fullName;
             IsAdmin = isAdmin;
             IsReviewer = isReviewer;
+            Languages = languages;
             AdminRights = adminRights;
         }
     }

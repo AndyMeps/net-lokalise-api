@@ -1,4 +1,6 @@
-﻿namespace Lokalise.Api.Models
+﻿using System;
+
+namespace Lokalise.Api.Models
 {
     public class ContributorLanguage
     {
@@ -15,7 +17,7 @@
         /// <summary>
         /// Language name.
         /// </summary>
-        public string LanguageName { get; }
+        public string? LanguageName { get; }
 
         /// <summary>
         /// Whether the user has write access to the language.
@@ -30,6 +32,9 @@
 
         internal ContributorLanguage(UserLanguage response)
         {
+            if (response.LanguageIso == null)
+                throw new ArgumentException("UserLanguage.LanguageIso is required.", nameof(response));
+
             LanguageId = response.LanguageId;
             LanguageIso = response.LanguageIso;
             LanguageName = response.LanguageName;
