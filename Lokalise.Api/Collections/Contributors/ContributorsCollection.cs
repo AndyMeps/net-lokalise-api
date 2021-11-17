@@ -1,6 +1,5 @@
 ﻿using Lokalise.Api.Collections.Contributors.Configurations;
 using Lokalise.Api.Collections.Contributors.Requests;
-using Lokalise.Api.Collections.Contributors.Responses;
 using Lokalise.Api.Extensions;
 using Lokalise.Api.Models;
 using System;
@@ -35,62 +34,80 @@ namespace Lokalise.Api.Collections.Contributors
             return sb.ToString();
         }
 
-        public async Task<Contributor> CreateAsync(string projectId, NewContributor newContributor, Action<CreateContributorConfiguration> options = null)
+        public async Task<Contributor> CreateAsync(
+            string projectId,
+            NewContributor newContributor,
+            Action<CreateContributorConfiguration> options = null)
         {
-            var result = await CreateAsync(projectId, new NewContributor[] { newContributor }, options);
+            var result = await CreateAsync(projectId, new[] { newContributor }, options);
 
             return result?.FirstOrDefault();
         }
 
-        public async Task<IEnumerable<Contributor>> CreateAsync(string projectId, IEnumerable<NewContributor> newContributors, Action<CreateContributorConfiguration> options = null)
+        public async Task<IEnumerable<Contributor>> CreateAsync(
+            string projectId,
+            IEnumerable<NewContributor> newContributors,
+            Action<CreateContributorConfiguration> options = null)
         {
             var cfg = new CreateContributorConfiguration();
             options?.Invoke(cfg);
 
-            var result = await PostAsync<CreateContributorsRequest, ContributorsResponse>(
-                requestUri: ContributorsUri(projectId.IncludeBranchName(cfg.Branch)),
-                request: new CreateContributorsRequest(newContributors));
+            var result = await PostAsync<CreateContributorsRequest, Models.Contributors>(
+                ContributorsUri(projectId.IncludeBranchName(cfg.Branch)),
+                new CreateContributorsRequest(newContributors));
 
-            return result?.Contributors?.Select(c => new Contributor(c));
+            return result?.Data ?? Enumerable.Empty<Contributor>();
         }
 
         public async Task<DeletedContributor> DeleteAsync(string projectId, long contributorId)
         {
-            var result = await DeleteAsync<DeletedContributorResponse>(ContributorsUri(projectId, contributorId));
+            var result = await DeleteAsync<DeletedContributor>(
+                ContributorsUri(projectId, contributorId));
 
-            return new DeletedContributor(result);
+            return result;
         }
 
-        public async Task<ContributorsList> ListAsync(string projectId, Action<ListContributorsConfiguration> options = null)
+        public async Task<ContributorsList> ListAsync(
+            string projectId,
+            Action<ListContributorsConfiguration> options = null)
         {
             var cfg = new ListContributorsConfiguration();
             options?.Invoke(cfg);
 
-            var requestUri = $"{ContributorsUri(projectId.IncludeBranchName(cfg.Branch))}{cfg.ToQueryString()}";
-            var result = await GetListAsync<ContributorsListResponse>(requestUri);
+            var result = await GetListAsync<ContributorsList>(
+                $"{ContributorsUri(projectId.IncludeBranchName(cfg.Branch))}{cfg.ToQueryString()}");
 
-            return new ContributorsList(result);
+            return result;
         }
 
-        public async Task<ProjectContributor> RetrieveAsync(string projectId, long contributorId, Action<RetrieveContributorConfiguration> options = null)
+        public async Task<ProjectContributor> RetrieveAsync(
+            string projectId,
+            long contributorId,
+            Action<RetrieveContributorConfiguration> options = null)
         {
             var cfg = new RetrieveContributorConfiguration();
             options?.Invoke(cfg);
 
-            var result = await GetAsync<ProjectContributorResponse>(ContributorsUri(projectId, contributorId));
+            var result = await GetAsync<ProjectContributor>(
+                ContributorsUri(projectId, contributorId));
 
-            return new ProjectContributor(result);
+            return result;
         }
 
-        public async Task<ProjectContributor> UpdateAsync(string projectId, long contributorId, Action<UpdateContributorConfiguration> options = null)
+        public async Task<ProjectContributor> UpdateAsync(
+            string projectId,
+            long contributorId,
+            Action<UpdateContributorConfiguration> options = null)
         {
             var cfg = new UpdateContributorConfiguration();
             options?.Invoke(cfg);
 
             var requestUri = ContributorsUri(projectId.IncludeBranchName(cfg.Branch), contributorId);
-            var result = await PutAsync<UpdateContributorRequest, ProjectContributorResponse>(requestUri, new UpdateContributorRequest(cfg));
+            var result = await PutAsync<UpdateContributorRequest, ProjectContributor>(
+                requestUri,
+                new UpdateContributorRequest(cfg));
 
-            return new ProjectContributor(result);
+            return result;
         }
     }
 }

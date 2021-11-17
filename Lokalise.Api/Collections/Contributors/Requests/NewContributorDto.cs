@@ -30,7 +30,7 @@ namespace Lokalise.Api.Collections.Contributors.Requests
             Fullname = contributor.Fullname;
             IsAdmin = contributor.IsAdmin;
             IsReviewer = contributor.IsReviewer;
-            Languages = contributor.Languages is object ? contributor.Languages.Select(l => new ContributorLanguageRequest(l)) : null;
+            Languages = contributor.Languages?.Select(l => new ContributorLanguageRequest(l));
             AdminRights = contributor.AdminRights;
         }
     }

@@ -1,63 +1,35 @@
-﻿using Lokalise.Api.Collections.Contributors.Responses;
-using Lokalise.Api.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
     public class Contributor
     {
-        /// <summary>
-        /// A unique identifier of the user.
-        /// </summary>
-        public long UserId { get; }
+        [JsonPropertyName("user_id")]
+        public long UserId { get; set; }
 
-        /// <summary>
-        /// E-mail associated with this user.
-        /// </summary>
-        public string Email { get; }
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
 
-        /// <summary>
-        /// Full name as set by the user.
-        /// </summary>
-        public string Fullname { get; }
+        [JsonPropertyName("fullname")]
+        public string Fullname { get; set; }
 
-        /// <summary>
-        /// Date/time at which the user was created.
-        /// </summary>
-        public DateTime CreatedAt { get; }
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; set; }
 
-        /// <summary>
-        /// Whether the user has Admin access to the project.
-        /// </summary>
-        public bool IsAdmin { get; }
+        [JsonPropertyName("created_at_timestamp")]
+        public long CreatedAtTimestamp { get; set; }
 
-        /// <summary>
-        /// Wheter the user has Reviewer access to the project.
-        /// </summary>
-        public bool IsReviewer { get; }
+        [JsonPropertyName("is_admin")]
+        public bool IsAdmin { get; set; }
 
-        /// <summary>
-        /// List of languages, accessible to the user.
-        /// </summary>
-        public IEnumerable<ContributorLanguage> Languages { get; }
+        [JsonPropertyName("is_reviewer")]
+        public bool IsReviewer { get; set; }
 
-        /// <summary>
-        /// List of user permissions.
-        /// </summary>
-        public IEnumerable<string> AdminRights { get; }
+        [JsonPropertyName("languages")]
+        public IEnumerable<UserLanguage> Languages { get; set; }
 
-        internal Contributor(ContributorResponse response)
-        {
-            UserId = response.UserId;
-            Email = response.Email;
-            Fullname = response.Fullname;
-            CreatedAt = response.CreatedAtTimestamp.ToUtcDateTime();
-            IsAdmin = response.IsAdmin;
-            IsReviewer = response.IsReviewer;
-            Languages = response?.Languages?.Select(l => new ContributorLanguage(l));
-            AdminRights = response.AdminRights;
-        }
+        [JsonPropertyName("admin_rights")]
+        public IEnumerable<string> AdminRights { get; set; }
     }
 }

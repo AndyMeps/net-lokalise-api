@@ -1,16 +1,13 @@
-﻿using Lokalise.Api.Collections.Comments.Responses;
+﻿using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
     public class DeletedComment
     {
-        public string ProjectId { get; }
-        public bool CommentDeleted { get; }
+        [JsonPropertyName("project_id")]
+        public string ProjectId { get; set; }
 
-        internal DeletedComment(DeletedCommentResponse response)
-        {
-            ProjectId = response.ProjectId;
-            CommentDeleted = response.CommentDeleted;
-        }
+        [JsonPropertyName("comment_deleted")]
+        public bool CommentDeleted { get; set; }
     }
 }

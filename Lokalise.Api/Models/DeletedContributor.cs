@@ -1,16 +1,13 @@
-﻿using Lokalise.Api.Collections.Contributors.Responses;
+﻿using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
     public class DeletedContributor
     {
-        public string ProjectId { get; }
-        public bool ContributorDeleted { get; }
+        [JsonPropertyName("project_id")]
+        public string ProjectId { get; set; }
 
-        internal DeletedContributor(DeletedContributorResponse response)
-        {
-            ProjectId = response.ProjectId;
-            ContributorDeleted = response.ContributorDeleted;
-        }
+        [JsonPropertyName("contributor_deleted")]
+        public bool ContributorDeleted { get; set; }
     }
 }

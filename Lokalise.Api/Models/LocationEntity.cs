@@ -1,12 +1,13 @@
-﻿namespace Lokalise.Api.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Lokalise.Api.Models
 {
+    /// <summary>
+    /// Base class used to include Location paths
+    /// </summary>
     public abstract class LocationEntity
     {
-        public string Location { get; internal set; }
-
-        public override string ToString()
-        {
-            return Location;
-        }
+        [JsonIgnore]
+        public string Location { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 {
     internal class CreateBranchRequest
     {
-        public string Name { get; private set; }
+        public string Name { get; }
 
         internal CreateBranchRequest(string name)
         {

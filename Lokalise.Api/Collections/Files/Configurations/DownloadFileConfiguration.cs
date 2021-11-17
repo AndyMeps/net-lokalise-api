@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Lokalise.Api.Models;
 
 namespace Lokalise.Api.Collections.Files.Configurations
 {

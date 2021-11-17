@@ -1,11 +1,10 @@
 ﻿using Lokalise.Api.Collections.Branches.Configurations;
 using Lokalise.Api.Collections.Branches.Requests;
-using Lokalise.Api.Collections.Branches.Responses;
-using Lokalise.Api.Models;
 using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Lokalise.Api.Models;
 
 namespace Lokalise.Api.Collections.Branches
 {
@@ -22,27 +21,27 @@ namespace Lokalise.Api.Collections.Branches
         public async Task<Branch> CreateAsync(string projectId, string name)
         {
             var requestUri = BranchUri(projectId);
-            var result = await PostAsync<CreateBranchRequest, BranchResponse>(requestUri, new CreateBranchRequest(name));
+            var result = await PostAsync<CreateBranchRequest, Branch>(requestUri, new CreateBranchRequest(name));
 
-            return new Branch(result);
+            return result;
         }
 
         /// <inheritdoc/>
         public async Task<DeletedBranch> DeleteAsync(string projectId, long branchId)
         {
             var requestUri = BranchUri(projectId, branchId);
-            var result = await DeleteAsync<DeletedBranchResponse>(requestUri);
+            var result = await DeleteAsync<DeletedBranch>(requestUri);
 
-            return new DeletedBranch(result);
+            return result;
         }
 
         /// <inheritdoc/>
         public async Task<BranchList> ListAsync(string projectId, Action<ListBranchesConfiguration> options = null)
         {
             var requestUri = BranchUri(projectId);
-            var result = await GetListAsync<BranchListResponse>(requestUri);
+            var result = await GetListAsync<BranchList>(requestUri);
 
-            return new BranchList(result);
+            return result;
         }
 
         /// <inheritdoc/>
@@ -52,17 +51,17 @@ namespace Lokalise.Api.Collections.Branches
             options?.Invoke(cfg);
 
             var requestUri = BranchUri(projectId, branchId);
-            var result = await PostAsync<MergeBranchRequest, MergedBranchResponse>($"{requestUri}/merge", new MergeBranchRequest(cfg));
-            return new MergedBranch(result);
+            var result = await PostAsync<MergeBranchRequest, MergedBranch>($"{requestUri}/merge", new MergeBranchRequest(cfg));
+            return result;
         }
 
         /// <inheritdoc/>
         public async Task<Branch> RetrieveAsync(string projectId, long branchId)
         {
             var requestUri = BranchUri(projectId, branchId);
-            var result = await GetAsync<BranchResponse>(requestUri);
+            var result = await GetAsync<Branch>(requestUri);
 
-            return new Branch(result);
+            return result;
         }
 
         /// <inheritdoc/>
@@ -72,8 +71,8 @@ namespace Lokalise.Api.Collections.Branches
             options?.Invoke(cfg);
 
             var requestUri = BranchUri(projectId, branchId);
-            var result = await PostAsync<UpdateBranchRequest, BranchResponse>(requestUri, new UpdateBranchRequest(cfg));
-            return new Branch(result);
+            var result = await PostAsync<UpdateBranchRequest, Branch>(requestUri, new UpdateBranchRequest(cfg));
+            return result;
         }
 
         private string BranchUri(string projectId, long? branchId = null) => $"projects/{projectId}/branches{(branchId.HasValue ? $"/{branchId}" : string.Empty)}";

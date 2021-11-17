@@ -1,8 +1,8 @@
 ﻿using Lokalise.Api.Collections.Files.Configurations;
-using Lokalise.Api.Models;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Lokalise.Api.Models;
 
 namespace Lokalise.Api.Collections.Files
 {

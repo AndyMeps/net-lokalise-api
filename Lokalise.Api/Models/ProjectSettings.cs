@@ -1,41 +1,37 @@
-﻿using Lokalise.Api.Collections.Projects.Responses;
+﻿using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
     public class ProjectSettings
     {
-        public bool PerPlatformKeyNames { get; }
+        [JsonPropertyName("per_platform_key_names")]
+        public bool PerPlatformKeyNames { get; set; }
 
-        public bool Reviewing { get; }
+        [JsonPropertyName("reviewing")]
+        public bool Reviewing { get; set; }
 
-        public bool Upvoting { get; }
+        [JsonPropertyName("upvoting")]
+        public bool Upvoting { get; set; }
 
-        public bool AutoToggleUnverified { get; }
+        [JsonPropertyName("auto_toggle_unverified")]
+        public bool AutoToggleUnverified { get; set; }
 
-        public bool OfflineTranslation { get; }
+        [JsonPropertyName("offline_translation")]
+        public bool OfflineTranslation { get; set; }
 
-        public bool KeyEditing { get; }
+        [JsonPropertyName("key_editing")]
+        public bool KeyEditing { get; set; }
 
-        public bool InlineMachineTranslations { get; }
+        [JsonPropertyName("inline_machine_translations")]
+        public bool InlineMachineTranslations { get; set; }
 
-        public bool Branching { get; }
+        [JsonPropertyName("branching")]
+        public bool Branching { get; set; }
 
-        public bool CustomTranslationStatuses { get; }
+        [JsonPropertyName("custom_translation_statuses")]
+        public bool CustomTranslationStatuses { get; set; }
 
-        public bool CustomTranslationStatusesAllowMultiple { get; }
-
-        internal ProjectSettings(ProjectSettingsResponse response)
-        {
-            PerPlatformKeyNames = response.PerPlatformKeyNames;
-            Reviewing = response.Reviewing;
-            Upvoting = response.Upvoting;
-            AutoToggleUnverified = response.AutoToggleUnverified;
-            OfflineTranslation = response.OfflineTranslation;
-            KeyEditing = response.KeyEditing;
-            InlineMachineTranslations = response.InlineMachineTranslations;
-            Branching = response.Branching;
-            CustomTranslationStatuses = response.CustomTranslationStatuses;
-            CustomTranslationStatusesAllowMultiple = response.CustomTranslationStatusesAllowMultiple;
-        }
+        [JsonPropertyName("custom_translation_statuses_allow_multiple")]
+        public bool CustomTranslationStatusesAllowMultiple { get; set; }
     }
 }

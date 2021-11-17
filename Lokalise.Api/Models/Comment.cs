@@ -1,49 +1,28 @@
-﻿using Lokalise.Api.Collections.Comments.Responses;
-using Lokalise.Api.Extensions;
-using System;
+﻿using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
     public class Comment
     {
-        /// <summary>
-        /// A unique identifier of the comment.
-        /// </summary>
-        public long CommentId { get; }
+        [JsonPropertyName("comment_id")]
+        public long CommentId { get; set; }
 
-        /// <summary>
-        /// Identifier of a key, the comment is attached to.
-        /// </summary>
-        public long KeyId { get; }
+        [JsonPropertyName("key_id")]
+        public long KeyId { get; set; }
 
-        /// <summary>
-        /// The comment.
-        /// </summary>
-        public string Content { get; }
+        [JsonPropertyName("comment")]
+        public string Content { get; set; }
 
-        /// <summary>
-        /// Identifier of a user, who has left the comment.
-        /// </summary>
-        public long AddedBy { get; }
+        [JsonPropertyName("added_by")]
+        public long AddedBy { get; set; }
 
-        /// <summary>
-        /// E-mail of a user, who has left the comment.
-        /// </summary>
-        public string AddedByEmail { get; }
+        [JsonPropertyName("added_by_email")]
+        public string AddedByEmail { get; set; }
 
-        /// <summary>
-        /// Date and time the comment was added.
-        /// </summary>
-        public DateTime AddedAt { get; }
+        [JsonPropertyName("added_at")]
+        public string AddedAt { get; set; }
 
-        internal Comment(CommentResponse response)
-        {
-            CommentId = response.CommentId;
-            KeyId = response.KeyId;
-            Content = response.Comment;
-            AddedBy = response.AddedBy;
-            AddedByEmail = response.AddedByEmail;
-            AddedAt = response.AddedAtTimestamp.ToUtcDateTime();
-        }
+        [JsonPropertyName("added_at_timestamp")]
+        public long AddedAtTimestamp { get; set; }
     }
 }

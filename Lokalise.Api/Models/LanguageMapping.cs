@@ -1,4 +1,4 @@
-﻿namespace Lokalise.Api.Collections.Files.Configurations
+﻿namespace Lokalise.Api.Models
 {
     public class LanguageMapping
     {

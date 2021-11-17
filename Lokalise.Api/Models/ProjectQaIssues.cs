@@ -1,110 +1,55 @@
-﻿using Lokalise.Api.Collections.Projects.Responses;
+﻿using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
-    /// <summary>
-    /// Contains counts for each QA issue type.
-    /// </summary>
     public class ProjectQaIssues
     {
-        /// <summary>
-        /// Count of not reviewed translations.
-        /// </summary>
-        public long NotReviewed { get; }
+        [JsonPropertyName("not_reviewed")]
+        public long NotReviewed { get; set; }
 
-        /// <summary>
-        /// Count of unverified translations.
-        /// </summary>
-        public long Unverified { get; }
+        [JsonPropertyName("unverified")]
+        public long Unverified { get; set; }
 
-        /// <summary>
-        /// Count of translations with spelling and/or grammar errors.
-        /// </summary>
-        public long SpellingGrammar { get; }
+        [JsonPropertyName("spelling_grammar")]
+        public long SpellingGrammar { get; set; }
 
-        /// <summary>
-        /// Count of translations with inconsistent placeholders (source vs target).
-        /// </summary>
-        public long InconsistentPlaceholders { get; }
+        [JsonPropertyName("inconsistent_placeholders")]
+        public long InconsistentPlaceholders { get; set; }
 
-        /// <summary>
-        /// Count of translations with inconsistent HTML tags (source vs target).
-        /// </summary>
-        public long InconsistentHtml { get; }
+        [JsonPropertyName("inconsistent_html")]
+        public long InconsistentHtml { get; set; }
 
-        /// <summary>
-        /// Count of translations with different number of URLs (source vs target).
-        /// </summary>
-        public long DifferentNumberOfUrls { get; }
+        [JsonPropertyName("different_number_of_urls")]
+        public long DifferentNumberOfUrls { get; set; }
 
-        /// <summary>
-        /// Count of translations with different URLs (source vs target).
-        /// </summary>
-        public long DifferentUrls { get; }
+        [JsonPropertyName("different_urls")]
+        public long DifferentUrls { get; set; }
 
-        /// <summary>
-        /// Count of translations with leading whitespace.
-        /// </summary>
-        public long LeadingWhitespace { get; }
+        [JsonPropertyName("leading_whitespace")]
+        public long LeadingWhitespace { get; set; }
 
-        /// <summary>
-        /// Count of translations with trailing whitespace.
-        /// </summary>
-        public long TrailingWhitespace { get; }
+        [JsonPropertyName("trailing_whitespace")]
+        public long TrailingWhitespace { get; set; }
 
-        /// <summary>
-        /// Count of translations with different number of email address (source vs target).
-        /// </summary>
-        public long DifferentNumberOfEmailAddress { get; }
+        [JsonPropertyName("different_number_of_email_address")]
+        public long DifferentNumberOfEmailAddress { get; set; }
 
-        /// <summary>
-        /// Count of translations with different email address (source vs target).
-        /// </summary>
-        public long DifferentEmailAddress { get; }
+        [JsonPropertyName("different_email_address")]
+        public long DifferentEmailAddress { get; set; }
 
-        /// <summary>
-        /// Count of translations with different brackets (source vs target).
-        /// </summary>
-        public long DifferentBrackets { get; }
+        [JsonPropertyName("different_brackets")]
+        public long DifferentBrackets { get; set; }
 
-        /// <summary>
-        /// Count of translations with different numbers (source vs target).
-        /// </summary>
-        public long DifferentNumbers { get; }
+        [JsonPropertyName("different_numbers")]
+        public long DifferentNumbers { get; set; }
 
-        /// <summary>
-        /// Count of translations with double spaces (target).
-        /// </summary>
-        public long DoubleSpace { get; }
+        [JsonPropertyName("double_space")]
+        public long DoubleSpace { get; set; }
 
-        /// <summary>
-        /// Count of invalid use of [VOID], [TRUE], [FALSE] placeholders (target).
-        /// </summary>
-        public long SpecialPlaceholder { get; }
+        [JsonPropertyName("special_placeholder")]
+        public long SpecialPlaceholder { get; set; }
 
-        /// <summary>
-        /// Count of unbalanced brackets (target).
-        /// </summary>
-        public long UnbalancedBrackets { get; }
-
-        internal ProjectQaIssues(ProjectQaIssuesResponse response)
-        {
-            NotReviewed = response.NotReviewed;
-            Unverified = response.Unverified;
-            SpellingGrammar = response.SpellingGrammar;
-            InconsistentPlaceholders = response.InconsistentPlaceholders;
-            InconsistentHtml = response.InconsistentHtml;
-            DifferentNumberOfUrls = response.DifferentNumberOfUrls;
-            DifferentUrls = response.DifferentUrls;
-            LeadingWhitespace = response.LeadingWhitespace;
-            TrailingWhitespace = response.TrailingWhitespace;
-            DifferentNumberOfEmailAddress = response.DifferentNumberOfEmailAddress;
-            DifferentEmailAddress = response.DifferentEmailAddress;
-            DifferentBrackets = response.DifferentBrackets;
-            DifferentNumbers = response.DifferentNumbers;
-            DoubleSpace = response.DoubleSpace;
-            SpecialPlaceholder = response.SpecialPlaceholder;
-            UnbalancedBrackets = response.UnbalancedBrackets;
-        }
+        [JsonPropertyName("unbalanced_brackets")]
+        public long UnbalancedBrackets { get; set; }
     }
 }

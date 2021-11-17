@@ -12,7 +12,7 @@ namespace Lokalise.Api.Collections.Contributors.Requests
 
         internal CreateContributorsRequest(IEnumerable<NewContributor> newContributors)
         {
-            Contributors = newContributors is object ? newContributors.Select(c => new NewContributorDto(c)) : null;
+            Contributors = newContributors?.Select(c => new NewContributorDto(c));
         }
     }
 }

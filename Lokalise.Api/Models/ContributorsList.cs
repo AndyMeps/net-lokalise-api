@@ -1,21 +1,14 @@
-﻿using Lokalise.Api.Collections.Contributors.Responses;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
     public class ContributorsList : PagedList
     {
-        public string ProjectId { get; }
+        [JsonPropertyName("project_id")]
+        public string ProjectId { get; set; }
 
-        public IEnumerable<Contributor> Contributors { get; }
-
-        internal ContributorsList(ContributorsListResponse response)
-        {
-            TotalCount = response.TotalCount;
-            PageCount = response.PageCount;
-            ProjectId = response.ProjectId;
-            Contributors = response.Contributors.Select(c => new Contributor(c));
-        }
+        [JsonPropertyName("contributors")]
+        public IEnumerable<Contributor> Contributors { get; set; }
     }
 }

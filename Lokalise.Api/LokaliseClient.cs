@@ -12,7 +12,7 @@ namespace Lokalise.Api
 {
     public class LokaliseClient : ILokaliseClient
     {
-        private const string API_TOKEN_HEADER = "X-Api-Token";
+        private const string ApiTokenHeader = "X-Api-Token";
 
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
@@ -27,10 +27,10 @@ namespace Lokalise.Api
         {
             _httpClient = httpClient ?? new HttpClient();
 
-            if (_httpClient.DefaultRequestHeaders.Contains(API_TOKEN_HEADER))
-                _httpClient.DefaultRequestHeaders.Remove(API_TOKEN_HEADER);
+            if (_httpClient.DefaultRequestHeaders.Contains(ApiTokenHeader))
+                _httpClient.DefaultRequestHeaders.Remove(ApiTokenHeader);
 
-            _httpClient.DefaultRequestHeaders.Add(API_TOKEN_HEADER, apiToken);
+            _httpClient.DefaultRequestHeaders.Add(ApiTokenHeader, apiToken);
 
             _httpClient.BaseAddress = new Uri("https://api.lokalise.com/api2/");
             _jsonSerializerOptions = new JsonSerializerOptions

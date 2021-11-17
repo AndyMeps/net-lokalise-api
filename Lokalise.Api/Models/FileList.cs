@@ -1,21 +1,14 @@
-﻿using Lokalise.Api.Collections.Files.Responses;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
     public class FileList : PagedList
     {
-        public string ProjectId { get; }
+        [JsonPropertyName("project_id")]
+        public string ProjectId { get; set; }
 
-        public IEnumerable<File> Files { get; }
-
-        internal FileList(FileListResponse response)
-        {
-            TotalCount = response.TotalCount;
-            PageCount = response.PageCount;
-            ProjectId = response.ProjectId;
-            Files = response.Files is object ? response.Files.Select(f => new File(f)) : null;
-        }
+        [JsonPropertyName("files")]
+        public IEnumerable<File> Files { get; set; }
     }
 }

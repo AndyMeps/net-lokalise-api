@@ -1,9 +1,11 @@
-﻿using Lokalise.Api.Responses;
+﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Lokalise.Api.Models;
 
 namespace Lokalise.Api.Collections
 {
@@ -43,7 +45,7 @@ namespace Lokalise.Api.Collections
 
             var model = JsonSerializer.Deserialize<TResult>(json);
 
-            if (model is LocationEntityResponse locationEntityResponse)
+            if (model is LocationEntity locationEntityResponse)
             {
                 locationEntityResponse.Location = result.Headers.Contains("Location")
                     ? result.Headers.GetValues("Location").FirstOrDefault()
@@ -62,7 +64,7 @@ namespace Lokalise.Api.Collections
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
 
-            if (request is object)
+            if (request != null)
             {
                 var requestJson = JsonSerializer.Serialize(request, JsonSerializerOptions);
                 requestMessage.Content = new StringContent(requestJson, Encoding.UTF8, "application/json");
@@ -77,7 +79,7 @@ namespace Lokalise.Api.Collections
             return JsonSerializer.Deserialize<TResult>(responseJson);
         }
 
-        protected async Task<TResult> GetListAsync<TResult>(string requestUri) where TResult : PagedListResponse
+        protected async Task<TResult> GetListAsync<TResult>(string requestUri) where TResult : PagedList
         {
             var result = await HttpClient.GetAsync(requestUri);
 
@@ -87,15 +89,26 @@ namespace Lokalise.Api.Collections
 
             var model = JsonSerializer.Deserialize<TResult>(json);
 
-            model.PageCount = result.Headers.TryGetValues("X-Pagination-Page-Count", out var pageCountHeaderValues)
-                ? int.Parse(pageCountHeaderValues.FirstOrDefault())
-                : 0;
+            if (model is null)
+                return null;
 
-            model.TotalCount = result.Headers.TryGetValues("X-Pagination-Total-Count", out var totalCountHeaderValues)
-                ? int.Parse(totalCountHeaderValues.FirstOrDefault())
-                : 0;
+            model.PageCount = GetHeaderAsIntOrDefault(result.Headers, "X-Pagination-Page-Count");
+            model.TotalCount = GetHeaderAsIntOrDefault(result.Headers, "X-Pagination-Total-Count");
 
             return model;
+        }
+
+        private static int GetHeaderAsIntOrDefault(HttpResponseHeaders headers, string keyName, int fallbackValue = 0)
+        {
+            if (headers == null) throw new ArgumentNullException(nameof(headers));
+            if (keyName == null) throw new ArgumentNullException(nameof(keyName));
+
+            if (!headers.TryGetValues(keyName, out var keyValues))
+                return fallbackValue;
+
+            return int.TryParse(keyValues?.FirstOrDefault(), out var keyValue)
+                ? keyValue
+                : fallbackValue;
         }
 
         protected async Task<TResult> DeleteAsync<TResult>(string requestUri)

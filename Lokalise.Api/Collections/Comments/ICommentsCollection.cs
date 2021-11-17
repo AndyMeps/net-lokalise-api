@@ -1,8 +1,8 @@
 ﻿using Lokalise.Api.Collections.Comments.Configurations;
-using Lokalise.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Lokalise.Api.Models;
 
 namespace Lokalise.Api.Collections.Comments
 {

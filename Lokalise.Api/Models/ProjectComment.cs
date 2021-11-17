@@ -1,13 +1,13 @@
-﻿using Lokalise.Api.Collections.Comments.Responses;
+﻿using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
-    public sealed class ProjectComment : ProjectEntity<Comment>
+    public class ProjectComment
     {
-        internal ProjectComment(ProjectCommentResponse response)
-            : base(response.ProjectId, response.Comment is object ? new Comment(response.Comment) : null)
-        {
+        [JsonPropertyName("project_id")]
+        public string ProjectId { get; set; }
 
-        }
+        [JsonPropertyName("comment")]
+        public Comment Comment { get; set; }
     }
 }

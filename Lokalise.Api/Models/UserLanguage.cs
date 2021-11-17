@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Lokalise.Api.Collections.Contributors.Responses
+namespace Lokalise.Api.Models
 {
-    internal class UserLanguageResponse
+    public class UserLanguage
     {
         [JsonPropertyName("language_id")]
         public long LanguageId { get; set; }

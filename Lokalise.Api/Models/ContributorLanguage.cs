@@ -1,6 +1,4 @@
-﻿using Lokalise.Api.Collections.Contributors.Responses;
-
-namespace Lokalise.Api.Models
+﻿namespace Lokalise.Api.Models
 {
     public class ContributorLanguage
     {
@@ -30,7 +28,7 @@ namespace Lokalise.Api.Models
             IsWritable = isWritable;
         }
 
-        internal ContributorLanguage(UserLanguageResponse response)
+        internal ContributorLanguage(UserLanguage response)
         {
             LanguageId = response.LanguageId;
             LanguageIso = response.LanguageIso;

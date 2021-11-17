@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Lokalise.Api.Collections.Files.Configurations;
+using Lokalise.Api.Models;
 
 namespace Lokalise.Api.Collections.Files.Requests
 {

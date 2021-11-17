@@ -1,7 +1,7 @@
 ﻿using Lokalise.Api.Collections.Branches.Configurations;
-using Lokalise.Api.Models;
 using System;
 using System.Threading.Tasks;
+using Lokalise.Api.Models;
 
 namespace Lokalise.Api.Collections.Branches
 {

@@ -1,20 +1,14 @@
-﻿using Lokalise.Api.Collections.Comments.Responses;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
     public class CommentList : PagedList
     {
-        public string ProjectId { get; }
-        public IEnumerable<Comment> Comments { get; }
+        [JsonPropertyName("project_id")]
+        public string ProjectId { get; set; }
 
-        internal CommentList(CommentListResponse response)
-        {
-            PageCount = response.PageCount;
-            TotalCount = response.TotalCount;
-            ProjectId = response.ProjectId;
-            Comments = response.Comments is object ? response.Comments.Select(c => new Comment(c)) : null;
-        }
+        [JsonPropertyName("comments")]
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }

@@ -33,7 +33,7 @@ namespace Lokalise.Api.Collections.Files.Requests
             PluralFormat = options?.PluralFormat;
             PlaceholderFormat = options?.PlaceholderFormat;
             WebhookUrl = options?.WebhookUrl;
-            LanguageMapping = options?.LanguageMapping is object ? new LanguageMappingDto(options.LanguageMapping) : null;
+            LanguageMapping = options?.LanguageMapping != null ? new LanguageMappingDto(options.LanguageMapping) : null;
             IcuNumeric = options?.IcuNumeric;
             EscapePercent = options?.EscapePercent;
             Indentation = options?.Indentation;

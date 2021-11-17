@@ -2,12 +2,12 @@
 
 namespace Lokalise.Api.Collections.Projects.Requests
 {
-    internal class UpdateProjectRequest
+    internal class UpdateProject
     {
         public string Name { get; }
         public string Description { get; }
 
-        internal UpdateProjectRequest(string name, UpdateProjectConfiguration options)
+        internal UpdateProject(string name, UpdateProjectConfiguration options)
         {
             Name = name;
             Description = options?.Description;

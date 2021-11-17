@@ -1,14 +1,13 @@
-﻿using Lokalise.Api.Collections.Contributors.Responses;
+﻿using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
-    public sealed class ProjectContributor : ProjectEntity<Contributor>
+    public class ProjectContributor
     {
-        internal ProjectContributor(ProjectContributorResponse response)
-            : base(response.ProjectId, response.Contributor is object ? new Contributor(response.Contributor) : null)
-        {
-        }
+        [JsonPropertyName("project_id")]
+        public string ProjectId { get; set; }
 
-        public Contributor Contributor => Entity;
+        [JsonPropertyName("contributor")]
+        public Contributor Contributor { get; set; }
     }
 }

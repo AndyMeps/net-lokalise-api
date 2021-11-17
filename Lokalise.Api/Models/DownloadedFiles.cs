@@ -1,17 +1,13 @@
-﻿using Lokalise.Api.Collections.Files.Responses;
+﻿using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
     public class DownloadedFiles
     {
-        public string ProjectId { get; }
+        [JsonPropertyName("project_id")]
+        public string ProjectId { get; set; }
 
-        public string BundleUrl { get; }
-
-        internal DownloadedFiles(DownloadedFilesResponse response)
-        {
-            ProjectId = response.ProjectId;
-            BundleUrl = response.BundleUrl;
-        }
+        [JsonPropertyName("bundle_url")]
+        public string BundleUrl { get; set; }
     }
 }

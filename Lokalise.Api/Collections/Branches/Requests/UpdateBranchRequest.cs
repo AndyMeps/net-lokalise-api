@@ -6,7 +6,7 @@ namespace Lokalise.Api.Collections.Branches.Requests
     internal class UpdateBranchRequest
     {
         [JsonPropertyName("name")]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         internal UpdateBranchRequest(UpdateBranchConfiguration options)
         {

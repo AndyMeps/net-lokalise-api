@@ -1,6 +1,5 @@
 ﻿using Lokalise.Api.Collections.Files.Configurations;
 using Lokalise.Api.Collections.Files.Requests;
-using Lokalise.Api.Collections.Files.Responses;
 using Lokalise.Api.Extensions;
 using Lokalise.Api.Models;
 using System;
@@ -26,10 +25,10 @@ namespace Lokalise.Api.Collections.Files
             var cfg = new ListFilesConfiguration();
             options?.Invoke(cfg);
 
-            var result = await GetListAsync<FileListResponse>(
-                requestUri: $"{FilesUri(projectId, cfg.Branch)}{cfg?.ToQueryString()}");
+            var result = await GetListAsync<FileList>(
+                $"{FilesUri(projectId, cfg.Branch)}{cfg.ToQueryString()}");
 
-            return new FileList(result);
+            return result;
         }
 
         /// <inheritdoc />
@@ -50,11 +49,11 @@ namespace Lokalise.Api.Collections.Files
             var cfg = new DownloadFileConfiguration();
             options?.Invoke(cfg);
 
-            var result = await PostAsync<DownloadFileRequest, DownloadedFilesResponse>(
-                requestUri: $"{FilesUri(projectId, cfg.Branch)}/download",
-                request: new DownloadFileRequest(format, cfg));
+            var result = await PostAsync<DownloadFileRequest, DownloadedFiles>(
+                $"{FilesUri(projectId, cfg.Branch)}/download",
+                new DownloadFileRequest(format, cfg));
 
-            return new DownloadedFiles(result);
+            return result;
         }
 
         private async Task<UploadedFile> UploadInternalAsync(string projectId, string data, string filename, string langIso, Action<UploadFileConfiguration> options = null)
@@ -63,11 +62,11 @@ namespace Lokalise.Api.Collections.Files
             options?.Invoke(cfg);
 
 
-            var result = await PostAsync<UploadFileRequest, UploadedFileResponse>(
-                requestUri: $"{FilesUri(projectId, cfg.Branch)}/upload",
-                request: new UploadFileRequest(data, filename, langIso, cfg));
+            var result = await PostAsync<UploadFileRequest, UploadedFile>(
+                $"{FilesUri(projectId, cfg.Branch)}/upload",
+                new UploadFileRequest(data, filename, langIso, cfg));
 
-            return new UploadedFile(result);
+            return result;
         }
 
         private string FilesUri(string projectId, string branchName = null) => $"projects/{projectId.IncludeBranchName(branchName)}/files";
