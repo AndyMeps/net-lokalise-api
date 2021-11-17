@@ -26,10 +26,10 @@ namespace Lokalise.Api.Models
         public string? CreatedByEmail { get; set; }
 
         [JsonPropertyName("team_id")]
-        public long TeamId { get; set; }
+        public long? TeamId { get; set; }
 
         [JsonPropertyName("base_language_id")]
-        public long BaseLanguageId { get; set; }
+        public long? BaseLanguageId { get; set; }
 
         [JsonPropertyName("base_language_iso")]
         public string? BaseLanguageIso { get; set; }

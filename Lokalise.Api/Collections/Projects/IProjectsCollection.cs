@@ -1,6 +1,7 @@
 ﻿using Lokalise.Api.Collections.Projects.Configurations;
 using Lokalise.Api.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Lokalise.Api.Collections.Projects
@@ -21,7 +22,7 @@ namespace Lokalise.Api.Collections.Projects
         /// <param name="name"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public Task<Project?> CreateAsync(string name, Action<CreateProjectConfiguration>? options = null);
+        public Task<Project?> CreateAsync(string name, IEnumerable<ProjectLanguage> languages, Action<CreateProjectConfiguration>? options = null);
 
         /// <summary>
         /// <para>Retrieves a Project object.</para>

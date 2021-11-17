@@ -12,5 +12,6 @@ namespace Lokalise.Api.Models
 
         [JsonIgnore]
         public int PageCount { get; internal set; }
+        public int Page { get; internal set; }
     }
 }

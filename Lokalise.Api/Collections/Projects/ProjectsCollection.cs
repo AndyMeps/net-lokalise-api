@@ -3,6 +3,7 @@ using Lokalise.Api.Collections.Projects.Requests;
 using Lokalise.Api.Extensions;
 using Lokalise.Api.Models;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -19,12 +20,12 @@ namespace Lokalise.Api.Collections.Projects
         }
 
         /// <inheritdoc/>
-        public async Task<Project?> CreateAsync(string name, Action<CreateProjectConfiguration>? options = null)
+        public async Task<Project?> CreateAsync(string name, IEnumerable<ProjectLanguage> languages, Action<CreateProjectConfiguration>? options = null)
         {
             var cfg = new CreateProjectConfiguration();
             options?.Invoke(cfg);
 
-            var result = await PostAsync<CreateProject, Project>(ProjectsUri(), new CreateProject(name, cfg));
+            var result = await PostAsync<CreateProject, Project>(ProjectsUri(), new CreateProject(name, languages, cfg));
             return result;
         }
 

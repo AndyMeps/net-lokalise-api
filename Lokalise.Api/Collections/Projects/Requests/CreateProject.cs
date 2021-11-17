@@ -10,14 +10,15 @@ namespace Lokalise.Api.Collections.Projects.Requests
         [JsonPropertyName("name")]
         public string Name { get; }
 
+        [JsonPropertyName("languages")]
+        public IEnumerable<ProjectLanguage> Languages { get; }
+
         [JsonPropertyName("team_id")]
         public long? TeamId { get; }
 
         [JsonPropertyName("description")]
         public string? Description { get; }
 
-        [JsonPropertyName("languages")]
-        public IEnumerable<ProjectLanguage>? Languages { get; }
 
         [JsonPropertyName("base_lang_iso")]
         public string? BaseLangIso { get; }
@@ -25,14 +26,14 @@ namespace Lokalise.Api.Collections.Projects.Requests
         [JsonPropertyName("project_type")]
         public string? ProjectType { get; }
 
-        internal CreateProject(string name, CreateProjectConfiguration? options)
+        internal CreateProject(string name, IEnumerable<ProjectLanguage> languages, CreateProjectConfiguration? options)
         {
             Name = name;
+            Languages = languages;
             TeamId = options?.TeamId;
             Description = options?.Description;
             BaseLangIso = options?.BaseLangIso;
             ProjectType = options?.ProjectType;
-            Languages = options?.Languages;
         }
     }
 }
