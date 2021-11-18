@@ -26,23 +26,11 @@ namespace Lokalise.Api.Collections
         {
             var result = await HttpClient.GetAsync(requestUri);
 
-            if (result.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-                throw new LokaliseRateLimitException(result);
-
-            result.EnsureSuccessStatusCode();
+            await HandleFailureResponse(result);
 
             var json = await result.Content.ReadAsStringAsync();
 
             return JsonSerializer.Deserialize<TResult?>(json);
-        }
-
-        private LokaliseError GetLokaliseError(string json)
-        {
-            var response = JsonSerializer.Deserialize<LokaliseErrorResponse>(json);
-            if (response?.Error is null)
-                throw new InvalidOperationException($"Attempt to deserialize 400 response returned null.\nRaw string content:\n{json}");
-
-            return response.Error;
         }
 
         protected async Task<TResult?> PostAsync<TRequest, TResult>(string requestUri, TRequest request)
@@ -53,16 +41,7 @@ namespace Lokalise.Api.Collections
             };
             var result = await HttpClient.SendAsync(requestMessage);
 
-            if (result.StatusCode == System.Net.HttpStatusCode.BadRequest)
-            {
-                var lokaliseError = GetLokaliseError(await result.Content.ReadAsStringAsync());
-                throw new LokaliseBadRequestException(lokaliseError);
-            }
-
-            if (result.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-                throw new LokaliseRateLimitException(result);
-
-            result.EnsureSuccessStatusCode();
+            await HandleFailureResponse(result);
 
             var json = await result.Content.ReadAsStringAsync();
 
@@ -95,10 +74,7 @@ namespace Lokalise.Api.Collections
 
             var result = await HttpClient.SendAsync(requestMessage);
 
-            if (result.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-                throw new LokaliseRateLimitException(result);
-
-            result.EnsureSuccessStatusCode();
+            await HandleFailureResponse(result);
 
             var responseJson = await result.Content.ReadAsStringAsync();
 
@@ -109,10 +85,7 @@ namespace Lokalise.Api.Collections
         {
             var result = await HttpClient.GetAsync(requestUri);
 
-            if (result.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-                throw new LokaliseRateLimitException(result);
-
-            result.EnsureSuccessStatusCode();
+            await HandleFailureResponse(result);
 
             var json = await result.Content.ReadAsStringAsync();
 
@@ -128,6 +101,20 @@ namespace Lokalise.Api.Collections
             return model;
         }
 
+        protected async Task<TResult?> DeleteAsync<TResult>(string requestUri)
+        {
+            var result = await HttpClient.DeleteAsync(requestUri);
+
+            if (result.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+                throw new LokaliseRateLimitException(result);
+
+            result.EnsureSuccessStatusCode();
+
+            var json = await result.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<TResult?>(json);
+        }
+
         private static int GetHeaderAsIntOrDefault(HttpResponseHeaders headers, string keyName, int fallbackValue = 0)
         {
             if (headers == null) throw new ArgumentNullException(nameof(headers));
@@ -141,18 +128,33 @@ namespace Lokalise.Api.Collections
                 : fallbackValue;
         }
 
-        protected async Task<TResult?> DeleteAsync<TResult>(string requestUri)
+        private LokaliseError GetLokaliseError(string json)
         {
-            var result = await HttpClient.DeleteAsync(requestUri);
+            var response = JsonSerializer.Deserialize<LokaliseErrorResponse>(json);
+            if (response?.Error is null)
+                throw new InvalidOperationException($"Attempt to deserialize error response returned null.\nRaw string content:\n{json}");
 
-            if (result.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-                throw new LokaliseRateLimitException(result);
+            return response.Error;
+        }
 
-            result.EnsureSuccessStatusCode();
+        private async Task HandleFailureResponse(HttpResponseMessage responseMessage)
+        {
+            if (responseMessage.IsSuccessStatusCode)
+                return;
 
-            var json = await result.Content.ReadAsStringAsync();
-
-            return JsonSerializer.Deserialize<TResult?>(json);
+            switch (responseMessage.StatusCode)
+            {
+                case System.Net.HttpStatusCode.BadRequest:
+                    {
+                        var lokaliseError = GetLokaliseError(await responseMessage.Content.ReadAsStringAsync());
+                        throw new LokaliseApiException(lokaliseError);
+                    }
+                case System.Net.HttpStatusCode.TooManyRequests:
+                    throw new LokaliseRateLimitException(responseMessage);
+                default:
+                    responseMessage.EnsureSuccessStatusCode();
+                    break;
+            }
         }
     }
 }

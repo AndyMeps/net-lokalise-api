@@ -1,3 +1,4 @@
+using Lokalise.Api.Exceptions;
 using Lokalise.Api.Models;
 using System;
 using System.Linq;
@@ -113,6 +114,22 @@ namespace Lokalise.Api.LocalTests
                 lang => Assert.Equal("fr", lang.LanguageIso));
         }
 
+        [Fact]
+        public async Task CreateAsync_ShouldThrowIfNoLanguages()
+        {
+            var projectName = "lokalise-api-test-project";
+            await DeleteProjectIfExistsAsync(projectName);
+
+            var ex = await Assert.ThrowsAsync<LokaliseApiException>(async () =>
+            {
+                var sameProject = await LokaliseClient.Projects.CreateAsync(projectName, Array.Empty<ProjectLanguage>());
+            });
+
+            Assert.Equal("`languages` parameter cannot be an empty array", ex.Message);
+            Assert.NotNull(ex.Error);
+            Assert.Equal(400, ex.Error.Code);
+        }
+
         private async Task DeleteProjectIfExistsAsync(string name)
         {
             var existsResult = await LokaliseClient.Projects.ListAsync(cfg =>
@@ -120,7 +137,7 @@ namespace Lokalise.Api.LocalTests
                 cfg.FilterNames = name;
             });
 
-            var foundProject = existsResult?.Projects?.First();
+            var foundProject = existsResult?.Projects?.FirstOrDefault();
             if (foundProject?.ProjectId != null)
             {
                 await LokaliseClient.Projects.DeleteAsync(foundProject.ProjectId);

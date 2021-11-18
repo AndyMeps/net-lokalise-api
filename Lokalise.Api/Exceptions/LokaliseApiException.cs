@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Lokalise.Api.Exceptions
 {
-    public sealed class LokaliseBadRequestException : Exception
+    public sealed class LokaliseApiException : Exception
     {
         public LokaliseError Error { get; }
 
-        public LokaliseBadRequestException(LokaliseError error) : base(error.Message)
+        public LokaliseApiException(LokaliseError error) : base(error.Message)
         {
             Error = error;
         }
