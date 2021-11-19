@@ -1,4 +1,5 @@
 ﻿using Lokalise.Api.Collections.Keys.Configurations;
+using Lokalise.Api.Collections.Keys.Requests;
 using Lokalise.Api.Extensions;
 using Lokalise.Api.Models;
 using System;
@@ -23,7 +24,7 @@ namespace Lokalise.Api.Collections.Keys
             NewKey key,
             Action<CreateKeysConfiguration>? options = null)
         {
-            throw new NotImplementedException();
+            return CreateAsync(projectId, new NewKey[] { key }, options);
         }
 
         public Task<KeyList?> CreateAsync(
@@ -31,7 +32,10 @@ namespace Lokalise.Api.Collections.Keys
             IEnumerable<NewKey> keys,
             Action<CreateKeysConfiguration>? options = null)
         {
-            throw new NotImplementedException();
+            var cfg = new CreateKeysConfiguration();
+            options?.Invoke(cfg);
+
+            return PostAsync<CreateKeysRequest, KeyList>(KeysUri(projectId.IncludeBranchName(cfg.Branch)), new CreateKeysRequest(keys, cfg.UseAutomations));
         }
 
         public async Task<DeletedKey?> DeleteAsync(

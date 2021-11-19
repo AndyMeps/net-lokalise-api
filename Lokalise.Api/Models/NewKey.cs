@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
@@ -7,80 +8,95 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// Key identifier. For projects with enabled Per-platform key names, pass JSON encoded string with included ios, android, web and other string attributes.
         /// </summary>
-        public string? Name { get; }
+        [JsonPropertyName("key_name")]
+        public string? KeyName { get; }
 
         /// <summary>
         /// Description of the key.
         /// </summary>
+        [JsonPropertyName("description")]
         public string? Description { get; }
 
         /// <summary>
         /// List of platforms, enabled for this key. Possible values are ios, android, web and other.
         /// </summary>
+        [JsonPropertyName("platforms")]
         public IEnumerable<string>? Platforms { get; }
 
         /// <summary>
         /// An object containing key filename attribute for each platform.
         /// </summary>
+        [JsonPropertyName("filenames")]
         public FileNames? Filenames { get; }
 
         /// <summary>
         /// List of tags for this keys.
         /// </summary>
+        [JsonPropertyName("tags")]
         public IEnumerable<string>? Tags { get; }
 
         /// <summary>
         /// List of comments for this key.
         /// </summary>
+        [JsonPropertyName("comments")]
         public IEnumerable<string>? Comments { get; }
 
         /// <summary>
         /// List of screenshots, attached to this key.
         /// </summary>
+        [JsonPropertyName("screenshots")]
         public IEnumerable<NewScreenshot>? Screenshots { get; }
 
         /// <summary>
         /// Translations for all languages.
         /// </summary>
+        [JsonPropertyName("translations")]
         public IEnumerable<NewTranslation>? Translations { get; }
 
         /// <summary>
         /// Whether this key is plural.
         /// </summary>
+        [JsonPropertyName("is_plural")]
         public bool? IsPlural { get; }
 
         /// <summary>
         /// Optional custom plural name (used in some formats).
         /// </summary>
+        [JsonPropertyName("plural_name")]
         public string? PluralName { get; }
 
         /// <summary>
         /// Whether this key is hidden from non-admins (translators).
         /// </summary>
+        [JsonPropertyName("is_hidden")]
         public bool? IsHidden { get; }
 
         /// <summary>
         /// Whether this key is archived.
         /// </summary>
+        [JsonPropertyName("is_archived")]
         public bool? IsArchived { get; }
 
         /// <summary>
         /// Optional context of the key (used with some file formats).
         /// </summary>
+        [JsonPropertyName("context")]
         public string? Context { get; }
 
         /// <summary>
         /// Maximum allowed number of characters in translations for this key.
         /// </summary>
+        [JsonPropertyName("char_limit")]
         public long? CharLimit { get; }
 
         /// <summary>
         /// JSON encoded string containing custom attributes (if any).
-        /// </summary>
+        /// </summary>~
+        [JsonPropertyName("custom_attributes")]
         public string? CustomAttributes { get; }
 
         public NewKey(
-            string name,
+            string keyName,
             IEnumerable<string> platforms,
             string? description = null,
             FileNames? filenames = null,
@@ -96,7 +112,7 @@ namespace Lokalise.Api.Models
             long? charLimit = null,
             string? customAttributes = null)
         {
-            Name = name;
+            KeyName = keyName;
             Platforms = platforms;
             Description = description;
             Filenames = filenames;

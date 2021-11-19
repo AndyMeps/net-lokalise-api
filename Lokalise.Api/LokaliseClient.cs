@@ -2,6 +2,7 @@
 using Lokalise.Api.Collections.Comments;
 using Lokalise.Api.Collections.Contributors;
 using Lokalise.Api.Collections.Files;
+using Lokalise.Api.Collections.Keys;
 using Lokalise.Api.Collections.Projects;
 using System;
 using System.Net.Http;
@@ -22,6 +23,7 @@ namespace Lokalise.Api
         private IBranchesCollection? _branches;
         private ICommentsCollection? _comments;
         private IContributorsCollection? _contributors;
+        private IKeysCollection? _keys;
 
         public LokaliseClient(string apiToken, HttpClient? httpClient = null)
         {
@@ -48,5 +50,7 @@ namespace Lokalise.Api
         public ICommentsCollection Comments => _comments ??= new CommentsCollection(_httpClient, _jsonSerializerOptions);
 
         public IContributorsCollection Contributors => _contributors ??= new ContributorsCollection(_httpClient, _jsonSerializerOptions);
+
+        public IKeysCollection Keys => _keys ??= new KeysCollection(_httpClient, _jsonSerializerOptions);
     }
 }
