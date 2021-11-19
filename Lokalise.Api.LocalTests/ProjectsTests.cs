@@ -130,6 +130,116 @@ namespace Lokalise.Api.LocalTests
             Assert.Equal(400, ex.Error.Code);
         }
 
+        [Fact]
+        public async Task EmptyAsync_ShouldReturnWhenEmpty()
+        {
+            var projectName = "lokalise-api-test-project";
+            await DeleteProjectIfExistsAsync(projectName);
+
+            var project = await LokaliseClient.Projects.CreateAsync(projectName, new ProjectLanguage[]
+                {
+                    new ProjectLanguage("en"),
+                    new ProjectLanguage("fr")
+                });
+
+            Assert.NotNull(project);
+            if (project?.ProjectId == null)
+                return;
+
+            var result = await LokaliseClient.Projects.EmptyAsync(project.ProjectId);
+
+            Assert.NotNull(result);
+            Assert.Equal(project.ProjectId, result?.ProjectId);
+            Assert.True(result?.KeysDeleted);
+        }
+
+        [Fact]
+        public async Task EmptyAsync_ShouldEmpty()
+        {
+            var projectName = "lokalise-api-test-project";
+            await DeleteProjectIfExistsAsync(projectName);
+
+            var project = await LokaliseClient.Projects.CreateAsync(projectName, new ProjectLanguage[]
+                {
+                    new ProjectLanguage("en"),
+                    new ProjectLanguage("fr")
+                });
+
+            Assert.NotNull(project);
+            if (project?.ProjectId == null)
+                return;
+
+            await LokaliseClient.Keys.CreateAsync(project.ProjectId, new NewKey("test-key", new string[] { "web" }));
+
+            project = await LokaliseClient.Projects.RetrieveAsync(project.ProjectId);
+
+            Assert.NotNull(project?.Statistics?.KeysTotal);
+            Assert.NotEqual(0, project?.Statistics?.KeysTotal);
+
+            if (project?.ProjectId == null)
+                return;
+
+            var result = await LokaliseClient.Projects.EmptyAsync(project.ProjectId);
+
+            Assert.NotNull(result);
+            Assert.Equal(project.ProjectId, result?.ProjectId);
+            Assert.True(result?.KeysDeleted);
+
+            project = await LokaliseClient.Projects.RetrieveAsync(project.ProjectId);
+            Assert.Equal(0, project?.Statistics?.KeysTotal);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ShouldUpdateName()
+        {
+            var originalProjectName = "bad-name-lokalise-api-test-project";
+            var newProjectName = "lokalise-api-test-project";
+            await DeleteProjectIfExistsAsync(originalProjectName);
+            await DeleteProjectIfExistsAsync(newProjectName);
+
+            var originalProject = await LokaliseClient.Projects.CreateAsync(originalProjectName, new ProjectLanguage[]
+                {
+                    new ProjectLanguage("en")
+                });
+
+            Assert.NotNull(originalProject?.ProjectId);
+            if (originalProject?.ProjectId == null)
+                return;
+
+            var updateProject = await LokaliseClient.Projects.UpdateAsync(originalProject.ProjectId, newProjectName);
+
+            Assert.NotNull(updateProject?.ProjectId);
+            Assert.Equal(newProjectName, updateProject?.Name);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ShouldUpdateDescription()
+        {
+            var projectName = "lokalise-api-test-project";
+            await DeleteProjectIfExistsAsync(projectName);
+
+            var originalProject = await LokaliseClient.Projects.CreateAsync(projectName, new ProjectLanguage[]
+                {
+                    new ProjectLanguage("en")
+                }, cfg =>
+                {
+                    cfg.Description = "Initial Description";
+                });
+
+            Assert.NotNull(originalProject?.ProjectId);
+            Assert.Equal("Initial Description", originalProject?.Description);
+            if (originalProject?.ProjectId == null || originalProject?.Name == null)
+                return;
+
+            var updateProject = await LokaliseClient.Projects.UpdateAsync(originalProject.ProjectId, originalProject.Name, cfg =>
+            {
+                cfg.Description = "Update Description";
+            });
+
+            Assert.NotNull(updateProject?.ProjectId);
+            Assert.Equal("Update Description", updateProject?.Description);
+        }
+
         private async Task DeleteProjectIfExistsAsync(string name)
         {
             var existsResult = await LokaliseClient.Projects.ListAsync(cfg =>

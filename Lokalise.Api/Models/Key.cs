@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
@@ -7,10 +6,13 @@ namespace Lokalise.Api.Models
     public class Key
     {
         [JsonPropertyName("key_id")]
-        public long KeyId { get; set; }
+        public long? KeyId { get; set; }
 
         [JsonPropertyName("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public string? CreatedAt { get; set; }
+
+        [JsonPropertyName("created_at_timestamp")]
+        public long? CreatedAtTimestamp { get; set; }
 
         [JsonPropertyName("key_name")]
         public KeyNames? KeyName { get; set; }
@@ -37,22 +39,22 @@ namespace Lokalise.Api.Models
         //public IEnumerable<TranslationResponse> Translations { get; set; }
 
         [JsonPropertyName("is_plural")]
-        public bool IsPlural { get; set; }
+        public bool? IsPlural { get; set; }
 
         [JsonPropertyName("plural_name")]
         public string? PluralName { get; set; }
 
         [JsonPropertyName("is_hidden")]
-        public bool IsHidden { get; set; }
+        public bool? IsHidden { get; set; }
 
         [JsonPropertyName("is_archived")]
-        public bool IsArchived { get; set; }
+        public bool? IsArchived { get; set; }
 
         [JsonPropertyName("context")]
         public string? Context { get; set; }
 
         [JsonPropertyName("base_words")]
-        public long BaseWords { get; set; }
+        public long? BaseWords { get; set; }
 
         [JsonPropertyName("char_limit")]
         public long? CharLimit { get; set; }
