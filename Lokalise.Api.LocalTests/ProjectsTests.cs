@@ -97,9 +97,9 @@ namespace Lokalise.Api.LocalTests
         [Fact]
         public async Task CreateAsync_ShouldCreate()
         {
-            await DeleteProjectIfExistsAsync("lokalise-api-test-project");
+            await DeleteProjectIfExistsAsync(API_TEST_PROJECT_NAME);
             
-            var newProject = await LokaliseClient.Projects.CreateAsync("lokalise-api-test-project", new ProjectLanguage[]
+            var newProject = await LokaliseClient.Projects.CreateAsync(API_TEST_PROJECT_NAME, new ProjectLanguage[]
             {
                 new ProjectLanguage("en"),
                 new ProjectLanguage("fr")
@@ -107,7 +107,7 @@ namespace Lokalise.Api.LocalTests
 
             Assert.NotNull(newProject);
             Assert.NotNull(newProject?.ProjectId);
-            Assert.Equal("lokalise-api-test-project", newProject?.Name);
+            Assert.Equal(API_TEST_PROJECT_NAME, newProject?.Name);
             Assert.Equal("en", newProject?.BaseLanguageIso);
             Assert.Collection(newProject?.Statistics?.Languages,
                 lang => Assert.Equal("en", lang.LanguageIso),
@@ -117,7 +117,7 @@ namespace Lokalise.Api.LocalTests
         [Fact]
         public async Task CreateAsync_ShouldThrowIfNoLanguages()
         {
-            var projectName = "lokalise-api-test-project";
+            var projectName = API_TEST_PROJECT_NAME;
             await DeleteProjectIfExistsAsync(projectName);
 
             var ex = await Assert.ThrowsAsync<LokaliseApiException>(async () =>
@@ -133,7 +133,7 @@ namespace Lokalise.Api.LocalTests
         [Fact]
         public async Task EmptyAsync_ShouldReturnWhenEmpty()
         {
-            var projectName = "lokalise-api-test-project";
+            var projectName = API_TEST_PROJECT_NAME;
             await DeleteProjectIfExistsAsync(projectName);
 
             var project = await LokaliseClient.Projects.CreateAsync(projectName, new ProjectLanguage[]
@@ -156,7 +156,7 @@ namespace Lokalise.Api.LocalTests
         [Fact]
         public async Task EmptyAsync_ShouldEmpty()
         {
-            var projectName = "lokalise-api-test-project";
+            var projectName = API_TEST_PROJECT_NAME;
             await DeleteProjectIfExistsAsync(projectName);
 
             var project = await LokaliseClient.Projects.CreateAsync(projectName, new ProjectLanguage[]
@@ -193,7 +193,7 @@ namespace Lokalise.Api.LocalTests
         public async Task UpdateAsync_ShouldUpdateName()
         {
             var originalProjectName = "bad-name-lokalise-api-test-project";
-            var newProjectName = "lokalise-api-test-project";
+            var newProjectName = API_TEST_PROJECT_NAME;
             await DeleteProjectIfExistsAsync(originalProjectName);
             await DeleteProjectIfExistsAsync(newProjectName);
 
@@ -215,7 +215,7 @@ namespace Lokalise.Api.LocalTests
         [Fact]
         public async Task UpdateAsync_ShouldUpdateDescription()
         {
-            var projectName = "lokalise-api-test-project";
+            var projectName = API_TEST_PROJECT_NAME;
             await DeleteProjectIfExistsAsync(projectName);
 
             var originalProject = await LokaliseClient.Projects.CreateAsync(projectName, new ProjectLanguage[]
@@ -240,18 +240,6 @@ namespace Lokalise.Api.LocalTests
             Assert.Equal("Update Description", updateProject?.Description);
         }
 
-        private async Task DeleteProjectIfExistsAsync(string name)
-        {
-            var existsResult = await LokaliseClient.Projects.ListAsync(cfg =>
-            {
-                cfg.FilterNames = name;
-            });
-
-            var foundProject = existsResult?.Projects?.FirstOrDefault();
-            if (foundProject?.ProjectId != null)
-            {
-                await LokaliseClient.Projects.DeleteAsync(foundProject.ProjectId);
-            }
-        }
+        
     }
 }

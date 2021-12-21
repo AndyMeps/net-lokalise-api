@@ -9,7 +9,7 @@ namespace Lokalise.Api.Collections.Files.Requests
         internal DownloadFileRequest(string format, DownloadFileConfiguration options)
         {
             Format = format;
-            OriginalFilenames = options?.OriginalFilenames;
+            OriginalFilenames = options?.OriginalFilenames ?? true;
             BundleStructure = options?.BundleStructure;
             DirectoryPrefix = options?.DirectoryPrefix;
             AllPlatforms = options?.AllPlatforms;

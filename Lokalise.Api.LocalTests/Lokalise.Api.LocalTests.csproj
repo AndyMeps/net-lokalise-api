@@ -8,6 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Data\TestResourceFile.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\TestResourceFile.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TestResourceFile.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -22,6 +34,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lokalise.Api\Lokalise.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Data\TestResourceFile.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TestResourceFile.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

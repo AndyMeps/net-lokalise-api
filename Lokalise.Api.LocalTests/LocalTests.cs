@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Lokalise.Api.Models;
+using System;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Lokalise.Api.LocalTests
 {
@@ -16,7 +20,7 @@ namespace Lokalise.Api.LocalTests
         {
             const string APP_CONFIG_PATH = "appconfig.json";
 
-            var json = File.ReadAllText(APP_CONFIG_PATH);
+            var json = System.IO.File.ReadAllText(APP_CONFIG_PATH);
             
             var config = JsonSerializer.Deserialize<Config>(json);
 
@@ -29,6 +33,8 @@ namespace Lokalise.Api.LocalTests
 
     public abstract class LocalTests
     {
+        protected const string API_TEST_PROJECT_NAME = "lokalise-api-test-project";
+
         protected Config Config { get; }
 
         protected ILokaliseClient LokaliseClient { get; }
@@ -38,6 +44,40 @@ namespace Lokalise.Api.LocalTests
             Config = Config.Load();
 
             LokaliseClient = new LokaliseClient(Config.ApiKey);
+        }
+
+        protected async Task<Project> EnsureTestProjectAsync()
+        {
+            await DeleteProjectIfExistsAsync(API_TEST_PROJECT_NAME);
+
+            var originalProject = await LokaliseClient.Projects.CreateAsync(
+                name: API_TEST_PROJECT_NAME,
+                languages: new ProjectLanguage[]
+                {
+                    new ProjectLanguage("en")
+                },
+                options: cfg =>
+                {
+                    cfg.Description = "Initial Description";
+                });
+
+            Assert.NotNull(originalProject);
+
+            return originalProject!;
+        }
+
+        protected async Task DeleteProjectIfExistsAsync(string name)
+        {
+            var existsResult = await LokaliseClient.Projects.ListAsync(cfg =>
+            {
+                cfg.FilterNames = name;
+            });
+
+            var foundProject = existsResult?.Projects?.FirstOrDefault();
+            if (foundProject?.ProjectId != null)
+            {
+                await LokaliseClient.Projects.DeleteAsync(foundProject.ProjectId);
+            }
         }
     }
 }

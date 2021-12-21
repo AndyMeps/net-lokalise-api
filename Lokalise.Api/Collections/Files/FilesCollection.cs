@@ -40,7 +40,7 @@ namespace Lokalise.Api.Collections.Files
         /// <inheritdoc/>
         public Task<UploadedFile?> UploadAsync(string projectId, string data, string filename, string langIso, Action<UploadFileConfiguration>? options = null)
         {
-            return UploadInternalAsync(projectId, data, filename, data, options);
+            return UploadInternalAsync(projectId, data, filename, langIso, options);
         }
 
         /// <inheritdoc />
