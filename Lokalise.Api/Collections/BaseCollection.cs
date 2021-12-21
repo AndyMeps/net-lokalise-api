@@ -151,6 +151,14 @@ namespace Lokalise.Api.Collections
                     }
                 case System.Net.HttpStatusCode.TooManyRequests:
                     throw new LokaliseRateLimitException(responseMessage);
+                case System.Net.HttpStatusCode.NotAcceptable:
+                    {
+                        if (responseMessage.RequestMessage?.RequestUri?.Segments?.LastOrDefault() == "download")
+                            throw new LokaliseDownloadException(responseMessage);
+
+                        responseMessage.EnsureSuccessStatusCode();
+                        break;
+                    }
                 default:
                     responseMessage.EnsureSuccessStatusCode();
                     break;
