@@ -19,6 +19,7 @@ namespace Lokalise.Api.Collections.Keys
         {
         }
 
+        /// <inheritdoc/>
         public Task<KeyList?> CreateAsync(
             string projectId,
             NewKey key,
@@ -27,6 +28,7 @@ namespace Lokalise.Api.Collections.Keys
             return CreateAsync(projectId, new NewKey[] { key }, options);
         }
 
+        /// <inheritdoc/>
         public Task<KeyList?> CreateAsync(
             string projectId,
             IEnumerable<NewKey> keys,
@@ -38,6 +40,7 @@ namespace Lokalise.Api.Collections.Keys
             return PostAsync<CreateKeysRequest, KeyList>(KeysUri(projectId.IncludeBranchName(cfg.Branch)), new CreateKeysRequest(keys, cfg.UseAutomations));
         }
 
+        /// <inheritdoc/>
         public async Task<DeletedKey?> DeleteAsync(
             string projectId,
             long keyId,
@@ -51,6 +54,7 @@ namespace Lokalise.Api.Collections.Keys
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<KeyList?> ListAsync(string projectId, Action<ListKeysConfiguration>? options = null)
         {
             var cfg = new ListKeysConfiguration();
@@ -61,6 +65,7 @@ namespace Lokalise.Api.Collections.Keys
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<ProjectKey?> RetrieveAsync(string projectId, long keyId, Action<RetrieveKeyConfiguration>? options = null)
         {
             var cfg = new RetrieveKeyConfiguration();
@@ -71,6 +76,7 @@ namespace Lokalise.Api.Collections.Keys
             return result;
         }
 
+        /// <inheritdoc/>
         public Task<ProjectKey?> UpdateAsync(string projectId, long keyId, Action<UpdateKeyConfiguration>? options = null)
         {
             throw new NotImplementedException();
