@@ -135,26 +135,31 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// Unique code of the language of the translation.
         /// </summary>
+        [JsonPropertyName("language_iso")]
         public string LanguageIso { get; }
 
         /// <summary>
         /// The actual translation. Pass as an object, in case it includes plural forms and is_plural is true.
         /// </summary>
+        [JsonPropertyName("translation")]
         public string Value { get; }
 
         /// <summary>
         /// Whether the translation is marked as Reviewed.
         /// </summary>
+        [JsonPropertyName("is_reviewed")]
         public bool? IsReviewed { get; }
 
         /// <summary>
         /// Whether the translation is marked as Unverified.
         /// </summary>
+        [JsonPropertyName("is_unverified")]
         public bool? IsUnverified { get; }
 
         /// <summary>
         /// Custom translation status IDs to assign to translation.
         /// </summary>
+        [JsonPropertyName("custom_translation_status_ids")]
         public IEnumerable<string>? CustomTranslationStatusIds { get; }
 
         /// <summary>

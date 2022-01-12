@@ -32,11 +32,14 @@ namespace Lokalise.Api.Models
         [JsonPropertyName("comments")]
         public IEnumerable<Comment>? Comments { get; set; }
 
-        //[JsonPropertyName("screenshots")]
-        //public IEnumerable<ScreenshotResponse> Screenshots { get; set; }
+        [JsonPropertyName("tags")]
+        public IEnumerable<string>? Tags { get; set; }
 
-        //[JsonPropertyName("translations")]
-        //public IEnumerable<TranslationResponse> Translations { get; set; }
+        [JsonPropertyName("screenshots")]
+        public IEnumerable<Screenshot>? Screenshots { get; set; }
+
+        [JsonPropertyName("translations")]
+        public IEnumerable<Translation>? Translations { get; set; }
 
         [JsonPropertyName("is_plural")]
         public bool? IsPlural { get; set; }

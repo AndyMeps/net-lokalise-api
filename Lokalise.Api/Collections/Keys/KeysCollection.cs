@@ -60,7 +60,7 @@ namespace Lokalise.Api.Collections.Keys
             var cfg = new ListKeysConfiguration();
             options?.Invoke(cfg);
 
-            var result = await GetListAsync<KeyList>(KeysUri(projectId.IncludeBranchName(cfg.Branch)));
+            var result = await GetListAsync<KeyList>($"{KeysUri(projectId.IncludeBranchName(cfg.Branch))}{cfg.ToQueryString()}");
 
             return result;
         }
@@ -77,9 +77,20 @@ namespace Lokalise.Api.Collections.Keys
         }
 
         /// <inheritdoc/>
-        public Task<ProjectKey?> UpdateAsync(string projectId, long keyId, Action<UpdateKeyConfiguration>? options = null)
+        public async Task<ProjectKey?> UpdateAsync(string projectId, UpdateKey updateKey, string? branch = null)
         {
-            throw new NotImplementedException();
+            var result = await PutAsync<UpdateKey, ProjectKey>(KeysUri(projectId.IncludeBranchName(branch), updateKey.KeyId), updateKey);
+
+            return result;
+        }
+
+        public async Task<KeyList?> UpdateAsync(string projectId, IEnumerable<UpdateKey> updateKeys, string? branch = null)
+        {
+            var request = new UpdateKeysRequest(updateKeys);
+
+            var result = await PutAsync<UpdateKeysRequest, KeyList>(KeysUri(projectId.IncludeBranchName(branch)), request);
+
+            return result;
         }
 
         private string KeysUri(string projectId, long? keyId = null)

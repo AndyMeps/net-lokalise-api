@@ -39,7 +39,12 @@ namespace Lokalise.Api.Collections.Keys
         /// <para>Updates the properties of a key and it’s associated objects. Requires Manage keys admin right.</para>
         /// <para>Requires write_keys OAuth access scope.</para>
         /// </summary>
-        Task<ProjectKey?> UpdateAsync(string projectId, long keyId, Action<UpdateKeyConfiguration>? options = null);
+        Task<ProjectKey?> UpdateAsync(string projectId, UpdateKey updateKey, string? branch = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Task<KeyList?> UpdateAsync(string projectId, IEnumerable<UpdateKey> updateKeys, string? branch = null);
 
         /// <summary>
         /// <para>Updates one or more keys in the project. Requires Manage keys admin right.</para>

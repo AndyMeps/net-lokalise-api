@@ -26,6 +26,9 @@ namespace Lokalise.Api.Collections
         {
             var result = await HttpClient.GetAsync(requestUri);
 
+            if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
+                return default;
+
             await HandleFailureResponse(result);
 
             var json = await result.Content.ReadAsStringAsync();
@@ -52,6 +55,13 @@ namespace Lokalise.Api.Collections
                 locationEntityResponse.Location = result.Headers.Contains("Location")
                     ? result.Headers.GetValues("Location").FirstOrDefault()
                     : null;
+            }
+
+            if (model is PagedList pagedListModel)
+            {
+                pagedListModel.PageCount = GetHeaderAsIntOrDefault(result.Headers, "X-Pagination-Page-Count");
+                pagedListModel.TotalCount = GetHeaderAsIntOrDefault(result.Headers, "X-Pagination-Total-Count");
+                pagedListModel.Page = GetHeaderAsIntOrDefault(result.Headers, "X-Pagination-Page");
             }
 
             return model;

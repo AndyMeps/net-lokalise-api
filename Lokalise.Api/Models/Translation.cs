@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Lokalise.Api.Models
 {
@@ -8,66 +9,85 @@ namespace Lokalise.Api.Models
         /// <summary>
         /// Unique identifier of translation entry.
         /// </summary>
-        public long TranslationId { get; }
+        [JsonPropertyName("translation_id")]
+        public long? TranslationId { get; set; }
 
         /// <summary>
         /// A unique identifier of the key.
         /// </summary>
-        public long KeyId { get; }
+        [JsonPropertyName("key_id")]
+        public long? KeyId { get; set; }
 
         /// <summary>
         /// Unique code of the language of the translation.
         /// </summary>
-        public string? LanguageIso { get; }
+        [JsonPropertyName("language_iso")]
+        public string? LanguageIso { get; set; }
 
         /// <summary>
         /// The actual translation. Pass as an object, in case it includes plural forms and is_plural is true.
         /// </summary>
-        public string? Value { get; }
+        [JsonPropertyName("translation")]
+        public string? Value { get; set; }
 
         /// <summary>
         /// Identifier of a user, who has updated the translation.
         /// </summary>
-        public long? ModifiedBy { get; }
+        [JsonPropertyName("modified_by")]
+        public long? ModifiedBy { get; set; }
 
         /// <summary>
         /// E-mail of a user, who has updated the translation.
         /// </summary>
-        public string? ModifiedByEmail { get; }
+        [JsonPropertyName("modified_by_email")]
+        public string? ModifiedByEmail { get; set; }
 
         /// <summary>
         /// Date of last modification of the translation.
         /// </summary>
-        public DateTime? ModifiedAt { get; }
+        [JsonPropertyName("modified_at")]
+        public string? ModifiedAt { get; set; }
+
+        /// <summary>
+        /// Date of last modification of the translation as a unix timestamp.
+        /// </summary>
+        [JsonPropertyName("modified_at_timestamp")]
+        public long? ModifiedAtTimestamp { get; set; }
 
         /// <summary>
         /// Whether the translation is marked as Reviewed.
         /// </summary>
-        public bool IsReviewed { get; }
+        [JsonPropertyName("is_reviewed")]
+        public bool? IsReviewed { get; set; }
 
         /// <summary>
         /// Whether the translation is marked as Unverified.
         /// </summary>
-        public bool IsUnverified { get; }
+        [JsonPropertyName("is_unverified")]
+        public bool? IsUnverified { get; set; }
 
         /// <summary>
         /// Identifier of the user, who has reviewed the translation (if reviewed).
         /// </summary>
-        public long ReviewedBy { get; }
+        [JsonPropertyName("reviewed_by")]
+        public long? ReviewedBy { get; set; }
 
         /// <summary>
         /// Number of words in the translation.
         /// </summary>
-        public long Words { get; }
+        [JsonPropertyName("words")]
+        public long? Words { get; set; }
 
         /// <summary>
         /// Array consisting of Custom Translation Status objects.
         /// </summary>
-        public IEnumerable<CustomTranslationStatus>? CustomTranslationStatuses { get; }
+        [JsonPropertyName("custom_translation_statuses")]
+        public IEnumerable<CustomTranslationStatus>? CustomTranslationStatuses { get; set; }
 
         /// <summary>
         /// Identifier of the task, if the key is a part of one, or null if it's not.
         /// </summary>
-        public long? TaskId { get; }
+        [JsonPropertyName("task_id")]
+        public long? TaskId { get; set; }
     }
 }

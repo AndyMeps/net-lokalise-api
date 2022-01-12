@@ -7,7 +7,10 @@ namespace Lokalise.Api.Models
         [JsonPropertyName("project_id")]
         public string? ProjectId { get; set; }
 
-        [JsonPropertyName("key_deleted")]
-        public bool KeyDeleted { get; set; }
+        [JsonPropertyName("key_removed")]
+        public bool? KeyRemoved { get; set; }
+
+        [JsonPropertyName("keys_locked")]
+        public int? KeysLocked { get; set; }
     }
 }
