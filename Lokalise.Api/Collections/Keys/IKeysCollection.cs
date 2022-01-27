@@ -51,5 +51,11 @@ namespace Lokalise.Api.Collections.Keys
         /// <para>Requires write_keys OAuth access scope.</para>
         /// </summary>
         Task<DeletedKey?> DeleteAsync(string projectId, long keyId, Action<DeleteKeyConfiguration>? options = null);
+
+        /// <summary>
+        /// <para>Updates one or more keys in the project. Requires Manage keys admin right.</para>
+        /// <para>Requires write_keys OAuth access scope.</para>
+        /// </summary>
+        Task<DeletedKeys?> DeleteAsync(string projectId, IEnumerable<long> keyIds, Action<DeleteKeyConfiguration>? options = null);
     }
 }

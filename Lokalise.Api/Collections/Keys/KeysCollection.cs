@@ -54,6 +54,17 @@ namespace Lokalise.Api.Collections.Keys
             return result;
         }
 
+        public async Task<DeletedKeys?> DeleteAsync(string projectId, IEnumerable<long> keyIds, Action<DeleteKeyConfiguration>? options = null)
+        {
+            var cfg = new DeleteKeyConfiguration();
+            options?.Invoke(cfg);
+
+            var request = new DeleteKeysRequest(keyIds);
+            var result = await DeleteAsync<DeleteKeysRequest, DeletedKeys>(KeysUri(projectId.IncludeBranchName(cfg.Branch)), request);
+
+            return result;
+        }
+
         /// <inheritdoc/>
         public async Task<KeyList?> ListAsync(string projectId, Action<ListKeysConfiguration>? options = null)
         {
@@ -84,6 +95,7 @@ namespace Lokalise.Api.Collections.Keys
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<KeyList?> UpdateAsync(string projectId, IEnumerable<UpdateKey> updateKeys, string? branch = null)
         {
             var request = new UpdateKeysRequest(updateKeys);

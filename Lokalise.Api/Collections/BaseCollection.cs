@@ -125,6 +125,25 @@ namespace Lokalise.Api.Collections
             return JsonSerializer.Deserialize<TResult?>(json);
         }
 
+        protected async Task<TResult?> DeleteAsync<TRequest, TResult>(string requestUri, TRequest? request = null) where TRequest : class
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+
+            if (request != null)
+            {
+                var requestJson = JsonSerializer.Serialize(request, JsonSerializerOptions);
+                requestMessage.Content = new StringContent(requestJson, Encoding.UTF8, "application/json");
+            }
+
+            var result = await HttpClient.SendAsync(requestMessage);
+
+            await HandleFailureResponse(result);
+
+            var responseJson = await result.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<TResult?>(responseJson);
+        }
+
         private static int GetHeaderAsIntOrDefault(HttpResponseHeaders headers, string keyName, int fallbackValue = 0)
         {
             if (headers == null) throw new ArgumentNullException(nameof(headers));

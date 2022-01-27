@@ -149,6 +149,24 @@ namespace Lokalise.Api.LocalTests
         }
 
         [Fact]
+        public async Task DeleteAsync_ShouldDeleteKeys()
+        {
+            // Arrange
+            var testProject = await EnsureTestProjectAsync();
+            var keysResult = await CreateSampleKey(testProject.ProjectId!);
+            var secondKeyResult = await LokaliseClient.Keys.CreateAsync(testProject.ProjectId!, new Models.NewKey("TestAddKeyTwo", new string[] { Platforms.Web }, filenames: new FileNames { Web = "%LANG_ISO%.json" }, translations: new NewTranslation[] { new NewTranslation("en", "TestAddValueTwo") }));
+
+            // Act
+            var result = await LokaliseClient.Keys.DeleteAsync(testProject.ProjectId!, new long[] { keysResult!.Keys!.First().KeyId!.Value, secondKeyResult!.Keys!.First().KeyId!.Value });
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(testProject.ProjectId, result!.ProjectId);
+            Assert.True(result!.KeysRemoved);
+            Assert.Equal(0, result!.KeysLocked);
+        }
+
+        [Fact]
         public async Task RetrieveAsync_ShouldGetKey()
         {
             // Arrange
