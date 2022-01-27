@@ -125,7 +125,11 @@ namespace Lokalise.Api.Collections.Keys.Configurations
             if (!string.IsNullOrWhiteSpace(FilterArchived))
                 nameValueCollection.Add("filter_archived", FilterArchived);
 
-            return nameValueCollection.ToQueryString();
+            var queryString = nameValueCollection.ToQueryString();
+            if (queryString == string.Empty)
+                return string.Empty;
+
+            return $"?{queryString}";
         }
     }
 }

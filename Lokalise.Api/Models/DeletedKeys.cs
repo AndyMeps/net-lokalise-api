@@ -2,15 +2,15 @@
 
 namespace Lokalise.Api.Models
 {
-    public class DeletedKey
+    public class DeletedKeys
     {
         [JsonPropertyName("project_id")]
         public string? ProjectId { get; set; }
 
-        [JsonPropertyName("key_removed")]
-        public bool? KeyRemoved { get; set; }
+        [JsonPropertyName("keys_removed")]
+        public bool? KeysRemoved { get; set; }
 
         [JsonPropertyName("keys_locked")]
-        public int? KeysLocked { get; set; }
+        public long? KeysLocked { get; set; }
     }
 }

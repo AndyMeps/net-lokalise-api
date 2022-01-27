@@ -1,21 +1,26 @@
-﻿namespace Lokalise.Api.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Lokalise.Api.Models
 {
     public class CustomTranslationStatus
     {
         /// <summary>
         /// A unique custom translation status identifier.
         /// </summary>
-        public long StatusId { get; }
+        [JsonPropertyName("status_id")]
+        public long? StatusId { get; set; }
 
         /// <summary>
         /// Status title.
         /// </summary>
-        public string? Title { get; }
+        [JsonPropertyName("title")]
+        public string? Title { get; set; }
 
         /// <summary>
         /// Hex color of the status.
         /// </summary>
-        public string? Color { get; }
+        [JsonPropertyName("color")]
+        public string? Color { get; set; }
         
     }
 }

@@ -26,6 +26,9 @@ namespace Lokalise.Api.Collections
         {
             var result = await HttpClient.GetAsync(requestUri);
 
+            if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
+                return default;
+
             await HandleFailureResponse(result);
 
             var json = await result.Content.ReadAsStringAsync();
@@ -52,6 +55,13 @@ namespace Lokalise.Api.Collections
                 locationEntityResponse.Location = result.Headers.Contains("Location")
                     ? result.Headers.GetValues("Location").FirstOrDefault()
                     : null;
+            }
+
+            if (model is PagedList pagedListModel)
+            {
+                pagedListModel.PageCount = GetHeaderAsIntOrDefault(result.Headers, "X-Pagination-Page-Count");
+                pagedListModel.TotalCount = GetHeaderAsIntOrDefault(result.Headers, "X-Pagination-Total-Count");
+                pagedListModel.Page = GetHeaderAsIntOrDefault(result.Headers, "X-Pagination-Page");
             }
 
             return model;
@@ -113,6 +123,25 @@ namespace Lokalise.Api.Collections
             var json = await result.Content.ReadAsStringAsync();
 
             return JsonSerializer.Deserialize<TResult?>(json);
+        }
+
+        protected async Task<TResult?> DeleteAsync<TRequest, TResult>(string requestUri, TRequest? request = null) where TRequest : class
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Delete, requestUri);
+
+            if (request != null)
+            {
+                var requestJson = JsonSerializer.Serialize(request, JsonSerializerOptions);
+                requestMessage.Content = new StringContent(requestJson, Encoding.UTF8, "application/json");
+            }
+
+            var result = await HttpClient.SendAsync(requestMessage);
+
+            await HandleFailureResponse(result);
+
+            var responseJson = await result.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<TResult?>(responseJson);
         }
 
         private static int GetHeaderAsIntOrDefault(HttpResponseHeaders headers, string keyName, int fallbackValue = 0)

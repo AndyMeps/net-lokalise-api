@@ -17,10 +17,10 @@ namespace Lokalise.Api.Models
         public string? CreatedAt { get; set; }
 
         [JsonPropertyName("created_at_timestamp")]
-        public long CreatedAtTimestamp { get; set; }
+        public long? CreatedAtTimestamp { get; set; }
 
         [JsonPropertyName("created_by")]
-        public long CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
 
         [JsonPropertyName("created_by_email")]
         public string? CreatedByEmail { get; set; }
