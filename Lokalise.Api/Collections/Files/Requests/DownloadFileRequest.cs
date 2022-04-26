@@ -113,7 +113,7 @@ namespace Lokalise.Api.Collections.Files.Requests
         [JsonPropertyName("disable_references")]
         public bool? DisableReferences { get; set; }
 
-        [JsonPropertyName("plural_formats")]
+        [JsonPropertyName("plural_format")]
         public string? PluralFormat { get; set; }
 
         [JsonPropertyName("placeholder_format")]
